@@ -1,7 +1,7 @@
 #navigation-items-mobile{
     display:flex;
     flex-direction: row;
-    background-color:rgb(17, 155, 235);
+    background-color:rgb(32, 32, 32);
     padding:15px;
     top:0;
     margin-top:0;
@@ -17,4 +17,21 @@ li a {
     text-transform: none;
     text-decoration: none;
     color:white;
+    font-weight:500;
+}
+
+.mobile-nav {
+    display: none;
+}
+.desktop-nav {
+    display: block;
+}
+
+@media (max-width: 675px) {
+    .mobile-nav {
+        display: block;
+    }
+    .desktop-nav {
+        display: none;
+    }
 }

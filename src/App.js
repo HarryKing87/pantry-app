@@ -1,7 +1,6 @@
 import "./App.css";
 import Home from "./Home";
 import About from "./About";
-import Login from "./login";
 import {
   BrowserRouter,
   Routes, // instead of "Switch"
@@ -17,9 +16,6 @@ function App() {
         </Routes>
         <Routes>
           <Route path="/about" element={<About />} />
-        </Routes>
-        <Routes>
-          <Route path="/login" element={<Login />} />
         </Routes>
       </BrowserRouter>
     </div>

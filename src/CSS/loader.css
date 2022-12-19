@@ -1,0 +1,8 @@
+  body {
+    animation: fade 2s linear infinite;
+    animation-iteration-count: 1
+  }
+  @keyframes fade {
+    0% { opacity: 0 }
+    100% { opacity: 1 }
+  }

@@ -1,30 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+
 .home-component {
     display: flex;
     flex-direction: column;
 }
 
-.intro {
-    text-align: left;
-    font-size:40px;
-    margin-left:5px;
+.home-hero {
+    display:flex;
+    flex-direction: column;
+    width: 50%;
+    margin: 0 auto;
 }
 
-body {
-    background: #e0e0e0;
-}
-
-img {
-    border-radius:10%;
-}
-
-.content {
-    max-width: 80%;
+.saveMore {
+    font-family: "Avenir Next", "Avenir", sans-serif;
+    font-weight:400;
     padding: 10px;
-    margin: 0.725rem auto;
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 16px;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    border:0.5px solid white;
+    display:inline-block;
 }

@@ -1,4 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+
 .home-component {
     display: flex;
     flex-direction: column;
+}
+
+.home-hero {
+    display:flex;
+    flex-direction: column;
+    width: 50%;
+    margin: 0 auto;
+}
+
+.saveMore {
+    font-family: "Avenir Next", "Avenir", sans-serif;
+    font-weight:400;
+    padding: 10px;
+    border:0.5px solid white;
+    display:inline-block;
 }

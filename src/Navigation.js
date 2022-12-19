@@ -11,16 +11,16 @@ export default function Navigation() {
             <span></span>
             <span></span>
             <ul id="menu">
-              <a href="#">
+              <a href="/">
                 <li>Home</li>
               </a>
-              <a href="#">
+              <a href="/about">
                 <li>About</li>
               </a>
-              <a href="#">
+              <a href="/contact">
                 <li>Contact</li>
               </a>
-              <a href="#">
+              <a href="/faq">
                 <li>FAQ</li>
               </a>
             </ul>
@@ -47,7 +47,7 @@ export default function Navigation() {
           </li>
           <li>
             <a
-              href="/projects"
+              href="/contact"
               style={{ "font-family": '"Avenir Next", "Avenir", sans-serif;' }}
             >
               Contact
@@ -55,7 +55,7 @@ export default function Navigation() {
           </li>
           <li>
             <a
-              href="/contact"
+              href="/faq"
               style={{ "font-family": '"Avenir Next", "Avenir", sans-serif;' }}
             >
               FAQ

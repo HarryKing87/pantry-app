@@ -36,14 +36,12 @@ export default function Login() {
             type="text"
             value={username}
             placeholder="Username"
-            required
             onChange={(event) => setUsername(event.target.value)}
           />
-          <i class="error-message"></i>
           <label htmlFor="password">Password</label>
-          <input type="password" placeholder="Password" required />
+          <input type="password" placeholder="Password" />
           <i class="error-message"></i>
-          <button id="loginButton" type="submit">
+          <button id="loginButton" type="submit" onClick={validateFields}>
             Submit
           </button>
           <h1>{message}</h1>

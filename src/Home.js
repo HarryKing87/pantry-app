@@ -1,5 +1,4 @@
 import React from "react";
-import Navigation from "./Navigation";
 import "./CSS/home.css";
 import "./CSS/home-banner.css";
 import "./CSS/home-button.css";
@@ -9,7 +8,6 @@ class Home extends React.Component {
   render() {
     return (
       <div className="home-component">
-        <Navigation />
         <div class="container">
           <div class="neon">Pantry. </div>
         </div>

@@ -17,9 +17,11 @@ body {
 .neon {
   font-family: neon;
   color: #FB4264;
-  font-size: 4vw;
+  font-size: 7vw;
   line-height: 9vw;
   text-shadow: 0 0 3vw #F40A35;
+  margin-top:4rem;
+  padding: 0;
 }
 
 .neon {

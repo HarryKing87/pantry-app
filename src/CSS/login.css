@@ -1,3 +1,7 @@
+.container-login {
+    margin-top: 7%;
+}
+
 form {
     display: flex;
     flex-direction: column;
@@ -14,9 +18,12 @@ form input {
 
 form label {
     margin-top: 0.5rem;
+    font-weight: 600;
+    font-size:17px;
+    text-decoration: line-through;
 }
 
-button {
+#loginButton {
     text-decoration: none;
     text-transform: none;
     color: inherit;
@@ -24,7 +31,7 @@ button {
     margin:3rem auto;
 }
 
-button:hover {
+#loginButton:hover {
     border: 2px #426DFB solid;
     text-shadow: 0 0 1vw #1041FF, 0 0 3vw #1041FF, 0 0 10vw #1041FF, 0 0 10vw #1041FF, 0 0 .4vw #8BFDFE, .5vw .5vw .1vw #147280;
     color: #28D7FE;

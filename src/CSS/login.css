@@ -1,0 +1,31 @@
+form {
+    display: flex;
+    flex-direction: column;
+    width: 25%;
+    margin: 0 auto;
+}
+
+form input {
+    margin-top: 1rem;
+    padding: 5px;
+    font-size: 16px;
+    border-radius: 0 10px 0 10px;
+}
+
+form label {
+    margin-top: 0.5rem;
+}
+
+button {
+    text-decoration: none;
+    text-transform: none;
+    color: inherit;
+    text-shadow: none;
+    margin:3rem auto;
+}
+
+button:hover {
+    border: 2px #426DFB solid;
+    text-shadow: 0 0 1vw #1041FF, 0 0 3vw #1041FF, 0 0 10vw #1041FF, 0 0 10vw #1041FF, 0 0 .4vw #8BFDFE, .5vw .5vw .1vw #147280;
+    color: #28D7FE;
+}

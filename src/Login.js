@@ -6,6 +6,18 @@ import { useState } from "react";
 export default function Login() {
   const [username, setUsername] = useState("");
   const [message, setMessage] = useState("");
+  const validateFields = () => {
+    var check = document.getElementsByTagName("input");
+    var len = check.length;
+    for (var i = 0; i < len; i++) {
+      if (check[i].value === "") {
+        document.querySelector(".error-message").style.color = "red";
+        document.querySelector(".error-message").innerHTML =
+          "Please fill in all the required fields.";
+        return false;
+      }
+    }
+  };
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log(username);

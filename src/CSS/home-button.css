@@ -16,7 +16,6 @@ button{
     outline: 0;
     overflow:hidden;
     background: none;
-    z-index: 1;
     cursor: pointer;
     transition:         0.08s ease-in;
     -o-transition:      0.08s ease-in;
@@ -183,3 +182,5 @@ button{
   .svg:hover:after {
     top: 0;
   }
+
+  /*test on git commits*/

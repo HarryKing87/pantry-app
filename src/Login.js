@@ -6,6 +6,18 @@ import { useState } from "react";
 export default function Login() {
   const [username, setUsername] = useState("");
   const [message, setMessage] = useState("");
+  const validateFields = () => {
+    var check = document.getElementsByTagName("input");
+    var len = check.length;
+    for (var i = 0; i < len; i++) {
+      if (check[i].value === "") {
+        document.querySelector(".error-message").style.color = "red";
+        document.querySelector(".error-message").innerHTML =
+          "Please fill in all the required fields.";
+        return false;
+      }
+    }
+  };
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log(username);
@@ -24,14 +36,16 @@ export default function Login() {
           type="text"
           value={username}
           placeholder="Username"
-          required
           onChange={(event) => setUsername(event.target.value)}
         />
-        <i class="error-message"></i>
         <label htmlFor="password">Password</label>
-        <input type="password" placeholder="Password" required />
-        <i class="error-message"></i>
-        <button type="submit">Submit</button>
+        <input type="password" placeholder="Password" />
+        <span>
+          <i class="error-message"></i>
+        </span>
+        <button type="submit" onClick={validateFields}>
+          Submit
+        </button>
         <h1>{message}</h1>
       </form>
     </div>

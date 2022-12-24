@@ -13,7 +13,7 @@
 }
 
 .saveMore {
-    font-family: "Avenir Next", "Avenir", sans-serif;
+    font-family: "Avenir Next", "Avenir", sans-serif; /* General Font */
     font-weight:400;
     padding: 10px;
     border:0.5px solid white;

@@ -17,23 +17,26 @@ export default function Login() {
   return (
     <div>
       <Navigation />
-      <h1>This is the Login page</h1>
-      <form onSubmit={handleSubmit} id="loginForm">
-        <label htmlFor="username">Username</label>
-        <input
-          type="text"
-          value={username}
-          placeholder="Username"
-          required
-          onChange={(event) => setUsername(event.target.value)}
-        />
-        <i class="error-message"></i>
-        <label htmlFor="password">Password</label>
-        <input type="password" placeholder="Password" required />
-        <i class="error-message"></i>
-        <button type="submit">Submit</button>
-        <h1>{message}</h1>
-      </form>
+      <div className="container-login">
+        <form onSubmit={handleSubmit} id="loginForm">
+          <label htmlFor="username">Username</label>
+          <input
+            type="text"
+            value={username}
+            placeholder="Username"
+            required
+            onChange={(event) => setUsername(event.target.value)}
+          />
+          <i class="error-message"></i>
+          <label htmlFor="password">Password</label>
+          <input type="password" placeholder="Password" required />
+          <i class="error-message"></i>
+          <button id="loginButton" type="submit">
+            Submit
+          </button>
+          <h1>{message}</h1>
+        </form>
+      </div>
     </div>
   );
 }

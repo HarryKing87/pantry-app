@@ -1,0 +1,9 @@
+.showProfileName {
+    display: flex;
+    align-items: center;
+    width: 85%;
+    margin: 0 auto;
+}
+.showProfileName h4 {
+    margin-left: 1.125vh;
+}

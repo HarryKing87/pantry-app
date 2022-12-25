@@ -36,3 +36,10 @@ form label {
     text-shadow: 0 0 1vw #1041FF, 0 0 3vw #1041FF, 0 0 10vw #1041FF, 0 0 10vw #1041FF, 0 0 .4vw #8BFDFE, .5vw .5vw .1vw #147280;
     color: #28D7FE;
 }
+
+@media (max-width: 675px) {
+    form {
+        width: 50%;
+        margin-top: 20%;
+    }
+}

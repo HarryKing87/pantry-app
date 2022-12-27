@@ -1,13 +1,13 @@
 import React from "react";
-import Navigation from "./Navigation";
-import "./CSS/login.css";
+import Navigation from "../Navigation";
+import "../CSS/login.css";
 import { useState } from "react";
 
-export default function Login() {
+function Login() {
   const [username, setUsername] = useState("");
   const [message, setMessage] = useState("");
   const [password, setPassword] = useState("");
-  var isValid;
+
   const validateFields = () => {
     var check = document.getElementsByTagName("input");
     var len = check.length;
@@ -20,7 +20,9 @@ export default function Login() {
       }
     }
   };
+
   const handleSubmit = (event) => {
+    var isValid;
     event.preventDefault();
     if (username && password) {
       if (username === "admin" && password === "administrator") {
@@ -28,7 +30,10 @@ export default function Login() {
         setMessage(`Hello ${username}!`);
         setUsername("");
         setPassword("");
-        window.location.href = "http://localhost:3000/";
+        localStorage.setItem("username", username);
+        setTimeout(() => {
+          window.location.href = "http://localhost:3000/profile";
+        }, 3000);
       } else {
         isValid = false;
         document.querySelector(".error-message").style.color = "red";
@@ -44,7 +49,7 @@ export default function Login() {
         <form
           onSubmit={handleSubmit}
           id="loginForm"
-          action="/about"
+          action="/profile"
           method="POST"
         >
           <label htmlFor="username">Username</label>
@@ -71,3 +76,5 @@ export default function Login() {
     </div>
   );
 }
+
+export default Login;

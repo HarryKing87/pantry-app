@@ -1,0 +1,26 @@
+.quote-about {
+    margin: 20% auto;
+    width: 50%;
+}
+
+.intro-about {
+    text-align: center;
+    margin: 0 auto;
+    border-left: 0.5px solid white;
+    padding: 10px;
+}
+
+@media (max-width: 675px) {
+    .intro-about {
+        text-align: left;
+        margin-top:0;
+    }
+    #image-about img{
+        width: 25%;
+    }
+    #image-about {
+        text-align: left;
+        width: 80%;
+        margin: 0 auto -1rem auto;
+    }
+}

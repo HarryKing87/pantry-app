@@ -1,70 +1,188 @@
-import React from "react";
 import Navigation from "./Navigation";
 import "./CSS/dashboard.css";
-import { useState } from "react";
+import React, { useRef } from "react";
+import styled from "styled-components";
 
-function Dashboard() {
-  const [showModal, setShowModal] = useState(false);
+const ContainerDiv = styled.div`
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none;
+  overflow: -moz-scrollbars-none;
+  overflow-x: scroll;
+  display: flex;
+  flex-direction: row;
+  width: 500px;
+  max-width: 100%;
+  margin: 15% auto;
+  border-radius: 10px;
+  padding: 0;
+`;
 
-  const handleOpenModal = () => {
-    setShowModal(true);
-  };
+function handleDelete() {
+  let text = document.getElementById("text");
+  let buttonNext = document.getElementById("buttonNext");
+  let buttonPrevious = document.getElementById("buttonPrevious");
+  let newText =
+    "Your time is limited, so don't waste it living someone else's life. Don't be trapped by dogma – which is living with the results of other people's thinking. -Steve Jobs";
+  const textElement = document.getElementById("text");
+  textElement.style.transition = "all 0.5s ease-out";
+  textElement.style.transform = "translateX(-100%)";
+  textElement.style.opacity = "0";
 
-  const handleCloseModal = () => {
-    setShowModal(false);
-  };
+  // Wait for the text to slide out
+  setTimeout(() => {
+    text = newText;
+    textElement.innerHTML = text;
+    textElement.style.transition = "all 0.5s ease-in";
+    textElement.style.transform = "translateX(0%)";
+    textElement.style.opacity = "1";
+  }, 500);
+  buttonNext.style.display = "none";
+  buttonPrevious.style.display = "block";
+}
 
-  const removePantry = () => {
-    document.querySelector(".pantry-tobe-added").innerHTML = "";
-  };
+function backText() {
+  let text = document.getElementById("text");
+  let buttonNext = document.getElementById("buttonNext");
+  let buttonPrevious = document.getElementById("buttonPrevious");
+  let newText =
+    "Just relax and not overthink what to eat. This is in our side with our personalized meal plans just prepared and adapted to your needs.";
+  const textElement = document.getElementById("text");
+  textElement.style.transition = "all 0.5s ease-out";
+  textElement.style.transform = "translateX(-100%)";
+  textElement.style.opacity = "0";
 
-  const showFood = () => {
-    let foodInsertion = document.querySelector(".foodInserted").value;
-    const newItem = document.createElement("li");
-    newItem.classList.add("pantry-item");
-    newItem.innerHTML = foodInsertion;
-    let pantryToBeAdded = document.querySelector(".pantry-tobe-added");
-    pantryToBeAdded.appendChild(newItem);
-    handleCloseModal();
-  };
+  // Wait for the text to slide out
+  setTimeout(() => {
+    text = newText;
+    textElement.innerHTML = text;
+    textElement.style.transition = "all 0.5s ease-in";
+    textElement.style.transform = "translateX(0%)";
+    textElement.style.opacity = "1";
+  }, 500);
+  buttonNext.style.display = "block";
+  buttonPrevious.style.display = "none";
+}
+
+const ImageScroller = ({
+  image1 = "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Zm9vZHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=600&q=60",
+  image2 = "https://images.unsplash.com/photo-1546069901-d5bfd2cbfb1f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1yZWxhdGVkfDF8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
+  image3 = "https://images.unsplash.com/photo-1607532941433-304659e8198a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1yZWxhdGVkfDE4fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=300&q=60",
+  image4 = "https://images.unsplash.com/photo-1571342579397-fe16329793bf?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1yZWxhdGVkfDEzfHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60",
+  image5 = "https://images.unsplash.com/photo-1551248429-40975aa4de74?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1yZWxhdGVkfDV8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=300&q=60",
+  image6 = "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTR8fGZvb2R8ZW58MHx8MHx8&auto=format&fit=crop&w=600&q=60",
+}) => {
+  const scrollerRef = useRef(null);
+
+  function getMealGreeting() {
+    let time = new Date().getHours();
+    let message;
+    if (time >= 5 && time < 12) {
+      message = "Good morning, it's breakfast time!";
+    } else if (time >= 12 && time < 17) {
+      message = "Good afternoon, it's lunch time!";
+    } else {
+      message = "Good evening, it's dinner time!";
+    }
+    return message;
+  }
 
   return (
     <div>
       <Navigation />
-      <div className="addFood">
-        <button onClick={handleOpenModal}>Add</button>
+      <ContainerDiv ref={scrollerRef}>
+        <img
+          src={image1}
+          style={{
+            height: "200px",
+            width: "200px",
+            "margin-right": "10px",
+            objectFit: "cover",
+            borderRadius: "10px",
+          }}
+          alt=""
+        />
+        <img
+          src={image2}
+          style={{
+            height: "200px",
+            width: "200px",
+            "margin-right": "10px",
+            objectFit: "cover",
+            borderRadius: "10px",
+          }}
+          alt=""
+        />
+        <img
+          src={image3}
+          style={{
+            height: "200px",
+            width: "200px",
+            "margin-right": "10px",
+            objectFit: "cover",
+            borderRadius: "10px",
+          }}
+          alt=""
+        />
+        <img
+          src={image4}
+          style={{
+            height: "200px",
+            width: "200px",
+            "margin-right": "10px",
+            objectFit: "cover",
+            borderRadius: "10px",
+          }}
+          alt=""
+        />
+        <img
+          src={image5}
+          style={{
+            height: "200px",
+            width: "200px",
+            "margin-right": "10px",
+            objectFit: "cover",
+            borderRadius: "10px",
+          }}
+          alt=""
+        />
+        <img
+          src={image6}
+          style={{
+            height: "200px",
+            width: "200px",
+            "margin-right": "10px",
+            objectFit: "cover",
+            borderRadius: "10px",
+          }}
+          alt=""
+        />
+      </ContainerDiv>
+      <div className="container-greeting-dashboard">{getMealGreeting()}</div>
+      <div className="container-description-dashboard" id="text">
+        Just relax and not overthink what to eat. This is in our side with our
+        personalized meal plans just prepared and adapted to your needs.
       </div>
-      {showModal && (
-        <div className="modal">
-          <div className="modal-content">
-            <span className="close" onClick={handleCloseModal}>
-              &times;
-            </span>
-            <h1>Add Food.</h1>
-            <input
-              className="foodInserted"
-              type="text"
-              placeholder="Type of food"
-            />
-            <button
-              onClick={showFood}
-              style={{ margin: "5% auto" }}
-              id="addFood-button"
-            >
-              Submit
-            </button>
-          </div>
-        </div>
-      )}
-
-      <div className="container-pantry">
-        <div className="content-cleaner" onClick={removePantry}>
-          Clean
-        </div>
-        <ul className="pantry-tobe-added"></ul>
-      </div>
+      <button
+        type="button"
+        className="container-dashboard-buttonPrevious"
+        id="buttonPrevious"
+        onClick={backText}
+        style={{ display: "none" }}
+      >
+        Previous
+      </button>
+      <button
+        type="button"
+        className="container-dashboard-buttonNext"
+        id="buttonNext"
+        onClick={handleDelete}
+      >
+        Next
+      </button>
     </div>
   );
-}
+};
 
-export default Dashboard;
+export default ImageScroller;

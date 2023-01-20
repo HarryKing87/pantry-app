@@ -5,6 +5,7 @@
     flex-direction: column;
 }
 
+/* The home hero component in the home page */
 .home-hero {
     display:flex;
     flex-direction: column;
@@ -12,6 +13,7 @@
     margin: 0 auto;
 }
 
+/* Pending to be commented */
 .saveMore {
     font-family: "Avenir Next", "Avenir", sans-serif; /* General Font */
     font-weight:400;

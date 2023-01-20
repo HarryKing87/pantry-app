@@ -1,6 +1,7 @@
 import "./App.css";
 import Home from "./Home";
 import About from "./About";
+import Dashboard from "./Dashboard";
 import Login from "./Profile/Login";
 import Profile from "./Profile/Profile";
 import {
@@ -24,6 +25,9 @@ function App() {
         </Routes>
         <Routes>
           <Route path="/profile" element={<Profile />} />
+        </Routes>
+        <Routes>
+          <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
       </BrowserRouter>
     </div>

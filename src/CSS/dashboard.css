@@ -14,5 +14,122 @@
   margin: 10% 1rem;
   bottom: 0;
   right: 0;
+  position: relative;
+}
+
+.image-container {
+  position: relative;
+}
+
+.text-overlay {
   position: absolute;
+  top: 10px;
+  left: 10px;
+  color: white;
+  font-size: 20px;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 10px;
+}
+
+#grid {
+  margin: 10% auto;
+}
+
+.grid-item {
+  border: 0.5px solid white;
+  padding: 10px;
+  height: 100px;
+  color: black;
+  border-radius:10px 0 10px 0;
+  align-items: center;
+  font-weight: 700;
+  font-size:20px;
+  background-size: 100% 100%;
+}
+
+#grid, .grid-item {
+  width: 80%;
+  max-width: 80%;
+  margin: 1rem auto;
+}
+
+.container-dashboard-selection-box {
+  margin:  10% auto;
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  max-width: 90%;
+}
+
+/* Style the select element */
+select {
+  /* Give the select element a custom background color */
+  background-color: #ffffff;
+  /* Give the select element a custom text color */
+  color: #333333;
+  /* Give the select element a custom font size */
+  font-size: 16px;
+  /* Give the select element a custom padding */
+  padding: 12px 20px;
+  /* Give the select element a custom border */
+  border: 1px solid #cccccc;
+  /* Give the select element a custom border radius */
+  border-radius: 4px;
+  /* Give the select element a custom appearance */
+  appearance: none;
+  width: 80%;
+  margin: 0 auto;
+}
+#addPreferredButton {
+  margin: 1rem auto;
+}
+
+/* Style the select element when it is focused */
+select:focus {
+  /* Give the select element a custom border color */
+  border-color: #4CAF50;
+  /* Give the select element a custom box shadow */
+  box-shadow: 0 0 0 0.2rem rgba(76, 175, 80, 0.25);
+}
+
+/* Style the select element when it is disabled */
+select:disabled {
+  /* Give the select element a custom background color */
+  background-color: #f5f5f5;
+  /* Give the select element a custom text color */
+  color: #333333;
+  /* Give the select element a custom border color */
+  border-color: #cccccc;
+  /* Give the select element a custom box shadow */
+  box-shadow: none;
+  /* Give the select element a custom cursor */
+  cursor: not-allowed;
+}
+
+/* Style the select element when it is hovered over */
+select:hover {
+  /* Give the select element a custom border color */
+  border-color: #4CAF50;
+}
+
+/* Style the select element when it is selected */
+select:checked {
+  /* Give the select element a custom background color */
+  background-color: #f5f5f5;
+}
+
+/* Style the select arrow */
+select::-ms-expand {
+  /* Hide the select arrow */
+  display: none;
+}
+
+/* Style the options inside the select element */
+select option {
+  /* Give the options a custom background color */
+  background-color: #ffffff;
+  /* Give the options a custom text color */
+  color: #333333;
+  /* Give the options a custom font size */
+  font-size: 14px;
 }

@@ -3,6 +3,11 @@ import Navigation from "../Navigation";
 import "../CSS/login.css";
 import { useState } from "react";
 
+const CSSStyling = {
+  width: "100%",
+  position: "relative",
+};
+
 function Login() {
   const [username, setUsername] = useState("");
   const [message, setMessage] = useState("");
@@ -44,8 +49,24 @@ function Login() {
   };
   return (
     <div>
-      <Navigation />
+      <div style={{ position: "absolute" }}>
+        <Navigation />
+      </div>
+      <div className="container-login-image">
+        <img
+          src="https://images.unsplash.com/photo-1607532941433-304659e8198a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1678&q=80"
+          alt=""
+          style={CSSStyling}
+        />
+      </div>
       <div className="container-login">
+        <div className="login-greeting">
+          <div className="artist-name">Image by: Tania Melnyczuk</div>
+          <h3>Your personal food tracking is ready</h3>
+          <p>
+            Upgrade your account and get full access to jumpstart your practice.
+          </p>
+        </div>
         <form
           onSubmit={handleSubmit}
           id="loginForm"

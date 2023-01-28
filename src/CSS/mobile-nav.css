@@ -10,7 +10,7 @@
    padding: 0;
    
    /* make it look decent enough */
-   color: #cdcdcd;
+   color: white;
    font-family: "Avenir Next", "Avenir", sans-serif;
  }
  
@@ -68,7 +68,7 @@
    margin-bottom: 5px;
    position: relative;
    
-   background: #cdcdcd;
+   background: rgb(46, 46, 46);
    border-radius: 3px;
    
    z-index: 1;

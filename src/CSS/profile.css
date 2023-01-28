@@ -5,6 +5,7 @@
     width: 85%;
     margin: 5rem auto;
     flex-direction: column;
+    color: black;
 }
 .showProfileName h4 {
     margin-left: 1.125vh;

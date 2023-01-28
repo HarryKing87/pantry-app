@@ -16,8 +16,9 @@ class Home extends React.Component {
             <h1 className="saveMore">Save more.</h1>
             <h1
               style={{
-                "border-bottom": "2.5px solid white",
+                "border-bottom": "2.5px solid black",
                 display: "inline-block",
+                color: "black",
               }}
             >
               Do less.

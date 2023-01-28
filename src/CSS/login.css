@@ -1,5 +1,40 @@
+body {
+    position: absolute;
+    color: black;
+}
+
 .container-login {
-    margin-top: 7%;
+    background: white;
+    padding: 30px 13px;
+    border-radius:50px 50px 0 0;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    max-width: 95%;
+    margin: 0 auto;
+}
+
+.container-login-image {
+    left: 0px;
+    top: 0px;
+}
+
+.login-greeting {
+    color: black;
+}
+.login-greeting h3{
+    width: 40%;
+    margin: 0 auto;
+}
+
+.login-greeting p {
+    margin-top: 10px;
+    margin-bottom: -10%;
+    width: 50%;
+    margin-right: auto;
+    margin-left: auto;
 }
 
 form {
@@ -13,20 +48,20 @@ form input {
     margin-top: 1rem;
     padding: 5px;
     font-size: 16px;
-    border-radius: 0 10px 0 10px;
+    border-radius: 10px;
 }
 
 form label {
     margin-top: 0.5rem;
     font-weight: 600;
     font-size:17px;
-    text-decoration: line-through;
+    color: black;
 }
 
 #loginButton {
     text-decoration: none;
     text-transform: none;
-    color: inherit;
+    color: white;
     text-shadow: none;
     margin:3rem auto;
 }
@@ -41,5 +76,9 @@ form label {
     form {
         width: 50%;
         margin-top: 20%;
+    }
+
+    .artist-name {
+        font-size:10px;
     }
 }

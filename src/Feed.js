@@ -8,6 +8,7 @@ const Feed = () => {
     textAlign: "left",
     padding: "0",
     margin: "10% auto",
+    color: "black",
   };
   return (
     <div style={styles}>

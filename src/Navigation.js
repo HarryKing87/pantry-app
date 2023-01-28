@@ -26,6 +26,9 @@ export default function Navigation() {
               <a href="/dashboard">
                 <li>Dashboard</li>
               </a>
+              <a href="/feed">
+                <li>Feed</li>
+              </a>
             </ul>
           </div>
         </nav>
@@ -69,7 +72,15 @@ export default function Navigation() {
               href="/dashboard"
               style={{ "font-family": '"Avenir Next", "Avenir", sans-serif;' }}
             >
-              FAQ
+              Dashboard
+            </a>
+          </li>
+          <li>
+            <a
+              href="/feed"
+              style={{ "font-family": '"Avenir Next", "Avenir", sans-serif;' }}
+            >
+              Feed
             </a>
           </li>
         </ul>

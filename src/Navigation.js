@@ -23,6 +23,12 @@ export default function Navigation() {
               <a href="/faq">
                 <li>FAQ</li>
               </a>
+              <a href="/dashboard">
+                <li>Dashboard</li>
+              </a>
+              <a href="/feed">
+                <li>Feed</li>
+              </a>
             </ul>
           </div>
         </nav>
@@ -59,6 +65,22 @@ export default function Navigation() {
               style={{ "font-family": '"Avenir Next", "Avenir", sans-serif;' }}
             >
               FAQ
+            </a>
+          </li>
+          <li>
+            <a
+              href="/dashboard"
+              style={{ "font-family": '"Avenir Next", "Avenir", sans-serif;' }}
+            >
+              Dashboard
+            </a>
+          </li>
+          <li>
+            <a
+              href="/feed"
+              style={{ "font-family": '"Avenir Next", "Avenir", sans-serif;' }}
+            >
+              Feed
             </a>
           </li>
         </ul>

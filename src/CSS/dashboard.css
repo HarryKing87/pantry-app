@@ -1,0 +1,36 @@
+.container-description-dashboard {
+  margin: 2rem auto;
+  font-size: 14px;
+  display: flex;
+  width: 15rem;
+}
+
+.container-greeting-dashboard {
+  font-weight: 600;
+  width: 90%;
+  margin: 0 auto;
+}
+
+.container-dashboard-buttonNext, .container-dashboard-buttonPrevious {
+  float: right;
+  margin: 10% 1rem;
+  bottom: 0;
+  right: 0;
+  position: relative;
+}
+
+.image-container {
+  position: relative;
+  width: 90%;
+  max-width: 90%;
+}
+
+.text-overlay {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  color: white;
+  font-size: 20px;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 10px;
+}

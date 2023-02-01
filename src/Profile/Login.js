@@ -3,11 +3,6 @@ import Navigation from "../Navigation";
 import "../CSS/login.css";
 import { useState } from "react";
 
-const CSSStyling = {
-  width: "100%",
-  position: "relative",
-};
-
 function Login() {
   const [username, setUsername] = useState("");
   const [message, setMessage] = useState("");
@@ -30,7 +25,10 @@ function Login() {
     var isValid;
     event.preventDefault();
     if (username && password) {
-      if (username === "admin" && password === "administrator") {
+      if (
+        (username === "admin" && password === "administrator") ||
+        (username === "lazaros" && password === "detonator")
+      ) {
         isValid = true;
         setMessage(`Hello ${username}!`);
         setUsername("");
@@ -56,7 +54,6 @@ function Login() {
         <img
           src="https://images.unsplash.com/photo-1607532941433-304659e8198a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1678&q=80"
           alt=""
-          style={CSSStyling}
         />
       </div>
       <div className="container-login">

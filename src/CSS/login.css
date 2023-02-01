@@ -1,24 +1,17 @@
 body {
     position: absolute;
     color: black;
+    width: 100%;
 }
 
-.container-login {
-    background: white;
-    padding: 30px 13px;
-    border-radius:50px 50px 0 0;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    width: 100%;
-    max-width: 95%;
-    margin: 0 auto;
-}
 
 .container-login-image {
     left: 0px;
     top: 0px;
+}
+
+.container-login-image img {
+    width: 100%;
 }
 
 .login-greeting {
@@ -64,15 +57,10 @@ form label {
     color: white;
     text-shadow: none;
     margin:3rem auto;
+    border: 2px;
 }
 
-#loginButton:hover {
-    border: 2px #426DFB solid;
-    text-shadow: 0 0 1vw #1041FF, 0 0 3vw #1041FF, 0 0 10vw #1041FF, 0 0 10vw #1041FF, 0 0 .4vw #8BFDFE, .5vw .5vw .1vw #147280;
-    color: #28D7FE;
-}
-
-@media (max-width: 675px) {
+@media screen and (max-width: 675px) {
     form {
         width: 50%;
         margin-top: 20%;
@@ -80,5 +68,15 @@ form label {
 
     .artist-name {
         font-size:10px;
+    }
+
+    .container-login {
+        background: white;
+        padding-top: 10px;
+        border-radius: 50px 50px 0 0;
+        position: absolute;
+        width: 100%;
+        margin-top: -10%;
+        height:100%;
     }
 }

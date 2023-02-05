@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from "react";
 import Navigation from "../Navigation";
 import "../CSS/profile.css";
+import {  signOut } from "firebase/auth";
+import {auth} from '../Database/firebase';
+import { useNavigate } from 'react-router-dom';
 
-export default function Profile(props) {
-  let loggedUser = localStorage.getItem("username");
+export default function Profile() {
+  let loggedUser = localStorage.getItem("email");
+  const navigate = useNavigate();
 
   /* Allergies Development */
   const allergies = [
@@ -53,6 +57,17 @@ export default function Profile(props) {
     }
   }, [loggedUser]);
 
+  // Database Sign out Functionality
+  const handleLogout = () => {               
+    signOut(auth).then(() => {
+    // Sign-out successful.
+        alert("Signed out successfully")
+        navigate("/login");
+    }).catch((error) => {
+    // An error happened.
+    });
+}
+
   return (
     <div>
       <Navigation />
@@ -63,7 +78,8 @@ export default function Profile(props) {
           width={"40px"}
           height={"40px"}
         />
-        <h4>Welcome, {loggedUser}!</h4>
+        <h5>Welcome, {loggedUser}!</h5>
+        <i onClick={handleLogout} style={{cursor: 'pointer'}}>Sign Out</i>
         <p>
           <i>
             This page is still under development and will take some time until I

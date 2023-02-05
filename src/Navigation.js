@@ -38,7 +38,7 @@ export default function Navigation() {
           <li>
             <a
               href="/"
-              style={{ "font-family": '"Avenir Next", "Avenir", sans-serif;' }}
+              style={{ "fontFamily": '"Avenir Next", "Avenir", sans-serif' }}
             >
               Home
             </a>
@@ -46,7 +46,7 @@ export default function Navigation() {
           <li>
             <a
               href="/about"
-              style={{ "font-family": '"Avenir Next", "Avenir", sans-serif;' }}
+              style={{ "fontFamily": '"Avenir Next", "Avenir", sans-serif' }}
             >
               About
             </a>
@@ -54,7 +54,7 @@ export default function Navigation() {
           <li>
             <a
               href="/contact"
-              style={{ "font-family": '"Avenir Next", "Avenir", sans-serif;' }}
+              style={{ "fontFamily": '"Avenir Next", "Avenir", sans-serif' }}
             >
               Contact
             </a>
@@ -62,7 +62,7 @@ export default function Navigation() {
           <li>
             <a
               href="/faq"
-              style={{ "font-family": '"Avenir Next", "Avenir", sans-serif;' }}
+              style={{ "fontFamily": '"Avenir Next", "Avenir", sans-serif' }}
             >
               FAQ
             </a>
@@ -70,7 +70,7 @@ export default function Navigation() {
           <li>
             <a
               href="/dashboard"
-              style={{ "font-family": '"Avenir Next", "Avenir", sans-serif;' }}
+              style={{ "fontFamily": '"Avenir Next", "Avenir", sans-serif' }}
             >
               Dashboard
             </a>
@@ -78,7 +78,7 @@ export default function Navigation() {
           <li>
             <a
               href="/feed"
-              style={{ "font-family": '"Avenir Next", "Avenir", sans-serif;' }}
+              style={{ "fontFamily": '"Avenir Next", "Avenir", sans-serif' }}
             >
               Feed
             </a>

@@ -13,7 +13,7 @@ function APIComponent() {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [tipBody, setTipBody] = useState(null);
+  const [setTipBody] = useState(null);
 
   useEffect(() => {
     async function getData() {
@@ -29,7 +29,7 @@ function APIComponent() {
       setLoading(false);
     }
     getData();
-  }, []);
+  });
 
   if (loading) {
     return <div>Loading...</div>;
@@ -64,7 +64,7 @@ function APIComponent() {
           <div className="post-likes">
             <p>Likes: {result.upvotes_total}</p>
             <SearchAPI props={parseInt(result.recipe_id)}>
-              <a href="">
+              <a href="/">
                 <p>Recipe: {result.recipe_id}</p>
               </a>
             </SearchAPI>

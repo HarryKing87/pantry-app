@@ -28,7 +28,7 @@ function SeachAPI(props) {
       }
     }
     fetchData();
-  }, [recipeId]);
+  });
 
   function handleClick(id) {
     setRecipeId(id);
@@ -36,7 +36,7 @@ function SeachAPI(props) {
 
   return (
     <div>
-      <a href="#" target={"_blank"} onClick={() => handleClick(props)}>
+      <a href="/" target={"_blank"} onClick={() => handleClick(props)}>
         Recipe
       </a>
       {error && <div>Error: {error.message}</div>}

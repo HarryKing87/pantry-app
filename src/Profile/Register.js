@@ -2,33 +2,30 @@ import React from "react";
 import Navigation from "../Navigation";
 import "../CSS/login.css";
 import { useState } from "react";
-import {  signInWithEmailAndPassword   } from 'firebase/auth';
+import {  createUserWithEmailAndPassword  } from 'firebase/auth';
 import { auth } from '../Database/firebase';
-import { useNavigate } from 'react-router-dom';
 
-function Login() {
-  const [email, setEmail] = useState("");
+function Register() {
   const [password, setPassword] = useState("");
-  const navigate = useNavigate();
+  const [email, setEmail] = useState("");
 
-  const loginCustomer = (e) => {
-    e.preventDefault();
-    signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-        // Signed in
-        const user = userCredential.user;
-        console.log(user);
-        // Setting the email address of the user to localStorage for profile usage.
-        localStorage.setItem("email", email);
-        navigate("/profile");
-    })
-    .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode, errorMessage)
-    });
+  const registerCustomer = async (e) => {
+    e.preventDefault()
    
-}
+    await createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+          console.log(user);
+          // ...
+      })
+      .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.log(errorCode, errorMessage);
+          // ..
+      });
+    }
 
   return (
     <div>
@@ -49,17 +46,12 @@ function Login() {
             Upgrade your account and get full access to jumpstart your practice.
           </p>
         </div>
-        <form
-          id="loginForm"
-          action="/profile"
-          method="POST"
-          onSubmit={loginCustomer}
-        >
-          <label htmlFor="email">Email</label>
+        <form id="loginForm" action="/profile" method="POST" onSubmit={registerCustomer}>
+        <label htmlFor="email">Email</label>
           <input
-            type="text"
-            value={email}
+            type="email"
             placeholder="Email"
+            value={email}
             onChange={(event) => setEmail(event.target.value)}
           />
           <label htmlFor="password">Password</label>
@@ -69,12 +61,12 @@ function Login() {
             value={password}
             onChange={(event) => setPassword(event.target.value)}
           />
-          <i className="error-message"></i>
+          <i className="passwordFeedback"></i>
           <button id="loginButton" type="submit">
-            Login
+            Register
           </button>
           <h5>
-            Don't have an account? <a href="/register">Register</a>
+            Already have an account? <a href="/login">Login</a>
           </h5>
         </form>
       </div>
@@ -82,4 +74,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Register;

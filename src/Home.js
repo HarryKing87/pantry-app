@@ -26,7 +26,7 @@ class Home extends React.Component {
           </div>
           <div className="buttonStart">
             <a href="/login">
-              <button class="fade js-buttonStart">Start</button>
+              <button className="fade js-buttonStart">Start</button>
             </a>
           </div>
         </div>

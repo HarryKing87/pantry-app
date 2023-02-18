@@ -1,137 +1,149 @@
-import React, { useState, useEffect } from "react";
-import Navigation from "../Navigation";
+import { useState, useEffect } from "react";
+import {
+  getFirestore,
+  collection,
+  query,
+  where,
+  getDocs,
+  setDoc,
+  updateDoc,
+  doc,
+} from "firebase/firestore";
+import { signOut } from "firebase/auth";
+import { auth } from "../Database/firebase";
+import { useNavigate } from "react-router-dom";
 import "../CSS/profile.css";
-import {  signOut } from "firebase/auth";
-import {auth} from '../Database/firebase';
-import { useNavigate } from 'react-router-dom';
 
-export default function Profile() {
-  let loggedUser = localStorage.getItem("email");
+const AllergyList = () => {
+  const [allergies, setAllergies] = useState([
+    { name: "Peanuts", checked: false },
+    { name: "Shellfish", checked: false },
+    { name: "Eggs", checked: false },
+    { name: "Dairy", checked: false },
+    { name: "Wheat", checked: false },
+    { name: "Soy", checked: false },
+  ]);
   const navigate = useNavigate();
 
-  /* Allergies Development */
-  const allergies = [
-    "Peanuts",
-    "Shellfish",
-    "Tree nuts",
-    "Eggs",
-    "Milk",
-    "Soy",
-    "Wheat",
-    "Fish",
-    "Sesame",
-  ];
-
-  const [hasAllergies, setHasAllergies] = useState(false);
-  const [selectedAllergies, setSelectedAllergies] = useState([]);
-  const [showSaveButton, setShowSaveButton] = useState(true);
-  const [setLoggedUser] = useState("");
-  const [savedAllergies, setSavedAllergies] = useState(false);
-
-  const handleAllergySelection = (e) => {
-    setHasAllergies(true);
-    setSelectedAllergies([...selectedAllergies, e.target.value]);
+  const handleLogout = () => {
+    signOut(auth)
+      .then(() => {
+        // Sign-out successful.
+        alert("Signed out successfully");
+        navigate("/login");
+      })
+      .catch((error) => {
+        // An error happened.
+      });
   };
 
-  const handleSaveAllergies = () => {
-    localStorage.setItem(
-      `${loggedUser}_allergies`,
-      JSON.stringify(selectedAllergies)
+  const handleCheckboxChange = (index) => {
+    const updatedAllergies = allergies.map((allergy, i) =>
+      i === index ? { ...allergy, checked: !allergy.checked } : allergy
     );
-    setShowSaveButton(false);
-    setSavedAllergies(true);
+    setAllergies(updatedAllergies);
   };
 
-  const handleUser = (e) => {
-    setLoggedUser(e.target.value);
+  const fetchAllergies = async () => {
+    try {
+      const db = getFirestore();
+      const customerCollection = collection(db, "customers");
+      const q = query(
+        customerCollection,
+        where("userId", "==", auth.currentUser.uid)
+      );
+      const querySnapshot = await getDocs(q);
+
+      if (!querySnapshot.empty) {
+        // Update the allergies state with the data retrieved from the database
+        const customerDoc = querySnapshot.docs[0];
+        const customerData = customerDoc.data();
+        const updatedAllergies = allergies.map((allergy) => {
+          if (allergy.name in customerData.allergies) {
+            return {
+              ...allergy,
+              checked: customerData.allergies[allergy.name],
+            };
+          } else {
+            return allergy;
+          }
+        });
+        setAllergies(updatedAllergies);
+      }
+    } catch (error) {
+      console.log("Error fetching allergies: ", error);
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const db = getFirestore();
+      const customerCollection = collection(db, "customers");
+      const q = query(
+        customerCollection,
+        where("userId", "==", auth.currentUser.uid)
+      );
+      const querySnapshot = await getDocs(q);
+
+      if (querySnapshot.empty) {
+        // Create new customer document if not exists
+        const newCustomer = {
+          userId: auth.currentUser.uid,
+          allergies: allergies.reduce((obj, allergy) => {
+            obj[allergy.name] = allergy.checked;
+            return obj;
+          }, {}),
+        };
+        await setDoc(doc(customerCollection), newCustomer);
+      } else {
+        // Update existing customer document
+        const customerDoc = querySnapshot.docs[0];
+        await updateDoc(doc(customerCollection, customerDoc.id), {
+          allergies: allergies.reduce((obj, allergy) => {
+            obj[allergy.name] = allergy.checked;
+            return obj;
+          }, {}),
+        });
+      }
+      alert("Allergies saved successfully!");
+    } catch (error) {
+      console.log("Error saving allergies: ", error);
+    }
   };
 
   useEffect(() => {
-    const userAllergies = JSON.parse(
-      localStorage.getItem(`${loggedUser}_allergies`)
-    );
-    if (userAllergies) {
-      setSelectedAllergies(userAllergies);
-      setHasAllergies(true);
-      setSavedAllergies(true);
+    const user = auth.currentUser;
+    if (user) {
+      fetchAllergies();
+    } else {
+      navigate("/login");
     }
-  }, [loggedUser]);
-
-  // Database Sign out Functionality
-  const handleLogout = () => {               
-    signOut(auth).then(() => {
-    // Sign-out successful.
-        alert("Signed out successfully")
-        navigate("/login");
-    }).catch((error) => {
-    // An error happened.
-    });
-}
+  }, []);
 
   return (
     <div>
-      <Navigation />
-      <div className="showProfileName">
-        <img
-          src="https://cdn3d.iconscout.com/3d/premium/thumb/profile-6073860-4996977.png"
-          alt="profile user icon"
-          width={"40px"}
-          height={"40px"}
-        />
-        <h5>Welcome, {loggedUser}!</h5>
-        <i onClick={handleLogout} style={{cursor: 'pointer'}}>Sign Out</i>
-        <p>
-          <i>
-            This page is still under development and will take some time until I
-            figure out what to insert.
-          </i>
-        </p>
-      </div>
-      <div className="allergies-table allergies-container">
-        {!savedAllergies && (
-          <>
-            <h2>Please enter your name</h2>
-            <input type="text" onChange={handleUser} />
-            <h2>Do you have any allergies?</h2>
-            <div className="checkbox-grid">
-              {allergies.map((allergy) => (
-                <label key={allergy}>
-                  <input
-                    type="checkbox"
-                    value={allergy}
-                    onChange={handleAllergySelection}
-                    checked={selectedAllergies.includes(allergy)}
-                    className="larger-checkbox"
-                  />
-                  {allergy}
-                </label>
-              ))}
-            </div>
-            {showSaveButton && (
-              <button onClick={handleSaveAllergies}>Save Allergies</button>
-            )}
-          </>
-        )}
-
-        {hasAllergies && (
-          <>
-            <table>
-              <thead>
-                <tr>
-                  <th>Allergies</th>
-                </tr>
-              </thead>
-              <tbody>
-                {selectedAllergies.map((allergy) => (
-                  <tr key={allergy}>
-                    <td>{allergy}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </>
-        )}
-      </div>
+      <h1>Allergies</h1>
+      <form className="allergy-form" onSubmit={handleSubmit}>
+        {allergies.map((allergy, index) => (
+          <div key={index}>
+            <input
+              type="checkbox"
+              checked={allergy.checked}
+              onChange={() => handleCheckboxChange(index)}
+            />
+            <label>{allergy.name}</label>
+          </div>
+        ))}
+        <button className="submit-button" type="submit">
+          Save Allergies
+        </button>
+      </form>
+      <p className="logout-link" onClick={handleLogout}>
+        LOGOUT
+      </p>
     </div>
   );
-}
+};
+
+export default AllergyList;

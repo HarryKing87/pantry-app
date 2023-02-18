@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Dosis:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+
 .App {
   margin: 0;
   padding: 0;
@@ -190,5 +193,105 @@ nav {
       }
       .home-buttons {
         flex-direction: column;
+      }
+    }
+
+.home-banners {
+  display: flex;
+  width: 80%;
+  margin: 0 auto;
+} 
+
+.home-banners .container-image, .home-banners .container-image2, .home-banners .container-image3 {
+  margin: 10% 1rem;
+} 
+
+.container-image h1, .container-image2 h1, .container-image3 h1 {
+  font-family: 'Dosis', sans-serif;
+}
+.container-image h2, .container-image2 h2, .container-image3 h2 {
+  font-family: 'Lobster', cursive;
+}
+.container-image p, .container-image2 p, .container-image3 p {
+  font-family: 'Dosis', sans-serif;
+}
+    .container-image {
+      display:flex;
+      background-color: #298455;
+      margin: 10% auto;
+      border-radius: 30px;
+      height: auto;
+      max-height: 700px;
+      padding: 10px;
+      color: white;
+      flex-direction: column;
+    }
+
+    .container-image2 {
+      display:flex;
+      background-color: #DC6E67;
+      margin: 10% auto;
+      border-radius: 30px;
+      height: auto;
+      max-height: 700px;
+      padding: 10px;
+      color: white;
+      flex-direction: column;
+    }
+
+    .container-image3 {
+      display:flex;
+      background-color: #F9DDC8;
+      margin: 10% auto;
+      border-radius: 30px;
+      height: auto;
+      max-height: 700px;
+      padding: 10px;
+      color: black;
+      flex-direction: column;
+    }
+
+    .container-image img{
+      width: 100%;
+      border-radius: 5%;
+      margin: 10% auto;
+    }
+    .container-image2 img{
+      width: 100%;
+      border-radius: 5%;
+      margin: 10% auto;
+    }
+
+    .container-image3 img{
+      width: 100%;
+      border-radius: 5%;
+      margin: 10% auto;
+    }
+
+    @media screen and (max-width: 768px) {
+      .home-banners .container-image, .home-banners .container-image2, .home-banners .container-image3 {
+        margin: 10% auto;
+      } 
+      .container-image {
+        flex-direction: column;
+      }
+      .container-image2 {
+        flex-direction: column;
+      }
+      .container-image3 {
+        flex-direction: column;
+      }
+      .home-banners {
+        flex-direction: column;
+      }
+
+      .container-image img{
+        width: 100%;
+      }
+      .container-image2 img{
+        width: 100%;
+      }
+      .container-image3 img{
+        width: 100%;
       }
     }

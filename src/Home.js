@@ -1,5 +1,5 @@
 // HomePage.js
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import "./CSS/home.css";
 
 const HomePage = () => {
@@ -66,6 +66,63 @@ const HomePage = () => {
               </a>
             </div>
           </div>
+        </div>
+      </div>
+      <div className="home-banners">
+        <div className="container-image">
+          <h1>Pantry.</h1>
+          <img
+            src={
+              process.env.PUBLIC_URL +
+              "/Illustrations/Transparent/My project-1-4.png"
+            }
+            alt=""
+          />
+
+          <h2>Fresh Ingedients</h2>
+          <p>
+            Fresh ingredients are the foundation of great cooking. Whether
+            you're an experienced chef or a beginner in the kitchen, using fresh
+            ingredients can take your dishes to the next level. Not only do they
+            enhance the flavor and texture of your food, but they also provide
+            vital nutrients that are essential for maintaining good health.
+          </p>
+        </div>
+        <div className="container-image2">
+          <h1>Pantry.</h1>
+          <img
+            src={
+              process.env.PUBLIC_URL +
+              "/Illustrations/Transparent/My project-1-7.png"
+            }
+            alt=""
+          />
+          <h2>Delicious Recipes</h2>
+          <p>
+            Indulge your taste buds with our collection of delicious recipes,
+            perfect for any occasion. From savory mains to sweet treats, our
+            recipes are easy to follow and sure to impress. Whether you're
+            cooking for a special event or simply trying to spice up your weekly
+            meal routine, we've got you covered.
+          </p>
+        </div>
+        <div className="container-image3">
+          <h1>Pantry.</h1>
+          <img
+            src={
+              process.env.PUBLIC_URL +
+              "/Illustrations/Transparent/My project-1-6.png"
+            }
+            alt=""
+          />
+          <h2>Organization Tips</h2>
+          <p>
+            A well-organized pantry can make meal prep and cooking a breeze.
+            With our simple tips and tricks, you can transform your cluttered
+            pantry into a tidy and functional space. We'll show you how to
+            maximize storage, reduce waste, and make the most of your pantry's
+            space.
+          </p>
         </div>
       </div>
     </div>

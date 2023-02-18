@@ -1,24 +1,194 @@
-@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+.App {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 
-.home-component {
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  color: #fff;
+  padding: 10px;
+  position: fixed;
+  width: 100%;
+  z-index: 1;
+}
+
+.logo img {
+  height: 50px;
+}
+
+.menu {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  list-style: none;
+  margin: 0 10px;
+  padding: 0;
+}
+
+.menu li {
+  margin-left: 20px;
+}
+
+.menu li a {
+  color: #333;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.2s;
+  padding: 5px 10px;
+}
+
+.menu li a:hover {
+  color: #f5f5f5;
+}
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30px;
+  height: 21px;
+  cursor: pointer;
+}
+
+.hamburger span {
+  width: 30px;
+  height: 3px;
+  background-color: #333;
+  transition: all 0.3s ease-in-out;
+  display: block;
+}
+
+.open span:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+
+.open span:nth-child(2) {
+  opacity: 0;
+}
+
+.open span:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
+@media screen and (max-width: 768px) {
+  .menu {
+    display: none;
+    position: fixed;
+    top: 65px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #333;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 0;
+    opacity: 0;
+    transition: all 0.5s ease-in-out;
+    width: 100%;
+    margin: 0;
+  }
+
+
+  .menu.open {
     display: flex;
-    flex-direction: column;
-}
+    opacity: 1;
+  }
 
-/* The home hero component in the home page */
-.home-hero {
-    display:flex;
-    flex-direction: column;
-    width: 50%;
-    margin: 0 auto;
-}
+  .menu li {
+    margin: 10px 0;
+  }
 
-/* Pending to be commented */
-.saveMore {
-    font-family: "Avenir Next", "Avenir", sans-serif; /* General Font */
-    font-weight:400;
-    padding: 10px;
-    border:0.5px solid black;
-    display:inline-block;
-    color: black;
-}
+  .menu li a {
+    color: #fff;
+  }
+
+  .hamburger {
+    display: flex;
+    margin-right: 10%;
+    }
+    }
+
+    /* Set the image as the background */
+    .background-image {
+      background-image: url('https://unsplash.com/de/fotos/-YHSwy6uqvk');
+      background-size: cover;
+      background-position: center;
+      position: relative;
+      height: 100vh;
+    }
+
+    /* Set the opacity of the background image */
+    .background-image::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    /* Style the text and buttons */
+    .content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+    }
+
+    .content h1 {
+      color: #fff;
+      font-size: 2rem;
+      margin: 0;
+    }
+
+    .content p {
+      color: #fff;
+      font-size: 0.879rem;
+      margin: 1rem 0;
+    }
+
+    .content button {
+      color: #333;
+      border: none;
+      border-radius: 10px;
+      padding: 1rem 2rem;
+      font-size: 1.2rem;
+      margin: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .content button:hover {
+      background-color: #333;
+      color: #fff;
+    }
+
+    .home-buttons {
+      display: flex;
+      justify-content: center;
+    }
+
+    .home-buttons button {
+      background-color:white;
+    }
+
+    .login-button button:nth-child(1) {
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    @media screen and (max-width: 768px) {
+      .content button {
+        width: 50%;
+      }
+      .home-buttons {
+        flex-direction: column;
+      }
+    }

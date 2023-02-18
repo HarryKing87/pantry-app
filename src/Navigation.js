@@ -4,7 +4,7 @@ export default function Navigation() {
   return (
     <div className="nav-container">
       <div className="mobile-nav">
-        <nav role="navigation">
+        <div role="navigation">
           <div id="menuToggle">
             <input type="checkbox" />
             <span></span>
@@ -31,14 +31,14 @@ export default function Navigation() {
               </a>
             </ul>
           </div>
-        </nav>
+        </div>
       </div>
       <div className="desktop-nav">
         <ul id="navigation-items-mobile">
           <li>
             <a
               href="/"
-              style={{ "fontFamily": '"Avenir Next", "Avenir", sans-serif' }}
+              style={{ fontFamily: '"Avenir Next", "Avenir", sans-serif' }}
             >
               Home
             </a>
@@ -46,7 +46,7 @@ export default function Navigation() {
           <li>
             <a
               href="/about"
-              style={{ "fontFamily": '"Avenir Next", "Avenir", sans-serif' }}
+              style={{ fontFamily: '"Avenir Next", "Avenir", sans-serif' }}
             >
               About
             </a>
@@ -54,7 +54,7 @@ export default function Navigation() {
           <li>
             <a
               href="/contact"
-              style={{ "fontFamily": '"Avenir Next", "Avenir", sans-serif' }}
+              style={{ fontFamily: '"Avenir Next", "Avenir", sans-serif' }}
             >
               Contact
             </a>
@@ -62,7 +62,7 @@ export default function Navigation() {
           <li>
             <a
               href="/faq"
-              style={{ "fontFamily": '"Avenir Next", "Avenir", sans-serif' }}
+              style={{ fontFamily: '"Avenir Next", "Avenir", sans-serif' }}
             >
               FAQ
             </a>
@@ -70,7 +70,7 @@ export default function Navigation() {
           <li>
             <a
               href="/dashboard"
-              style={{ "fontFamily": '"Avenir Next", "Avenir", sans-serif' }}
+              style={{ fontFamily: '"Avenir Next", "Avenir", sans-serif' }}
             >
               Dashboard
             </a>
@@ -78,7 +78,7 @@ export default function Navigation() {
           <li>
             <a
               href="/feed"
-              style={{ "fontFamily": '"Avenir Next", "Avenir", sans-serif' }}
+              style={{ fontFamily: '"Avenir Next", "Avenir", sans-serif' }}
             >
               Feed
             </a>

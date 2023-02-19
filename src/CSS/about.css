@@ -1,3 +1,8 @@
+nav {
+    position: relative;
+    width: auto;
+}
+
 .quote-about {
     margin: 20% auto;
     width: 50%;

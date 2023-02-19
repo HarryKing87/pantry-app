@@ -15,15 +15,15 @@ function Login() {
     if (Notification.permission === "granted") {
       // Display the notification
       new Notification("Pantry.", {
-        body: "This is a notification shown by Pantry!",
+        body: `Welcome back, ${email}!`,
       });
     } else if (Notification.permission !== "denied") {
       // Request permission from the user
       Notification.requestPermission().then((permission) => {
         if (permission === "granted") {
           // Display the notification
-          new Notification("My Notification", {
-            body: "This is a notification shown by Pantry!",
+          new Notification("This is a notification shown by Pantry!", {
+            body: `Welcome back, ${email}!`,
           });
         }
       });
@@ -46,6 +46,7 @@ function Login() {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorCode, errorMessage);
+        alert(errorCode);
       });
   };
 

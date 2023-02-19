@@ -1,90 +1,46 @@
 import "./CSS/navigation.css";
 import "./CSS/mobile-nav.css";
+import { useState } from "react";
 export default function Navigation() {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
   return (
-    <div className="nav-container">
-      <div className="mobile-nav">
-        <div role="navigation">
-          <div id="menuToggle">
-            <input type="checkbox" />
-            <span></span>
-            <span></span>
-            <span></span>
-            <ul id="menu">
-              <a href="/">
-                <li>Home</li>
-              </a>
-              <a href="/about">
-                <li>About</li>
-              </a>
-              <a href="/contact">
-                <li>Contact</li>
-              </a>
-              <a href="/faq">
-                <li>FAQ</li>
-              </a>
-              <a href="/dashboard">
-                <li>Dashboard</li>
-              </a>
-              <a href="/feed">
-                <li>Feed</li>
-              </a>
-            </ul>
-          </div>
-        </div>
+    <nav>
+      <div className="logo">
+        <img
+          src={
+            process.env.PUBLIC_URL +
+            "/Coding_Harry_an_iPhone_application_logo_for_an_app_that_control_a9246b4b-681d-44ae-aa52-acad015a10de.jpg"
+          }
+          alt="Logo"
+          style={{ borderRadius: "10px" }}
+        />
       </div>
-      <div className="desktop-nav">
-        <ul id="navigation-items-mobile">
-          <li>
-            <a
-              href="/"
-              style={{ fontFamily: '"Avenir Next", "Avenir", sans-serif' }}
-            >
-              Home
-            </a>
-          </li>
-          <li>
-            <a
-              href="/about"
-              style={{ fontFamily: '"Avenir Next", "Avenir", sans-serif' }}
-            >
-              About
-            </a>
-          </li>
-          <li>
-            <a
-              href="/contact"
-              style={{ fontFamily: '"Avenir Next", "Avenir", sans-serif' }}
-            >
-              Contact
-            </a>
-          </li>
-          <li>
-            <a
-              href="/faq"
-              style={{ fontFamily: '"Avenir Next", "Avenir", sans-serif' }}
-            >
-              FAQ
-            </a>
-          </li>
-          <li>
-            <a
-              href="/dashboard"
-              style={{ fontFamily: '"Avenir Next", "Avenir", sans-serif' }}
-            >
-              Dashboard
-            </a>
-          </li>
-          <li>
-            <a
-              href="/feed"
-              style={{ fontFamily: '"Avenir Next", "Avenir", sans-serif' }}
-            >
-              Feed
-            </a>
-          </li>
-        </ul>
+      <ul className={isOpen ? "menu open" : "menu"}>
+        <li>
+          <a href="/">Home</a>
+        </li>
+        <li>
+          <a href="/about">About</a>
+        </li>
+        <li>
+          <a href="/faq">FAQ</a>
+        </li>
+        <li>
+          <a href="/dashboard">Dashboard</a>
+        </li>
+        <li>
+          <a href="/profile">Profile</a>
+        </li>
+      </ul>
+      <div className="hamburger" onClick={toggleMenu}>
+        <span></span>
+        <span></span>
+        <span></span>
       </div>
-    </div>
+    </nav>
   );
 }

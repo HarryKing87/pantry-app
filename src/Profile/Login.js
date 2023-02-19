@@ -2,33 +2,52 @@ import React from "react";
 import Navigation from "../Navigation";
 import "../CSS/login.css";
 import { useState } from "react";
-import {  signInWithEmailAndPassword   } from 'firebase/auth';
-import { auth } from '../Database/firebase';
-import { useNavigate } from 'react-router-dom';
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../Database/firebase";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
+  function showNotification() {
+    if (Notification.permission === "granted") {
+      // Display the notification
+      new Notification("Pantry.", {
+        body: "This is a notification shown by Pantry!",
+      });
+    } else if (Notification.permission !== "denied") {
+      // Request permission from the user
+      Notification.requestPermission().then((permission) => {
+        if (permission === "granted") {
+          // Display the notification
+          new Notification("My Notification", {
+            body: "This is a notification shown by Pantry!",
+          });
+        }
+      });
+    }
+  }
+
   const loginCustomer = (e) => {
     e.preventDefault();
     signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
+      .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
         console.log(user);
         // Setting the email address of the user to localStorage for profile usage.
         localStorage.setItem("email", email);
         navigate("/profile");
-    })
-    .catch((error) => {
+        showNotification();
+      })
+      .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        console.log(errorCode, errorMessage)
-    });
-   
-}
+        console.log(errorCode, errorMessage);
+      });
+  };
 
   return (
     <div>

@@ -1,49 +1,62 @@
-.allergy-form {
+.Profile {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f8f8f8;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.Profile h1 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.Profile p {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.Profile form {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 2rem;
-  background-color: #fff;
-  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
-  margin: 2rem auto;
-  max-width: 500px;
 }
 
-.allergy-form div {
+.Profile label {
   display: flex;
   align-items: center;
-  justify-content: center;
-  margin-bottom: 1rem;
-}
-
-.allergy-form label {
-  margin-left: 1rem;
   font-size: 1.2rem;
+  margin-bottom: 10px;
 }
 
-.submit-button {
-  margin-top: 2rem;
-  padding: 1rem 2rem;
-  background-color: #f9826c;
+.Profile input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+.Profile button {
+  background-color: #333;
+  color: #fff;
+  padding: 10px 20px;
   border: none;
   border-radius: 5px;
-  color: #fff;
   font-size: 1.2rem;
+  margin-top: 20px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: background-color 0.3s ease;
 }
 
-.submit-button:hover {
-  background-color: #ff5a5f;
+.Profile button:hover {
+  background-color: #555;
 }
 
-.logout-link {
-  margin-top: 2rem;
-  color: #777;
-  cursor: pointer;
-}
+@media only screen and (max-width: 768px) {
+  .Profile label {
+    font-size: 1rem;
+  }
 
-.logout-link:hover {
-  color: #f9826c;
+  .Profile button {
+    font-size: 1rem;
+  }
 }

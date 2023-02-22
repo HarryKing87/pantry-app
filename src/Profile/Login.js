@@ -22,7 +22,7 @@ function Login() {
       Notification.requestPermission().then((permission) => {
         if (permission === "granted") {
           // Display the notification
-          new Notification("This is a notification shown by Pantry!", {
+          new Notification("Pantry.", {
             body: `Welcome back, ${email}!`,
           });
         }

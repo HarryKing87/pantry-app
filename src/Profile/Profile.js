@@ -14,136 +14,117 @@ import { auth } from "../Database/firebase";
 import { useNavigate } from "react-router-dom";
 import "../CSS/profile.css";
 
-const AllergyList = () => {
-  const [allergies, setAllergies] = useState([
-    { name: "Peanuts", checked: false },
-    { name: "Shellfish", checked: false },
-    { name: "Eggs", checked: false },
-    { name: "Dairy", checked: false },
-    { name: "Wheat", checked: false },
-    { name: "Soy", checked: false },
-  ]);
+const db = getFirestore();
+
+function Profile() {
   const navigate = useNavigate();
-
-  const handleLogout = () => {
-    signOut(auth)
-      .then(() => {
-        // Sign-out successful.
-        alert("Signed out successfully");
-        navigate("/login");
-      })
-      .catch((error) => {
-        // An error happened.
-      });
-  };
-
-  const handleCheckboxChange = (index) => {
-    const updatedAllergies = allergies.map((allergy, i) =>
-      i === index ? { ...allergy, checked: !allergy.checked } : allergy
-    );
-    setAllergies(updatedAllergies);
-  };
-
-  const fetchAllergies = async () => {
-    try {
-      const db = getFirestore();
-      const customerCollection = collection(db, "customers");
-      const q = query(
-        customerCollection,
-        where("userId", "==", auth.currentUser.uid)
-      );
-      const querySnapshot = await getDocs(q);
-
-      if (!querySnapshot.empty) {
-        // Update the allergies state with the data retrieved from the database
-        const customerDoc = querySnapshot.docs[0];
-        const customerData = customerDoc.data();
-        const updatedAllergies = allergies.map((allergy) => {
-          if (allergy.name in customerData.allergies) {
-            return {
-              ...allergy,
-              checked: customerData.allergies[allergy.name],
-            };
-          } else {
-            return allergy;
-          }
-        });
-        setAllergies(updatedAllergies);
-      }
-    } catch (error) {
-      console.log("Error fetching allergies: ", error);
-    }
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const db = getFirestore();
-      const customerCollection = collection(db, "customers");
-      const q = query(
-        customerCollection,
-        where("userId", "==", auth.currentUser.uid)
-      );
-      const querySnapshot = await getDocs(q);
-
-      if (querySnapshot.empty) {
-        // Create new customer document if not exists
-        const newCustomer = {
-          userId: auth.currentUser.uid,
-          allergies: allergies.reduce((obj, allergy) => {
-            obj[allergy.name] = allergy.checked;
-            return obj;
-          }, {}),
-        };
-        await setDoc(doc(customerCollection), newCustomer);
-      } else {
-        // Update existing customer document
-        const customerDoc = querySnapshot.docs[0];
-        await updateDoc(doc(customerCollection, customerDoc.id), {
-          allergies: allergies.reduce((obj, allergy) => {
-            obj[allergy.name] = allergy.checked;
-            return obj;
-          }, {}),
-        });
-      }
-      alert("Allergies saved successfully!");
-    } catch (error) {
-      console.log("Error saving allergies: ", error);
-    }
-  };
+  const [user, setUser] = useState(null);
+  const [allergies, setAllergies] = useState({
+    peanuts: false,
+    dairy: false,
+    gluten: false,
+  });
 
   useEffect(() => {
-    const user = auth.currentUser;
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        setUser(user);
+        const userRef = doc(db, "users", user.uid);
+        const q = query(collection(db, "users"), where("id", "==", user.uid));
+        getDocs(q)
+          .then((querySnapshot) => {
+            if (querySnapshot.empty) {
+              setDoc(userRef, { id: user.uid, allergies });
+            } else {
+              const data = querySnapshot.docs[0].data();
+              setAllergies(data.allergies);
+            }
+          })
+          .catch((error) => {
+            console.error("Error getting user data:", error);
+          });
+      } else {
+        setUser(null);
+        navigate("/");
+      }
+    });
+    return () => {
+      unsubscribe();
+    };
+  }, [navigate]);
+
+  function handleAllergyChange(event) {
+    const { name, checked } = event.target;
+    setAllergies((prevState) => ({ ...prevState, [name]: checked }));
+  }
+
+  function handleSave() {
     if (user) {
-      fetchAllergies();
-    } else {
-      navigate("/login");
+      const userRef = doc(db, "users", user.uid);
+      updateDoc(userRef, { allergies })
+        .then(() => {
+          console.log("Allergy data saved successfully!");
+        })
+        .catch((error) => {
+          console.error("Error saving allergy data:", error);
+        });
     }
-  }, []);
+  }
+
+  function handleSignOut() {
+    signOut(auth)
+      .then(() => {
+        console.log("User signed out");
+      })
+      .catch((error) => {
+        console.error("Error signing out user:", error);
+      });
+  }
+
+  if (!user) {
+    return null;
+  }
 
   return (
-    <div>
-      <h1>Allergies</h1>
-      <form className="allergy-form" onSubmit={handleSubmit}>
-        {allergies.map((allergy, index) => (
-          <div key={index}>
-            <input
-              type="checkbox"
-              checked={allergy.checked}
-              onChange={() => handleCheckboxChange(index)}
-            />
-            <label>{allergy.name}</label>
-          </div>
-        ))}
-        <button className="submit-button" type="submit">
+    <div className="Profile">
+      <h1>Profile</h1>
+      <form>
+        <label>
+          <input
+            type="checkbox"
+            name="peanuts"
+            checked={allergies.peanuts}
+            onChange={handleAllergyChange}
+          />
+          Peanuts
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            name="dairy"
+            checked={allergies.dairy}
+            onChange={handleAllergyChange}
+          />
+          Dairy
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            name="gluten"
+            checked={allergies.gluten}
+            onChange={handleAllergyChange}
+          />
+          Gluten
+        </label>
+        <button type="button" onClick={handleSave}>
           Save Allergies
         </button>
+        <button type="button" onClick={handleSignOut}>
+          Sign Out
+        </button>
       </form>
-      <p className="logout-link" onClick={handleLogout}>
-        LOGOUT
-      </p>
     </div>
   );
-};
+}
 
-export default AllergyList;
+export default Profile;

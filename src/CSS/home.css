@@ -73,6 +73,10 @@ nav {
   transform: translateY(-8px) rotate(-45deg);
 }
 
+.home-buttons, .login-button {
+  padding: 0 10px;
+}
+
 @media screen and (max-width: 768px) {
   .menu {
     display: none;
@@ -90,6 +94,10 @@ nav {
     transition: all 0.5s ease-in-out;
     width: 100%;
     margin: 0;
+  }
+
+  .home-buttons, .login-button {
+    padding: 0;
   }
 
 
@@ -112,76 +120,76 @@ nav {
     }
     }
 
-    /* Set the image as the background */
-    .background-image {
-      background-image: url('https://unsplash.com/de/fotos/-YHSwy6uqvk');
-      background-size: cover;
-      background-position: center;
-      position: relative;
-      height: 100vh;
-    }
+  /* Set the image as the background */
+  .background-image {
+    background-image: url('https://unsplash.com/de/fotos/-YHSwy6uqvk');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    height: 100vh;
+  }
 
-    /* Set the opacity of the background image */
-    .background-image::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.5);
-    }
+  /* Set the opacity of the background image */
+  .background-image::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
 
-    /* Style the text and buttons */
-    .content {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      text-align: center;
-    }
+  /* Style the text and buttons */
+  .content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
 
-    .content h1 {
-      color: #fff;
-      font-size: 2rem;
-      margin: 0;
-    }
+  .content h1 {
+    color: #fff;
+    font-size: 2rem;
+    margin: 0;
+  }
 
-    .content p {
-      color: #fff;
-      font-size: 0.879rem;
-      margin: 1rem 0;
-    }
+  .content p {
+    color: #fff;
+    font-size: 0.879rem;
+    margin: 1rem 0;
+  }
 
-    .content button {
-      color: #333;
-      border: none;
-      border-radius: 10px;
-      padding: 1rem 2rem;
-      font-size: 1.2rem;
-      margin: 1rem;
-      cursor: pointer;
-      transition: all 0.3s ease-in-out;
-    }
+  .content button {
+    color: #333;
+    border: none;
+    border-radius: 10px;
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
+    margin: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+  }
 
-    .content button:hover {
-      background-color: #333;
-      color: #fff;
-    }
+  .content button:hover {
+    background-color: #333;
+    color: #fff;
+  }
 
-    .home-buttons {
-      display: flex;
-      justify-content: center;
-    }
+  .home-buttons {
+    display: flex;
+    justify-content: center;
+  }
 
-    .home-buttons button {
-      background-color:white;
-    }
+  .home-buttons button {
+    background-color:white;
+  }
 
-    .login-button button:nth-child(1) {
-      background-color: #4CAF50;
-      color: white;
-    }
+  .login-button button:nth-child(1) {
+    background-color: #4CAF50;
+    color: white;
+  }
 
     @media screen and (max-width: 768px) {
       .content button {

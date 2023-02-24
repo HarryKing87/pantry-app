@@ -1,5 +1,6 @@
 // HomePage.js
 import { useState } from "react";
+import APIComponent from "./APIComponent";
 import "./CSS/home.css";
 
 const HomePage = () => {
@@ -124,6 +125,9 @@ const HomePage = () => {
             space.
           </p>
         </div>
+      </div>
+      <div>
+        <APIComponent />
       </div>
     </div>
   );

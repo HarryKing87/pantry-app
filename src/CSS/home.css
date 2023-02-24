@@ -224,7 +224,6 @@ nav {
       background-color: #298455;
       margin: 10% auto;
       border-radius: 30px;
-      height: auto;
       max-height: 700px;
       padding: 10px;
       color: white;
@@ -236,7 +235,6 @@ nav {
       background-color: #DC6E67;
       margin: 10% auto;
       border-radius: 30px;
-      height: auto;
       max-height: 700px;
       padding: 10px;
       color: white;
@@ -248,7 +246,6 @@ nav {
       background-color: #F9DDC8;
       margin: 10% auto;
       border-radius: 30px;
-      height: auto;
       max-height: 700px;
       padding: 10px;
       color: black;
@@ -278,12 +275,15 @@ nav {
       } 
       .container-image {
         flex-direction: column;
+        max-height: none;
       }
       .container-image2 {
         flex-direction: column;
+        max-height: none;
       }
       .container-image3 {
         flex-direction: column;
+        max-height: none;
       }
       .home-banners {
         flex-direction: column;

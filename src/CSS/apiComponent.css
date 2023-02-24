@@ -1,45 +1,67 @@
-.post {
-    margin-bottom: 25px;
-    border: none;
-    padding: 15px;
-    border-radius: 5px;
-    background-color: #f5f5f5;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
+/* Recipe container */
+.recipe-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff;
+  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  padding: 30px;
+  margin-bottom: 30px;
+}
+
+/* Recipe image */
+.recipe-image {
+  width: 100%;
+  height: auto;
+  max-width: 400px;
+  margin-right: 30px;
+  border-radius: 5px;
+}
+
+/* Recipe description */
+.recipe-description, .recipe-ingredients {
+  flex: 1;
+  max-width: 600px;
+}
+
+.recipe-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333333;
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+.recipe-instructions {
+  margin-top: 20px;
+}
+
+.recipe-instruction {
+  margin-bottom: 10px;
+  font-size: 16px;
+  line-height: 1.4;
+  color: #555555;
+}
+
+/* Media Queries for responsiveness */
+@media screen and (max-width: 768px) {
+  .recipe-container {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px;
+    max-width: 90%;
+    margin: 0 auto;
   }
-  .post:hover {
-    transform: scale(1.05);
+
+  .recipe-image {
+    margin: 0 auto;
+    max-width: 90%;
   }
-  
-  .post-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
+
+  .recipe-description, .recipe-ingredients {
+    max-width: 100%;
+    text-align: left;
   }
-  
-  .post-header h2 {
-    margin: 0;
-    color: #333;
-    font-size: 1.2em;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-  }
-  
-  .post-meta {
-    font-size: 0.8em;
-    color: #999;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-  }
-  
-  .post-body {
-    font-size: 1.1em;
-    line-height: 1.5;
-    color: #555;
-  }
-  
-  .post-likes {
-    display: flex;
-    justify-content: space-between;
-  }
+}

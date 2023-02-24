@@ -1,78 +1,102 @@
 import React, { useState, useEffect } from "react";
-import fetchData from "./TastyAPI.js";
 import "./CSS/apiComponent.css";
-import SearchAPI from "./SearchAPI";
+import { Link } from "react-router-dom";
 
-// Formatting the date we receive from the API call
-function formatDate(timestamp) {
-  const date = new Date(timestamp * 1000);
-  return date.toLocaleDateString();
-}
+const options = {
+  method: "GET",
+  headers: {
+    "X-RapidAPI-Key": "fb001be2b1msh0dad1175cc02e0dp10a90bjsn3d7b7ed2bb19",
+    "X-RapidAPI-Host": "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
+    "Content-Type": "application/json",
+  },
+};
 
-function APIComponent() {
-  const [data, setData] = useState(null);
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [setTipBody] = useState(null);
+const Recipe = (props) => {
+  const [recipe, setRecipe] = useState(null);
 
   useEffect(() => {
-    async function getData() {
-      setLoading(true);
-      try {
-        const json = await fetchData();
-        console.log(json);
-        setData(json);
-        setTipBody(json.results[0].tip_body);
-      } catch (error) {
-        setError(error);
-      }
-      setLoading(false);
-    }
-    getData();
-  });
+    const getRecipe = async () => {
+      const response = await fetch(
+        "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/random?tags=vegetarian%2Cdessert&number=1",
+        options
+      );
+      const data = await response.json();
+      setRecipe(data.recipes[0]);
+    };
 
-  if (loading) {
+    getRecipe();
+  }, []);
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      getRecipe();
+    }, 10000);
+    return () => clearInterval(intervalId);
+  }, [recipe]);
+
+  const getRecipe = async () => {
+    const response = await fetch(
+      "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/random?tags=vegetarian%2Cdessert&number=1",
+      options
+    );
+    const data = await response.json();
+    setRecipe(data.recipes[0]);
+    console.log(data.recipes[0]); // TEST
+  };
+
+  if (!recipe) {
     return <div>Loading...</div>;
-  }
-  if (error) {
-    return <div>Error: {error.message}</div>;
-  }
-  if (!data) {
-    return null;
   }
 
   return (
-    <div>
-      {data.results.map((result, index) => (
-        <div key={index} className="post">
-          <div className="post-header">
-            <div className="avatar-img">
-              <img
-                src={result.author_avatar_url}
-                alt=""
-                style={{ width: "50px", height: "50px" }}
-              />
-            </div>
-            <h2>
-              {result.author_name === "" ? "Anonymous" : result.author_name}
-            </h2>
-            <div className="post-meta">{formatDate(result.updated_at)}</div>
-          </div>
-          <div className="post-body">
-            <p>{result.tip_body}</p>
-          </div>
-          <div className="post-likes">
-            <p>Likes: {result.upvotes_total}</p>
-            <SearchAPI props={parseInt(result.recipe_id)}>
-              <a href="/">
-                <p>Recipe: {result.recipe_id}</p>
-              </a>
-            </SearchAPI>
-          </div>
+    <div className="recipe-container">
+      <h3>{recipe.title}</h3>
+      <div className="recipe-image">
+        <img className="recipe-image" src={recipe.image} alt={recipe.title} />
+      </div>
+      <div className="recipe-ingredients">
+        <h5>Ingredients</h5>
+        <hr />
+        <div className="recipe-description">
+          <ul>
+            {recipe.extendedIngredients.map((ingredient, index) => (
+              <li key={index}>
+                {ingredient.amount.toFixed(2) + " "}
+                {ingredient.measures.metric.unitLong + " "}
+                {"of "}
+                {ingredient.name}
+              </li>
+            ))}
+          </ul>
         </div>
-      ))}
+      </div>
+      <div className="recipe-description">
+        <h5>Preparation</h5>
+        <hr />
+        {recipe.analyzedInstructions[0]?.steps ? (
+          <div className="recipe-instructions">
+            {recipe.analyzedInstructions[0].steps.map((step) => (
+              <li className="recipe-instruction" key={step.number}>
+                {step.step}
+              </li>
+            ))}
+          </div>
+        ) : (
+          <p>No instructions found.</p>
+        )}
+      </div>
+      <div className="recipe-pageRedirect">
+        <button style={{ color: "white" }}>
+          <Link
+            to={`/recipe/${recipe.id}`}
+            style={{ color: "white", textDecoration: "none" }}
+          >
+            View Recipe
+          </Link>
+        </button>
+      </div>
     </div>
   );
-}
+};
 
-export default APIComponent;
+export default Recipe;

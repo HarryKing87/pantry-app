@@ -36,7 +36,7 @@ const Recipe = (props) => {
 
   const getRecipe = async () => {
     const response = await fetch(
-      "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/random?tags=vegetarian%2Cdessert&number=1",
+      "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/random",
       options
     );
     const data = await response.json();
@@ -50,50 +50,30 @@ const Recipe = (props) => {
 
   return (
     <div className="recipe-container">
-      <h3>{recipe.title}</h3>
-      <div className="recipe-image">
-        <img className="recipe-image" src={recipe.image} alt={recipe.title} />
-      </div>
-      <div className="recipe-ingredients">
-        <h5>Ingredients</h5>
-        <hr />
-        <div className="recipe-description">
-          <ul>
-            {recipe.extendedIngredients.map((ingredient, index) => (
-              <li key={index}>
-                {ingredient.amount.toFixed(2) + " "}
-                {ingredient.measures.metric.unitLong + " "}
-                {"of "}
-                {ingredient.name}
-              </li>
-            ))}
-          </ul>
+      <div className="recipe-title-image">
+        <h3>{recipe.title}</h3>
+        <div className="recipe-image">
+          <img className="recipe-image" src={recipe.image} alt={recipe.title} />
         </div>
       </div>
       <div className="recipe-description">
-        <h5>Preparation</h5>
-        <hr />
-        {recipe.analyzedInstructions[0]?.steps ? (
-          <div className="recipe-instructions">
-            {recipe.analyzedInstructions[0].steps.map((step) => (
-              <li className="recipe-instruction" key={step.number}>
-                {step.step}
-              </li>
-            ))}
-          </div>
-        ) : (
-          <p>No instructions found.</p>
-        )}
-      </div>
-      <div className="recipe-pageRedirect">
-        <button style={{ color: "white" }}>
-          <Link
-            to={`/recipe/${recipe.id}`}
-            style={{ color: "white", textDecoration: "none" }}
-          >
-            View Recipe
-          </Link>
-        </button>
+        <h4 className="recipe-description-title">Description</h4>
+        <p
+          dangerouslySetInnerHTML={{
+            __html: recipe.summary.split(" ").slice(0, 50).join(" ") + "...",
+          }}
+        ></p>
+
+        <div className="recipe-pageRedirect">
+          <button style={{ color: "white" }}>
+            <Link
+              to={`/recipe/${recipe.id}`}
+              style={{ color: "white", textDecoration: "none" }}
+            >
+              View Recipe
+            </Link>
+          </button>
+        </div>
       </div>
     </div>
   );

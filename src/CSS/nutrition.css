@@ -45,7 +45,8 @@ table {
   .generic-nutrition {
     display: flex;
     justify-content: space-evenly;
-    width: 50%;
+    width: auto;
+    max-width: 80%;
     margin: 0 auto 5% auto;
     background-color: antiquewhite;
     border-radius: 10px;

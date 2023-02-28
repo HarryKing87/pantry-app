@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import Navigation from "./Navigation";
 import "./CSS/recipeDetails.css";
 import Nutrition from "./Nutrition";
+import Loader from "./Loader";
 
 function RecipeDetails() {
   const { id } = useParams();
@@ -28,7 +29,7 @@ function RecipeDetails() {
   }, [id]);
 
   if (!recipe) {
-    return <div>Loading recipe details...</div>;
+    return <Loader />;
   }
 
   return (

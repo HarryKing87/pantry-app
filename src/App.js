@@ -13,6 +13,7 @@ import Pasta from "./Pantry/Pasta";
 import Misc from "./Pantry/Misc";
 import Register from "./Profile/Register";
 import RecipeDetails from "./RecipeDetails";
+import Loader from "./Loader";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { auth } from "./Database/firebase";
 import { onAuthStateChanged } from "firebase/auth";
@@ -20,6 +21,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
+  const [isLoading, setIsLoading] = useState(true);
   // Preventing the user from accessing the profile and dashboard page while not logged
   function useAuth() {
     const [currentUser, setCurrentUser] = useState();
@@ -30,6 +32,18 @@ function App() {
     }, []);
 
     return { currentUser };
+  }
+
+  useEffect(() => {
+    const timerId = setTimeout(() => {
+      setIsLoading(false);
+    }, 1500); // 3-second delay
+
+    return () => clearTimeout(timerId);
+  }, []);
+
+  if (isLoading) {
+    return <Loader />;
   }
 
   const AuthWrapper = () => {

@@ -53,7 +53,7 @@ const HomePage = () => {
       <div
         class="background-image"
         style={{
-          backgroundImage: `url(${process.env.PUBLIC_URL}/Images/lily-banse--YHSwy6uqvk-unsplash.avif)`,
+          backgroundImage: `url(${process.env.PUBLIC_URL}/Images/lily-banse-YHSwy6uqvk-unsplash.avif)`,
           objectFit: "cover",
         }}
       >

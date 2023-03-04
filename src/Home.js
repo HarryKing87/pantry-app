@@ -19,7 +19,7 @@ const HomePage = () => {
           <LazyLoadImage
             src={
               process.env.PUBLIC_URL +
-              "/Coding_Harry_an_iPhone_application_logo_for_an_app_that_control_a9246b4b-681d-44ae-aa52-acad015a10de.jpg"
+              "/Images/Coding_Harry_an_iPhone_application_logo_for_an_app_that_control_a9246b4b-681d-44ae-aa52-acad015a10de.webp"
             }
             alt="Logo"
             style={{ borderRadius: "10px" }}
@@ -53,7 +53,7 @@ const HomePage = () => {
       <div
         class="background-image"
         style={{
-          backgroundImage: `url(${process.env.PUBLIC_URL}/lily-banse--YHSwy6uqvk-unsplash.jpg)`,
+          backgroundImage: `url(${process.env.PUBLIC_URL}/Images/lily-banse-YHSwy6uqvk-unsplash.webp)`,
           objectFit: "cover",
         }}
       >

@@ -53,7 +53,7 @@ const HomePage = () => {
       <div
         class="background-image"
         style={{
-          backgroundImage: `url(${process.env.PUBLIC_URL}/Images/lily-banse-YHSwy6uqvk-unsplash.jpg)`,
+          backgroundImage: `url(${process.env.PUBLIC_URL}/Images/lily-banse--YHSwy6uqvk-unsplash.jpg)`,
           objectFit: "cover",
         }}
       >
@@ -76,10 +76,7 @@ const HomePage = () => {
         <div className="container-image">
           <h1>Pantry.</h1>
           <LazyLoadImage
-            src={
-              process.env.PUBLIC_URL +
-              "/Illustrations/Transparent/My project-1-4.png"
-            }
+            src={process.env.PUBLIC_URL + "/Images/My project-1-4-min.png"}
             alt=""
             effect="blur"
           />
@@ -96,10 +93,7 @@ const HomePage = () => {
         <div className="container-image2">
           <h1>Pantry.</h1>
           <LazyLoadImage
-            src={
-              process.env.PUBLIC_URL +
-              "/Illustrations/Transparent/My project-1-7.png"
-            }
+            src={process.env.PUBLIC_URL + "/Images/My project-1-7-min.png"}
             alt=""
             effect="blur"
           />
@@ -115,10 +109,7 @@ const HomePage = () => {
         <div className="container-image3">
           <h1>Pantry.</h1>
           <LazyLoadImage
-            src={
-              process.env.PUBLIC_URL +
-              "/Illustrations/Transparent/My project-1-6.png"
-            }
+            src={process.env.PUBLIC_URL + "/Images/My project-1-6-min.png"}
             alt=""
             effect="blur"
           />

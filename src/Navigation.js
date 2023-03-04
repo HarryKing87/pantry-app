@@ -13,7 +13,7 @@ export default function Navigation() {
         <img
           src={
             process.env.PUBLIC_URL +
-            "/Coding_Harry_an_iPhone_application_logo_for_an_app_that_control_a9246b4b-681d-44ae-aa52-acad015a10de.jpg"
+            "/Images/Coding_Harry_an_iPhone_application_logo_for_an_app_that_control_a9246b4b-681d-44ae-aa52-acad015a10de.avif"
           }
           alt="Logo"
           style={{ borderRadius: "10px" }}

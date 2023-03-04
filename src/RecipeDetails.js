@@ -120,7 +120,6 @@ function RecipeDetails() {
 
         <div className="similar-recipes-container">
           <Nutrition id={recipe.id} />
-          {console.log("The recipe id: " + recipe.id)}
         </div>
       </article>
     </div>

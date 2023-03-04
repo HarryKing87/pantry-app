@@ -85,7 +85,6 @@ function Nutrition(id) {
             ))}
         </tbody>
       </table>
-      {console.log(recipes)}
     </div>
   );
 }

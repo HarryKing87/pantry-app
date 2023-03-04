@@ -35,8 +35,6 @@ function Login() {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed in
-        const user = userCredential.user;
-        console.log(user);
         // Setting the email address of the user to localStorage for profile usage.
         localStorage.setItem("email", email);
         navigate("/profile");

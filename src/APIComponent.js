@@ -41,7 +41,6 @@ const Recipe = (props) => {
     );
     const data = await response.json();
     setRecipe(data.recipes[0]);
-    console.log(data.recipes[0]); // TEST
   };
 
   if (!recipe) {

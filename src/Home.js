@@ -2,6 +2,8 @@
 import { useState } from "react";
 import APIComponent from "./APIComponent";
 import "./CSS/home.css";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
 
 const HomePage = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -14,13 +16,14 @@ const HomePage = () => {
     <div className="App">
       <nav>
         <div className="logo">
-          <img
+          <LazyLoadImage
             src={
               process.env.PUBLIC_URL +
               "/Coding_Harry_an_iPhone_application_logo_for_an_app_that_control_a9246b4b-681d-44ae-aa52-acad015a10de.jpg"
             }
             alt="Logo"
             style={{ borderRadius: "10px" }}
+            effect="blur"
           />
         </div>
         <ul className={isOpen ? "menu open" : "menu"}>
@@ -72,12 +75,13 @@ const HomePage = () => {
       <div className="home-banners">
         <div className="container-image">
           <h1>Pantry.</h1>
-          <img
+          <LazyLoadImage
             src={
               process.env.PUBLIC_URL +
               "/Illustrations/Transparent/My project-1-4.png"
             }
             alt=""
+            effect="blur"
           />
 
           <h2>Fresh Ingedients</h2>
@@ -91,12 +95,13 @@ const HomePage = () => {
         </div>
         <div className="container-image2">
           <h1>Pantry.</h1>
-          <img
+          <LazyLoadImage
             src={
               process.env.PUBLIC_URL +
               "/Illustrations/Transparent/My project-1-7.png"
             }
             alt=""
+            effect="blur"
           />
           <h2>Delicious Recipes</h2>
           <p>
@@ -109,12 +114,13 @@ const HomePage = () => {
         </div>
         <div className="container-image3">
           <h1>Pantry.</h1>
-          <img
+          <LazyLoadImage
             src={
               process.env.PUBLIC_URL +
               "/Illustrations/Transparent/My project-1-6.png"
             }
             alt=""
+            effect="blur"
           />
           <h2>Organization Tips</h2>
           <p>

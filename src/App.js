@@ -12,7 +12,6 @@ import Meat from "./Pantry/Meat";
 import Pasta from "./Pantry/Pasta";
 import Misc from "./Pantry/Misc";
 import Register from "./Profile/Register";
-import RecipeDetails from "./RecipeDetails";
 import Loader from "./Loader";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { auth } from "./Database/firebase";
@@ -102,9 +101,6 @@ function App() {
         </Routes>
         <Routes>
           <Route path="/register" element={<Register />} />
-        </Routes>
-        <Routes>
-          <Route path="/recipe/:id" element={<RecipeDetails />} />
         </Routes>
       </BrowserRouter>
     </div>

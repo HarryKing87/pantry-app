@@ -1,6 +1,5 @@
 // HomePage.js
 import { useState } from "react";
-import APIComponent from "./APIComponent";
 import "./CSS/home.css";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
@@ -122,9 +121,6 @@ const HomePage = () => {
             space.
           </p>
         </div>
-      </div>
-      <div>
-        <APIComponent />
       </div>
     </div>
   );

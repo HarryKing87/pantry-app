@@ -3,29 +3,25 @@ nav {
     width: auto;
 }
 
-.quote-about {
-    margin: 20% auto;
-    width: 50%;
-}
-
-.intro-about {
-    text-align: center;
-    margin: 0 auto;
-    border-left: 0.5px solid white;
-    padding: 10px;
-}
-
-@media (max-width: 675px) {
-    .intro-about {
-        text-align: left;
-        margin-top:0;
+.about-desc {
+    max-width:90%;
+    margin: 2rem auto;
+    text-align: left;
+  }
+  h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  p {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    line-height: 1.5;
+  }
+  @media (max-width: 768px) {
+    h1 {
+      font-size: 1.5rem;
     }
-    #image-about img{
-        width: 25%;
+    p {
+      font-size: 1rem;
     }
-    #image-about {
-        text-align: left;
-        width: 80%;
-        margin: 0 auto -1rem auto;
-    }
-}
+  }

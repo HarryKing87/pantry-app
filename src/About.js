@@ -4,40 +4,50 @@ export default function About() {
   return (
     <div>
       <Navigation />
-      <div className="quote-about">
+      <div className="about-desc">
+        <h1>Welcome to Pantry.</h1>
+        <p>The ultimate destination for all your recipe needs!</p>
         <p>
-          <i>
-            "The revelation to store food may be as essential to our temporal
-            salvation today as boarding the ark was to the people in the days of
-            Noah.“
-            <br />{" "}
-            <b style={{ float: "right", margin: "1rem auto" }}>
-              - Ezra Taft Benson
-            </b>
-          </i>
+          We understand that cooking can be challenging, especially when it
+          comes to finding recipes that cater to your dietary restrictions and
+          food allergies. That's why we created Pantry, a user-friendly web
+          application that offers a wide variety of delicious and healthy
+          recipes for every taste bud.
         </p>
-      </div>
-      <div id="image-about">
-        <img
-          src="https://cdn-icons-png.flaticon.com/512/706/706195.png"
-          alt=""
-        />
-      </div>
-      <div className="intro-about" style={{ width: "80%" }}>
-        Over the last few decades, but especially during COVID-19, many of us
-        are shopping less and buying more in bulk to last us longer. “There’s
-        definitely been a decrease in the amount of time spent purchasing food,
-        meal prepping/planning and cooking meals,” said Julie Simpson, a
-        registered dietitian at Banner Health. “Our culture wants tasty meals in
-        30 minutes or less. This in turn has led to more processed and
-        pre-packaged foods in our pantry.” Pre-packaged or canned foods won’t go
-        bad as fast, but they can easily get lost and forgotten and create chaos
-        in the pantry. Besides, you only have so much space! It also means some
-        fresh foods can go to waste as well. We’ve all had an unplanned science
-        fair project in the back of our fridge. If you’re like most people,
-        cleaning and organizing your pantry (and fridge) probably isn’t at the
-        top of your to-do list right now. But there are many reasons to do so,
-        including your health and your bank account.
+        <p>
+          At Pantry, we're passionate about cooking and believe that good food
+          should never compromise on taste or nutrition. That's why we have
+          carefully curated a vast collection of recipes that cater to different
+          dietary preferences, including vegan, gluten-free, keto, and more.
+          With Pantry, you'll have access to thousands of mouth-watering
+          recipes, from quick and easy weeknight meals to elaborate gourmet
+          dishes that are perfect for special occasions.
+        </p>
+        <p>
+          One of the unique features of Pantry is our allergy and ingredient
+          filter. With just a few clicks, you can save your allergies and
+          dietary restrictions and get recipe recommendations that fit your
+          needs. Whether you're allergic to peanuts, lactose intolerant, or
+          following a low-carb diet, Pantry has got you covered. Our ingredient
+          and recipe information also provides you with a detailed breakdown of
+          nutritional information, so you can make informed choices about what
+          you eat.
+        </p>
+        <p>
+          At Pantry, we're committed to making your cooking experience as
+          hassle-free as possible. Our user-friendly interface and intuitive
+          design make it easy to search for recipes, save your favorite dishes,
+          and create meal plans for the week ahead. With our convenient shopping
+          list feature, you can also generate a shopping list based on the
+          ingredients you need for your selected recipes, making grocery
+          shopping a breeze.
+        </p>
+        <p>
+          We hope that Pantry becomes your go-to source for all your recipe
+          needs. Join our community of passionate cooks, and discover new
+          recipes that will delight your taste buds and keep you healthy and
+          happy.
+        </p>
       </div>
     </div>
   );

@@ -8,7 +8,7 @@ export default function Navigation() {
     setIsOpen(!isOpen);
   };
   return (
-    <nav className="nav-profile">
+    <nav className="nav-home">
       <div className="logo">
         <img
           src={

@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import Navigation from "../Navigation";
 import {
   getFirestore,
   collection,
@@ -86,43 +87,46 @@ function Profile() {
   }
 
   return (
-    <div className="Profile">
-      <h1>Profile</h1>
-      <form>
-        <label>
-          <input
-            type="checkbox"
-            name="peanuts"
-            checked={allergies.peanuts}
-            onChange={handleAllergyChange}
-          />
-          Peanuts
-        </label>
-        <label>
-          <input
-            type="checkbox"
-            name="dairy"
-            checked={allergies.dairy}
-            onChange={handleAllergyChange}
-          />
-          Dairy
-        </label>
-        <label>
-          <input
-            type="checkbox"
-            name="gluten"
-            checked={allergies.gluten}
-            onChange={handleAllergyChange}
-          />
-          Gluten
-        </label>
-        <button type="button" onClick={handleSave}>
-          Save Allergies
-        </button>
-        <button type="button" onClick={handleSignOut}>
-          Sign Out
-        </button>
-      </form>
+    <div className="navigation-container">
+      <Navigation />
+      <div className="Profile">
+        <h1>Profile</h1>
+        <form>
+          <label>
+            <input
+              type="checkbox"
+              name="peanuts"
+              checked={allergies.peanuts}
+              onChange={handleAllergyChange}
+            />
+            Peanuts
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              name="dairy"
+              checked={allergies.dairy}
+              onChange={handleAllergyChange}
+            />
+            Dairy
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              name="gluten"
+              checked={allergies.gluten}
+              onChange={handleAllergyChange}
+            />
+            Gluten
+          </label>
+          <button type="button" onClick={handleSave}>
+            Save Allergies
+          </button>
+          <button type="button" onClick={handleSignOut}>
+            Sign Out
+          </button>
+        </form>
+      </div>
     </div>
   );
 }

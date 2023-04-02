@@ -3,6 +3,7 @@ import { useState } from "react";
 import "./CSS/home.css";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
+import FAQ from "./FAQ";
 
 const HomePage = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -122,6 +123,7 @@ const HomePage = () => {
           </p>
         </div>
       </div>
+      <FAQ />
     </div>
   );
 };

@@ -1,36 +1,62 @@
-.container-description-dashboard {
-  margin: 2rem auto;
-  font-size: 14px;
-  display: flex;
-  width: 15rem;
-}
-
-.container-greeting-dashboard {
-  font-weight: 600;
-  width: 90%;
-  margin: 0 auto;
-}
-
-.container-dashboard-buttonNext, .container-dashboard-buttonPrevious {
-  float: right;
-  margin: 10% 1rem;
-  bottom: 0;
-  right: 0;
-  position: relative;
+.image-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
 }
 
 .image-container {
   position: relative;
-  width: 90%;
+  display: flex;
+  justify-content: space-around;
   max-width: 90%;
+  margin: 0 auto;
 }
 
-.text-overlay {
+.image-container img {
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+  margin: 5% auto;
+  border-radius: 20px;
+}
+
+.image-label {
   position: absolute;
-  top: 10px;
-  left: 10px;
-  color: white;
-  font-size: 20px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   background-color: rgba(0, 0, 0, 0.5);
-  padding: 10px;
+  color: #fff;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+  width: 300px;
+  height: 300px;
+  border-radius: 20px;
+}
+
+@media (max-width: 767px) {
+  .image-grid {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 95%;
+    width: 95%;
+    margin: 5% auto;
+  }
+  .image-label {
+    display: flex;
+    width: 250px;
+    height: 250px;
+  }
+  .image-container img {
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
+  }
+}
+
+.image-container:hover .image-label {
+  display: flex;
 }

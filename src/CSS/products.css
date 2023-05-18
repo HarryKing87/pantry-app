@@ -1,0 +1,51 @@
+.dashboard-dairy {
+    max-width: 50%;
+    margin:10% auto;
+  }
+  
+  .dairy-form {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+  }
+  
+  .form-input {
+    margin-bottom: 10px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .submit-button {
+    padding: 8px 12px;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .submit-button:hover {
+    background-color: #45a049;
+  }
+  
+
+  .product-list {
+    margin-top: 20px;
+  }
+  
+  .product-list-items {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .product-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 10px;
+  }
+  

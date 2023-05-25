@@ -1,0 +1,95 @@
+.dashboard-dairy {
+    max-width: 100%;
+  }
+  
+  .dairy-form {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    max-width: 40%;
+    margin: 0 auto;
+  }
+  
+  .form-input {
+    margin-bottom: 10px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .submit-button {
+    padding: 8px 12px;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .submit-button:hover {
+    background-color: #45a049;
+  }
+  
+
+  .product-list {
+    margin:0 auto;
+    max-width: 40%;
+  }
+  
+  .product-list-items {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .product-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px;
+    margin-bottom: 10px;
+  }
+
+  /* Product storage table */
+  .product-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .product-table th,
+  .product-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  
+  .product-table th {
+    background-color: #f0f0f0;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  
+  .product-table td button {
+    padding: 6px 12px;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .product-table td button:hover {
+    background-color: #d32f2f;
+  }
+  
+
+  @media (max-width: 767px) {
+    .dashboard-dairy {
+      max-width: 100%;
+      margin:0 auto;
+    }
+    .product-list {
+      max-width: 90%;
+      margin: 0 auto;
+    }
+  }
+  

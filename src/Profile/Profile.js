@@ -52,6 +52,7 @@ function Profile() {
     return () => {
       unsubscribe();
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [navigate]);
 
   function handleAllergyChange(event) {

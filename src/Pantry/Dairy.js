@@ -23,7 +23,6 @@ const Dairy = () => {
   const [productName, setProductName] = useState("");
   const [expiryDate, setExpiryDate] = useState("");
   const [amount, setAmount] = useState("");
-  const [dairyProducts, setDairyProducts] = useState([]);
   const [fetchedProducts, setFetchedProducts] = useState([]);
 
   useEffect(() => {
@@ -76,24 +75,101 @@ const Dairy = () => {
       amount: amount,
     };
 
+    // Checking if the product currently being inserted, already exists in the storage.
+    if (
+      fetchedProducts.some((product) => product.name === newDairyProduct.name)
+    ) {
+      alert("The product you selected already exists in your storage.");
+    } else {
+      const userRef = doc(db, "users", user.uid);
+      updateDoc(userRef, {
+        foods: [...foods, newDairyProduct], // Add new product to existing foods array
+      })
+        .then(() => {
+          fetchedProducts.map((product, index) => {
+            if (
+              fetchedProducts.some(
+                (product) => product.name === newDairyProduct.name
+              )
+            ) {
+              alert("The product you selected already exists in your storage.");
+            }
+          });
+          window.location.reload(); // TODO: Change the state of the products list, instead of reloading the page.
+        })
+        .catch((error) => {
+          console.error("Error saving dairy product:", error);
+          alert("Error saving dairy product:", error);
+        });
+    }
+  };
+
+  /*const deleteProduct = (productToBeDeleted) => {
+    // Filtering the foods already available in the user foods list and excluding that specific
+    // product willing to be deleted.
+    const updatedFoods = foods.filter(
+      (product) => product.name !== productToBeDeleted
+    );
     const userRef = doc(db, "users", user.uid);
-    updateDoc(userRef, {
-      foods: [...foods, newDairyProduct], // Add new product to existing foods array
-    })
+    updateDoc(userRef, { foods: updatedFoods })
       .then(() => {
-        setProductName("");
-        setExpiryDate("");
-        setAmount("");
-        console.log("Dairy product saved successfully!");
+        console.log("Dairy product deleted successfully!");
       })
       .catch((error) => {
-        console.error("Error saving dairy product:", error);
-        alert("Error saving dairy product:", error);
+        console.error("Error deleting dairy product:", error);
+        alert("Error deleting dairy product:", error);
       });
+  };*/
+
+  const styles = {
+    title: {
+      fontSize: "18px",
+      marginBottom: "10px",
+    },
+    noProducts: {
+      fontSize: "14px",
+      color: "#999",
+    },
+    productListItems: {
+      listStyleType: "none",
+      padding: "0",
+      margin: "0",
+    },
+    productItem: {
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+      padding: "10px",
+      borderBottom: "1px solid #ddd",
+    },
+    productName: {
+      flex: "1",
+      marginRight: "10px",
+    },
+    expiryDate: {
+      flex: "1",
+      marginRight: "10px",
+    },
+    amount: {
+      flex: "1",
+      marginRight: "10px",
+    },
+    productList: {
+      display: "flex",
+      flexWrap: "wrap",
+      gap: "20px",
+    },
+    productCard: {
+      width: "250px",
+      border: "1px solid #ccc",
+      padding: "20px",
+      borderRadius: "4px",
+    },
   };
 
   return (
     <div className="dashboard-dairy">
+      <Navigation />
       <h3>Dairy section.</h3>
       <form className="dairy-form">
         <input
@@ -127,21 +203,14 @@ const Dairy = () => {
       </form>
       <div className="dashboard-dairy"></div>
 
-      <div className="product-list">
-        <h4>Saved Dairy Products:</h4>
-        {fetchedProducts.length === 0 ? (
-          <p>No dairy products found.</p>
-        ) : (
-          <ul className="product-list-items">
-            {fetchedProducts.map((product, index) => (
-              <li key={index} className="product-item">
-                <span>{product.name}</span>
-                <span>{product.expiryDate}</span>
-                <span>{product.amount}</span>
-              </li>
-            ))}
-          </ul>
-        )}
+      <div className="product-list" style={styles.productList}>
+        {fetchedProducts.map((product, index) => (
+          <div key={index} className="product-card" style={styles.productCard}>
+            <h3>{product.name}</h3>
+            <p>Expiry Date: {product.expiryDate}</p>
+            <p>Amount: {product.amount}</p>
+          </div>
+        ))}
       </div>
     </div>
   );

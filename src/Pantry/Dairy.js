@@ -104,6 +104,24 @@ const Dairy = () => {
     }
   };
 
+  const images = [
+    "https://images.unsplash.com/photo-1628088062854-d1870b4553da?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8ZGFpcnl8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=900&q=60",
+    "https://plus.unsplash.com/premium_photo-1664647903742-52e5f954c28a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8ZGFpcnl8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=900&q=60",
+    "https://images.unsplash.com/photo-1602153508753-4ace888c10a0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8ZGFpcnl8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=900&q=60",
+    "https://images.unsplash.com/photo-1609246280917-339404083c49?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGRhaXJ5fGVufDB8fDB8fHww&auto=format&fit=crop&w=900&q=60",
+    "https://images.unsplash.com/photo-1559598467-f8b76c8155d0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fGRhaXJ5fGVufDB8fDB8fHww&auto=format&fit=crop&w=900&q=60",
+    "https://images.unsplash.com/photo-1596633605700-1efc9b49e277?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjJ8fGRhaXJ5fGVufDB8fDB8fHww&auto=format&fit=crop&w=900&q=60",
+    "https://images.unsplash.com/photo-1620189507195-68309c04c4d0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjF8fGRhaXJ5fGVufDB8fDB8fHww&auto=format&fit=crop&w=900&q=60",
+    "https://images.unsplash.com/photo-1628815870980-f416105d89b3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjZ8fGRhaXJ5fGVufDB8fDB8fHww&auto=format&fit=crop&w=900&q=60",
+    "https://images.unsplash.com/photo-1552404200-b22566b2317b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mjh8fGRhaXJ5fGVufDB8fDB8fHww&auto=format&fit=crop&w=900&q=60",
+    "https://images.unsplash.com/photo-1554522723-b2a47cb105e3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzV8fGRhaXJ5fGVufDB8fDB8fHww&auto=format&fit=crop&w=900&q=60",
+  ];
+
+  function getRandomImage() {
+    const randomIndex = Math.floor(Math.random() * images.length);
+    return images[randomIndex];
+  }
+
   /*const deleteProduct = (productToBeDeleted) => {
     // Filtering the foods already available in the user foods list and excluding that specific
     // product willing to be deleted.
@@ -159,12 +177,6 @@ const Dairy = () => {
       flexWrap: "wrap",
       gap: "20px",
     },
-    productCard: {
-      width: "250px",
-      border: "1px solid #ccc",
-      padding: "20px",
-      borderRadius: "4px",
-    },
   };
 
   return (
@@ -172,13 +184,20 @@ const Dairy = () => {
       <Navigation />
       <h3>Dairy section.</h3>
       <form className="dairy-form">
-        <input
-          type="text"
-          placeholder="Product Name"
+        <select
           value={productName}
           onChange={handleProductNameChange}
           className="form-input"
-        />
+        >
+          <option value="">Select Dairy Product</option>
+          <option value="Milk">Milk</option>
+          <option value="Cheese">Cheese</option>
+          <option value="Yogurt">Yogurt</option>
+          <option value="Butter">Butter</option>
+          <option value="Feta">Feta Cheese</option>
+          <option value="Cream">Cream</option>
+          <option value="Ice Cream">Ice Cream</option>
+        </select>
         <input
           type="date"
           placeholder="Expiry Date"
@@ -187,7 +206,7 @@ const Dairy = () => {
           className="form-input"
         />
         <input
-          type="text"
+          type="number"
           placeholder="Amount"
           value={amount}
           onChange={handleAmountChange}
@@ -201,14 +220,30 @@ const Dairy = () => {
           Submit
         </button>
       </form>
+
       <div className="dashboard-dairy"></div>
 
       <div className="product-list" style={styles.productList}>
         {fetchedProducts.map((product, index) => (
           <div key={index} className="product-card" style={styles.productCard}>
-            <h3>{product.name}</h3>
-            <p>Expiry Date: {product.expiryDate}</p>
-            <p>Amount: {product.amount}</p>
+            <div className="product-details" style={styles.productDetails}>
+              <div className="product-icon" style={styles.productIcon}>
+                <img
+                  src={getRandomImage()}
+                  alt="Food Icon"
+                  style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                />
+              </div>
+              <div className="product-info" style={styles.productInfo}>
+                <h3>{product.name}</h3>
+                <p className="expiry-date" style={styles.expiryDate}>
+                  Expiry Date: {product.expiryDate}
+                </p>
+                <p className="amount" style={styles.amount}>
+                  Amount: {product.amount}
+                </p>
+              </div>
+            </div>
           </div>
         ))}
       </div>

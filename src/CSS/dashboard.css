@@ -1,5 +1,7 @@
 .image-grid {
   display: grid;
+  width: 50%;
+  margin: 5% auto;
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
 }
@@ -42,17 +44,17 @@
   .image-grid {
     grid-template-columns: repeat(2, 1fr);
     max-width: 95%;
-    width: 95%;
+    width: 80%;
     margin: 5% auto;
   }
   .image-label {
     display: flex;
-    width: 250px;
-    height: 250px;
+    width: 150px;
+    height: 150px;
   }
   .image-container img {
-    width: 250px;
-    height: 250px;
+    width: 150px;
+    height: 150px;
     object-fit: cover;
   }
 }

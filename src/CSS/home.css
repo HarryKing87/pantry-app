@@ -198,6 +198,13 @@
       .home-buttons {
         flex-direction: column;
       }
+
+      .login-button button:nth-child(1) {
+        width: 80%;
+      }
+      .home-buttons button {
+        width: 80%;
+      }
     }
 
 .home-banners {

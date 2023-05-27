@@ -8,9 +8,7 @@
  {
    margin: 0;
    padding: 0;
-   
-   /* make it look decent enough */
-   color: white;
+  color: white;
    font-family: "Avenir Next", "Avenir", sans-serif;
  }
  
@@ -110,18 +108,11 @@
    transform: rotate(0deg) scale(0.2, 0.2);
  }
  
- /*
-  * Ohyeah and the last one should go the other direction
-  */
  #menuToggle input:checked ~ span:nth-last-child(2)
  {
    transform: rotate(-45deg) translate(0, -1px);
  }
  
- /*
-  * Make this absolute positioned
-  * at the top left of the screen
-  */
  #menu
  {
    position: absolute;

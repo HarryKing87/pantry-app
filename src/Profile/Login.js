@@ -5,30 +5,28 @@ import { useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../Database/firebase";
 import { useNavigate } from "react-router-dom";
+/* React Toastify Notifications Imports */
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  function showNotification() {
-    if (Notification.permission === "granted") {
-      // Display the notification
-      new Notification("Pantry.", {
-        body: `Welcome back, ${email}!`,
-      });
-    } else if (Notification.permission !== "denied") {
-      // Request permission from the user
-      Notification.requestPermission().then((permission) => {
-        if (permission === "granted") {
-          // Display the notification
-          new Notification("Pantry.", {
-            body: `Welcome back, ${email}!`,
-          });
-        }
-      });
-    }
-  }
+  const showToastMessageLogin = () => {
+    toast.success("Welcome back, " + email + "!", {
+      position: toast.POSITION.TOP_CENTER,
+      className: "toast-message-success-login",
+    });
+  };
+
+  const showToastMessageFailedLogin = () => {
+    toast.error("Wrong credentials", {
+      position: toast.POSITION.TOP_CENTER,
+      className: "toast-message-failed-login",
+    });
+  };
 
   const loginCustomer = (e) => {
     e.preventDefault();
@@ -37,20 +35,23 @@ function Login() {
         // Signed in
         // Setting the email address of the user to localStorage for profile usage.
         localStorage.setItem("email", email);
-        navigate("/profile");
-        showNotification();
+        showToastMessageLogin();
+        setTimeout(function () {
+          navigate("/profile");
+        }, 3000);
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorCode, errorMessage);
-        alert(errorCode);
+        showToastMessageFailedLogin();
       });
   };
 
   return (
     <div>
       <Navigation />
+      <ToastContainer />
       <div className="container-login">
         <form
           id="loginForm"

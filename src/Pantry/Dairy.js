@@ -14,6 +14,9 @@ import {
   doc,
 } from "firebase/firestore";
 import "../CSS/products.css";
+/* React Toastify Notifications Imports */
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const db = getFirestore();
 
 const Dairy = () => {
@@ -187,24 +190,11 @@ const Dairy = () => {
 
   const formattedDate = `${year}-${month}-${day}`;
 
-  function showExpirationNotification(productName) {
-    if (Notification.permission === "granted") {
-      // Display the notification
-      new Notification("Pantry.", {
-        body: `${productName} is expired!`,
-      });
-    } else if (Notification.permission !== "denied") {
-      // Request permission from the user
-      Notification.requestPermission().then((permission) => {
-        if (permission === "granted") {
-          // Display the notification
-          new Notification("Pantry.", {
-            body: `${productName} is expired!`,
-          });
-        }
-      });
-    }
-  }
+  const showToastMessage = (product) => {
+    toast.warning(product + " has expired!", {
+      position: toast.POSITION.TOP_CENTER,
+    });
+  };
 
   return (
     <div className="dashboard-dairy">
@@ -261,6 +251,7 @@ const Dairy = () => {
               className="product-card"
               style={styles.productCard}
             >
+              <ToastContainer />
               <div className="product-details" style={styles.productDetails}>
                 <div className="product-icon" style={styles.productIcon}>
                   <img
@@ -279,7 +270,8 @@ const Dairy = () => {
                     Expiry Date:{" "}
                     {isExpired ? (
                       <>
-                        {showExpirationNotification(product.name)}
+                        {/*showExpirationNotification(product.name)*/}
+                        {showToastMessage(product.name)}
                         {product.expiryDate}
                       </>
                     ) : (

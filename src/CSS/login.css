@@ -6,6 +6,11 @@ body {
   font-size: 10px;
 }
 
+/* Notification Banner style */
+.Toastify__close-button {
+  width: 50px!important;
+}
+
 .container-login {
     display: flex;
     justify-content: center;

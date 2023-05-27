@@ -179,6 +179,33 @@ const Dairy = () => {
     },
   };
 
+  // Check today's date in order to alert the user.
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = String(today.getMonth() + 1).padStart(2, "0");
+  const day = String(today.getDate()).padStart(2, "0");
+
+  const formattedDate = `${year}-${month}-${day}`;
+
+  function showExpirationNotification(productName) {
+    if (Notification.permission === "granted") {
+      // Display the notification
+      new Notification("Pantry.", {
+        body: `${productName} is expired!`,
+      });
+    } else if (Notification.permission !== "denied") {
+      // Request permission from the user
+      Notification.requestPermission().then((permission) => {
+        if (permission === "granted") {
+          // Display the notification
+          new Notification("Pantry.", {
+            body: `${productName} is expired!`,
+          });
+        }
+      });
+    }
+  }
+
   return (
     <div className="dashboard-dairy">
       <Navigation />
@@ -224,28 +251,49 @@ const Dairy = () => {
       <div className="dashboard-dairy"></div>
 
       <div className="product-list" style={styles.productList}>
-        {fetchedProducts.map((product, index) => (
-          <div key={index} className="product-card" style={styles.productCard}>
-            <div className="product-details" style={styles.productDetails}>
-              <div className="product-icon" style={styles.productIcon}>
-                <img
-                  src={getRandomImage()}
-                  alt="Food Icon"
-                  style={{ width: "100%", height: "100%", objectFit: "cover" }}
-                />
-              </div>
-              <div className="product-info" style={styles.productInfo}>
-                <h3>{product.name}</h3>
-                <p className="expiry-date" style={styles.expiryDate}>
-                  Expiry Date: {product.expiryDate}
-                </p>
-                <p className="amount" style={styles.amount}>
-                  Amount: {product.amount}
-                </p>
+        {fetchedProducts.map((product, index) => {
+          const isExpired = product.expiryDate < formattedDate;
+          //const expiredProductName = isExpired ? product.name : null;
+
+          return (
+            <div
+              key={index}
+              className="product-card"
+              style={styles.productCard}
+            >
+              <div className="product-details" style={styles.productDetails}>
+                <div className="product-icon" style={styles.productIcon}>
+                  <img
+                    src={getRandomImage()}
+                    alt="Food Icon"
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                    }}
+                  />
+                </div>
+                <div className="product-info" style={styles.productInfo}>
+                  <h3>{product.name}</h3>
+                  <p className="expiry-date" style={styles.expiryDate}>
+                    Expiry Date:{" "}
+                    {isExpired ? (
+                      <>
+                        {showExpirationNotification(product.name)}
+                        {product.expiryDate}
+                      </>
+                    ) : (
+                      product.expiryDate
+                    )}
+                  </p>
+                  <p className="amount" style={styles.amount}>
+                    Amount: {product.amount}
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );

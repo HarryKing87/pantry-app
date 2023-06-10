@@ -1,3 +1,40 @@
+# Pantry
+
+Pantry is a user-friendly web application that helps you manage your pantry items and simplify your meal planning. With Pantry, you can easily keep track of the items in your pantry, know when they expire, and plan meals based on what you already have on hand.
+
+# Features
+
+Inventory Management: Add, update, and remove pantry items with ease. Keep track of quantities, expiry dates, and categories for better organization.
+Expiration Tracking: Get timely reminders and notifications about expiring items in your pantry. Never let food go to waste again!
+Meal Planning: Plan your meals effortlessly by browsing through your pantry inventory. Discover recipes based on available ingredients and create a shopping list for missing items.
+Shopping List: Generate a shopping list automatically based on your meal plans or manually add items you need to purchase. Take your list with you to the grocery store or share it with family members.
+User Authentication: Securely create an account and log in to access your pantry from anywhere. Your data is private and only accessible to you.
+
+# Technologies Used
+
+Frontend: HTML, CSS, JavaScript
+Backend: Node.js, Express.js
+Database: MongoDB
+Authentication: JSON Web Tokens (JWT)
+Deployment: Netlify
+
+## Getting Started
+
+To get started with Pantry, visit the website and create an account. Once logged in, you can start adding items to your pantry, track their expiry dates, and plan meals accordingly. Make sure to check out the comprehensive documentation for detailed instructions.
+
+# Contributing
+
+Pantry is an open-source project, and contributions are welcome! If you have any ideas, bug reports, or feature requests, please open an issue on the GitHub repository. Pull requests are also encouraged for those who want to directly contribute code changes.
+
+# License
+
+Pantry is released under the MIT License. Feel free to use, modify, and distribute the code as per the terms of the license.
+
+
+
+----------------------------------------
+# App personal deploy instructions
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

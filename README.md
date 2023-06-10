@@ -17,7 +17,8 @@ Backend: Node.js, Express.js
 Database: MongoDB
 Authentication: JSON Web Tokens (JWT)
 Deployment: Netlify
-Getting Started
+
+## Getting Started
 
 To get started with Pantry, visit the website and create an account. Once logged in, you can start adding items to your pantry, track their expiry dates, and plan meals accordingly. Make sure to check out the comprehensive documentation for detailed instructions.
 

@@ -199,7 +199,7 @@ const Dairy = () => {
   const month = String(today.getMonth() + 1).padStart(2, "0");
   const day = String(today.getDate()).padStart(2, "0");
 
-  const formattedDate = `${year}-${month}-${day}`;
+  const formattedDate = `${day}-${month}-${year}`;
 
   const showToastMessage = (product) => {
     toast.warning(product + " has expired!", {
@@ -234,7 +234,7 @@ const Dairy = () => {
           placeholder="Expiry Date"
           value={expiryDate}
           onChange={handleExpiryDateChange}
-          dateFormat="yy/mm/dd"
+          dateFormat="dd/mm/yy"
           className="calendar"
         />
         <input

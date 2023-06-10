@@ -64,7 +64,48 @@
   background-color: #555;
 }
 
+/* Checkbox styles */
+.form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-row {
+  display: flex;
+}
+
+.form-row label {
+  margin-right: 10px;
+}
+
+.checkbox-allergies {
+  margin-right: 6px;
+}
+/* Media queries for responsiveness */
+
+@media (max-width: 768px) {
+  .form-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .form-row label {
+    margin-right: 0;
+    margin-bottom: 5px;
+  }
+}
+
+
 @media only screen and (max-width: 768px) {
+  .Profile {
+    max-width: 90%;
+  }
+
+  .form-container {
+    width: 100%;
+  }
+
   .Profile label {
     font-size: 1rem;
   }

@@ -14,6 +14,8 @@ import { signOut } from "firebase/auth";
 import { auth } from "../Database/firebase";
 import { useNavigate } from "react-router-dom";
 import "../CSS/profile.css";
+/* Checkbox styling */
+import { Checkbox } from "primereact/checkbox";
 
 const db = getFirestore();
 
@@ -92,40 +94,47 @@ function Profile() {
       <Navigation />
       <div className="Profile">
         <h1>Profile</h1>
-        <form>
-          <label>
-            <input
-              type="checkbox"
-              name="peanuts"
-              checked={allergies.peanuts}
-              onChange={handleAllergyChange}
-            />
-            Peanuts
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              name="dairy"
-              checked={allergies.dairy}
-              onChange={handleAllergyChange}
-            />
-            Dairy
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              name="gluten"
-              checked={allergies.gluten}
-              onChange={handleAllergyChange}
-            />
-            Gluten
-          </label>
-          <button type="button" onClick={handleSave}>
-            Save Allergies
-          </button>
-          <button type="button" onClick={handleSignOut}>
-            Sign Out
-          </button>
+        <form className="form-container">
+          <div className="form-row">
+            <label>
+              <Checkbox
+                inputId="peanuts"
+                name="peanuts"
+                checked={allergies.peanuts}
+                onChange={handleAllergyChange}
+                className="checkbox-allergies"
+              />
+              <span className="p-checkbox-label">Peanuts</span>
+            </label>
+            <label>
+              <Checkbox
+                inputId="dairy"
+                name="dairy"
+                checked={allergies.dairy}
+                onChange={handleAllergyChange}
+                className="checkbox-allergies"
+              />
+              <span className="p-checkbox-label">Dairy</span>
+            </label>
+            <label>
+              <Checkbox
+                inputId="gluten"
+                name="gluten"
+                checked={allergies.gluten}
+                onChange={handleAllergyChange}
+                className="checkbox-allergies"
+              />
+              <span className="p-checkbox-label">Gluten</span>
+            </label>
+          </div>
+          <div className="form-actions">
+            <button type="button" onClick={handleSave}>
+              Save Allergies
+            </button>
+            <button type="button" onClick={handleSignOut}>
+              Sign Out
+            </button>
+          </div>
         </form>
       </div>
     </div>

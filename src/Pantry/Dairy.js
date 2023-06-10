@@ -17,6 +17,17 @@ import "../CSS/products.css";
 /* React Toastify Notifications Imports */
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+/* Calendar Import */
+import { Calendar } from "primereact/calendar";
+/* Dropdown Import */
+import { Dropdown } from "primereact/dropdown";
+
+//theme
+import "primereact/resources/themes/lara-light-indigo/theme.css";
+
+//core
+import "primereact/resources/primereact.min.css";
+
 const db = getFirestore();
 
 const Dairy = () => {
@@ -74,7 +85,7 @@ const Dairy = () => {
   const saveDairyProduct = () => {
     const newDairyProduct = {
       name: productName,
-      expiryDate: expiryDate,
+      expiryDate: expiryDate.toLocaleDateString("en-GB"),
       amount: amount,
     };
 
@@ -196,31 +207,35 @@ const Dairy = () => {
     });
   };
 
+  const productOptions = [
+    { label: "Select Dairy Product", value: "" },
+    { label: "Milk", value: "Milk" },
+    { label: "Cheese", value: "Cheese" },
+    { label: "Yogurt", value: "Yogurt" },
+    { label: "Butter", value: "Butter" },
+    { label: "Feta Cheese", value: "Feta" },
+    { label: "Cream", value: "Cream" },
+    { label: "Ice Cream", value: "Ice Cream" },
+  ];
+
   return (
     <div className="dashboard-dairy">
       <Navigation />
       <h3>Dairy section.</h3>
       <form className="dairy-form">
-        <select
+        <Dropdown
           value={productName}
+          options={productOptions}
           onChange={handleProductNameChange}
-          className="form-input"
-        >
-          <option value="">Select Dairy Product</option>
-          <option value="Milk">Milk</option>
-          <option value="Cheese">Cheese</option>
-          <option value="Yogurt">Yogurt</option>
-          <option value="Butter">Butter</option>
-          <option value="Feta">Feta Cheese</option>
-          <option value="Cream">Cream</option>
-          <option value="Ice Cream">Ice Cream</option>
-        </select>
-        <input
-          type="date"
+          placeholder="Select Dairy Product"
+          className="form-input dropdown-foods"
+        />
+        <Calendar
           placeholder="Expiry Date"
           value={expiryDate}
           onChange={handleExpiryDateChange}
-          className="form-input"
+          dateFormat="yy/mm/dd"
+          className="calendar"
         />
         <input
           type="number"

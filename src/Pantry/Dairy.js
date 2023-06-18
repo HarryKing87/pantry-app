@@ -136,7 +136,7 @@ const Dairy = () => {
     return images[randomIndex];
   }
 
-  /*const deleteProduct = (productToBeDeleted) => {
+  const deleteProduct = (productToBeDeleted) => {
     // Filtering the foods already available in the user foods list and excluding that specific
     // product willing to be deleted.
     const updatedFoods = foods.filter(
@@ -146,12 +146,16 @@ const Dairy = () => {
     updateDoc(userRef, { foods: updatedFoods })
       .then(() => {
         console.log("Dairy product deleted successfully!");
+        toast.success("Product deleted successfully!", {
+          position: toast.POSITION.TOP_CENTER,
+        });
+        window.location.reload(); // TODO: Change the state of the products list, instead of reloading the page.
       })
       .catch((error) => {
         console.error("Error deleting dairy product:", error);
         alert("Error deleting dairy product:", error);
       });
-  };*/
+  };
 
   const styles = {
     title: {
@@ -265,6 +269,11 @@ const Dairy = () => {
               key={index}
               className="product-card"
               style={styles.productCard}
+              onClick={() =>
+                window.confirm("Would you like to delete this product?")
+                  ? deleteProduct(product.name)
+                  : ""
+              } // Running the code once on event handler level and not on initial rendering
             >
               <ToastContainer />
               <div className="product-details" style={styles.productDetails}>

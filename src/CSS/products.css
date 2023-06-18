@@ -61,11 +61,13 @@ select option {
 }
 
 .product-list {
-  display: flex;
-  flex-direction: column;
+  /*Showing the products in a 3x3 grid*/
+  display: grid;
+  grid-template-columns: 3;
 }
 
 .product-card {
+  /* Minimalistic overview of each product card */
   width: 250px;
   padding: 20px;
   border-radius: 16px;
@@ -73,6 +75,7 @@ select option {
   background-color: rgba(255, 255, 255, 0.09);
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.3);
+  cursor: pointer;
 }
 
 .product-card::after {

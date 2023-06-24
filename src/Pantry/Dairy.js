@@ -227,14 +227,11 @@ const Dairy = () => {
     { label: "Ice Cream", value: "Ice Cream" },
   ];
 
-  const [hoveredIndex, setHoveredIndex] = useState(null);
-  const handleMouseEnter = (index) => {
-    setHoveredIndex(index);
-  };
-
-  const handleMouseLeave = () => {
-    setHoveredIndex(null);
-  };
+  function showDeletionInfo() {
+    toast.info("You can click on the product card to delete your product.", {
+      position: toast.POSITION.TOP_RIGHT,
+    });
+  }
 
   return (
     <div className="dashboard-dairy">
@@ -293,15 +290,25 @@ const Dairy = () => {
                   : ""
               } // Running the code once on event handler level and not on initial rendering
             >
-              <div
-                className="info-icon"
-                onMouseEnter={() => handleMouseEnter(index)}
-                onMouseLeave={handleMouseLeave}
-              >
+              <div className="info-icon" onMouseOver={showDeletionInfo}>
                 <FontAwesomeIcon
                   icon={faCircleInfo}
                   style={{ float: "right", color: "#4caf50" }}
                 />
+                <ToastContainer
+                  position="top-right"
+                  autoClose={5000}
+                  hideProgressBar={false}
+                  newestOnTop={false}
+                  closeOnClick
+                  rtl={false}
+                  pauseOnFocusLoss
+                  draggable
+                  pauseOnHover
+                  theme="light"
+                />
+                {/* Same as */}
+                <ToastContainer />
               </div>
               <ToastContainer />
               <div className="product-details" style={styles.productDetails}>
@@ -316,11 +323,6 @@ const Dairy = () => {
                     }}
                   />
                 </div>
-                {hoveredIndex === index && (
-                  <div className="info-box">
-                    You can click on the product card to delete your product.
-                  </div>
-                )}
                 <div className="product-info" style={styles.productInfo}>
                   <h3>{product.name}</h3>
                   <p className="expiry-date" style={styles.expiryDate}>

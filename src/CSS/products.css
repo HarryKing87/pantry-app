@@ -46,12 +46,12 @@ select option {
 }
 
 .info-box {
-  padding: 10px;
   background-color: beige;
   font-weight: 300;
   border: 1px solid white;
   position: absolute;
-  width: 15%;
+  margin: 0 auto;
+  padding: 0;
 }
 
 

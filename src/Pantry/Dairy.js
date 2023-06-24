@@ -21,6 +21,10 @@ import "react-toastify/dist/ReactToastify.css";
 import { Calendar } from "primereact/calendar";
 /* Dropdown Import */
 import { Dropdown } from "primereact/dropdown";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import "@fortawesome/fontawesome-svg-core/styles.css";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faCoffee, faCircleInfo } from "@fortawesome/free-solid-svg-icons";
 
 //theme
 import "primereact/resources/themes/lara-light-indigo/theme.css";
@@ -38,6 +42,7 @@ const Dairy = () => {
   const [expiryDate, setExpiryDate] = useState("");
   const [amount, setAmount] = useState("");
   const [fetchedProducts, setFetchedProducts] = useState([]);
+  library.add(faCoffee, faCircleInfo);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -222,8 +227,21 @@ const Dairy = () => {
     { label: "Ice Cream", value: "Ice Cream" },
   ];
 
+  const [hoveredIndex, setHoveredIndex] = useState(null);
+  const handleMouseEnter = (index) => {
+    setHoveredIndex(index);
+  };
+
+  const handleMouseLeave = () => {
+    setHoveredIndex(null);
+  };
+
   return (
     <div className="dashboard-dairy">
+      <script
+        src="https://kit.fontawesome.com/53fcd94602.js"
+        crossorigin="anonymous"
+      ></script>
       <Navigation />
       <h3>Dairy section.</h3>
       <form className="dairy-form">
@@ -275,6 +293,16 @@ const Dairy = () => {
                   : ""
               } // Running the code once on event handler level and not on initial rendering
             >
+              <div
+                className="info-icon"
+                onMouseEnter={() => handleMouseEnter(index)}
+                onMouseLeave={handleMouseLeave}
+              >
+                <FontAwesomeIcon
+                  icon={faCircleInfo}
+                  style={{ float: "right", color: "#4caf50" }}
+                />
+              </div>
               <ToastContainer />
               <div className="product-details" style={styles.productDetails}>
                 <div className="product-icon" style={styles.productIcon}>
@@ -288,6 +316,11 @@ const Dairy = () => {
                     }}
                   />
                 </div>
+                {hoveredIndex === index && (
+                  <div className="info-box">
+                    You can click on the product card to delete your product.
+                  </div>
+                )}
                 <div className="product-info" style={styles.productInfo}>
                   <h3>{product.name}</h3>
                   <p className="expiry-date" style={styles.expiryDate}>

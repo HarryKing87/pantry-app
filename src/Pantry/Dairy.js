@@ -24,7 +24,11 @@ import { Dropdown } from "primereact/dropdown";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faCoffee, faCircleInfo } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCoffee,
+  faCircleQuestion,
+  faTrashCan,
+} from "@fortawesome/free-solid-svg-icons";
 
 //theme
 import "primereact/resources/themes/lara-light-indigo/theme.css";
@@ -42,7 +46,7 @@ const Dairy = () => {
   const [expiryDate, setExpiryDate] = useState("");
   const [amount, setAmount] = useState("");
   const [fetchedProducts, setFetchedProducts] = useState([]);
-  library.add(faCoffee, faCircleInfo);
+  library.add(faCoffee, faCircleQuestion);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -284,17 +288,34 @@ const Dairy = () => {
               key={index}
               className="product-card"
               style={styles.productCard}
-              onClick={() =>
-                window.confirm("Would you like to delete this product?")
-                  ? deleteProduct(product.name)
-                  : ""
-              } // Running the code once on event handler level and not on initial rendering
             >
-              <div className="info-icon" onMouseOver={showDeletionInfo}>
-                <FontAwesomeIcon
-                  icon={faCircleInfo}
-                  style={{ float: "right", color: "#4caf50" }}
-                />
+              <div className="info-icon">
+                <div id="utility-box">
+                  <FontAwesomeIcon
+                    icon={faCircleQuestion}
+                    style={{
+                      float: "right",
+                      color: "#1E3050",
+                      fontSize: "20px",
+                    }}
+                    className="info-icon-component"
+                    onClick={showDeletionInfo}
+                  />
+                  <FontAwesomeIcon
+                    icon={faTrashCan}
+                    style={{
+                      float: "right",
+                      color: "#1E3050",
+                      fontSize: "20px",
+                    }}
+                    className="deletion-icon-component"
+                    onClick={() =>
+                      window.confirm("Would you like to delete this product?")
+                        ? deleteProduct(product.name)
+                        : ""
+                    } // Running the code once on event handler level and not on initial rendering
+                  />
+                </div>
                 <ToastContainer
                   position="top-right"
                   autoClose={5000}

@@ -83,7 +83,6 @@ select option {
   background-color: rgba(255, 255, 255, 0.09);
   box-shadow: 0 4px 5px rgba(0, 0, 0, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.3);
-  cursor: pointer;
   transition: 0.3s ease-in-out;
 }
 
@@ -160,6 +159,30 @@ select option {
   width: 100%;
 }
 
+#utility-box {
+  display: flex;
+  float: right;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 10vh;
+}
+
+.info-icon-component, .deletion-icon-component {
+  margin: 0.5rem auto;
+  transition: 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.deletion-icon-component :hover {
+  color: rgb(213, 11, 11);
+  transition: 0.2s ease-in-out;
+}
+
+.info-icon-component :hover {
+  color: #3288D2;
+  transition: 0.2s ease-in-out;
+}
+
 @media (max-width: 767px) {
 
   .dairy-form {
@@ -179,5 +202,9 @@ select option {
 
   .info-box {
     width: 35%;
+  }
+  .deletion-icon-component :hover, .info-icon-component :hover {
+    color: #1E3050;
+    transition: none;
   }
 }

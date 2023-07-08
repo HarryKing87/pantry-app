@@ -87,7 +87,6 @@ function Profile() {
   // Function to handle user activity
   function handleUserActivity() {
     resetLogoutTimer();
-    // Add any additional code to handle user activity here
   }
 
   // Function to handle user logout

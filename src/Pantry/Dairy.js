@@ -91,39 +91,36 @@ const Dairy = () => {
     setAmount(e.target.value);
   };
 
-  const saveDairyProduct = () => {
+  const saveDairyProduct = async () => {
     const newDairyProduct = {
       name: productName,
       expiryDate: expiryDate.toLocaleDateString("en-GB"),
       amount: amount,
     };
-
-    // Checking if the product currently being inserted, already exists in the storage.
-    if (
-      fetchedProducts.some((product) => product.name === newDairyProduct.name)
-    ) {
+  
+    // Checking if the product currently being inserted already exists in the storage.
+    if (fetchedProducts.some((product) => product.name === newDairyProduct.name)) {
       alert("The product you selected already exists in your storage.");
     } else {
       const userRef = doc(db, "users", user.uid);
-      updateDoc(userRef, {
-        foods: [...foods, newDairyProduct], // Add new product to existing foods array
-      })
-        .then(() => {
-          fetchedProducts.map((product, index) => {
-            if (
-              fetchedProducts.some(
-                (product) => product.name === newDairyProduct.name
-              )
-            ) {
-              alert("The product you selected already exists in your storage.");
-            }
-          });
-          window.location.reload(); // TODO: Change the state of the products list, instead of reloading the page.
-        })
-        .catch((error) => {
-          console.error("Error saving dairy product:", error);
-          alert("Error saving dairy product:", error);
+      const updatedFoods = [...foods, newDairyProduct]; // Create a new array with the added product
+  
+      try {
+        await updateDoc(userRef, { foods: updatedFoods });
+  
+        // Update the state of the products list directly
+        setFoods(updatedFoods);
+        setFetchedProducts(updatedFoods);
+  
+        fetchedProducts.map((product, index) => {
+          if (fetchedProducts.some((product) => product.name === newDairyProduct.name)) {
+            alert("The product you selected already exists in your storage.");
+          }
         });
+      } catch (error) {
+        console.error("Error saving dairy product:", error);
+        alert("Error saving dairy product:", error);
+      }
     }
   };
 
@@ -148,17 +145,19 @@ const Dairy = () => {
   const deleteProduct = (productToBeDeleted) => {
     // Filtering the foods already available in the user foods list and excluding that specific
     // product willing to be deleted.
-    const updatedFoods = foods.filter(
-      (product) => product.name !== productToBeDeleted
-    );
+    const updatedFoods = foods.filter((product) => product.name !== productToBeDeleted);
     const userRef = doc(db, "users", user.uid);
+  
     updateDoc(userRef, { foods: updatedFoods })
       .then(() => {
         console.log("Dairy product deleted successfully!");
         toast.success("Product deleted successfully!", {
           position: toast.POSITION.TOP_CENTER,
         });
-        window.location.reload(); // TODO: Change the state of the products list, instead of reloading the page.
+  
+        // Update the state of the products list directly
+        setFoods(updatedFoods);
+        setFetchedProducts(updatedFoods);
       })
       .catch((error) => {
         console.error("Error deleting dairy product:", error);

@@ -97,23 +97,34 @@ const Dairy = () => {
       expiryDate: expiryDate.toLocaleDateString("en-GB"),
       amount: amount,
     };
-  
+
     // Checking if the product currently being inserted already exists in the storage.
-    if (fetchedProducts.some((product) => product.name === newDairyProduct.name)) {
+    if (
+      fetchedProducts.some((product) => product.name === newDairyProduct.name)
+    ) {
       alert("The product you selected already exists in your storage.");
     } else {
       const userRef = doc(db, "users", user.uid);
       const updatedFoods = [...foods, newDairyProduct]; // Create a new array with the added product
-  
+
       try {
         await updateDoc(userRef, { foods: updatedFoods });
-  
+
         // Update the state of the products list directly
         setFoods(updatedFoods);
         setFetchedProducts(updatedFoods);
-  
+
+        // Reset the dropdown inputs
+        setProductName("");
+        setExpiryDate("");
+        setAmount("");
+
         fetchedProducts.map((product, index) => {
-          if (fetchedProducts.some((product) => product.name === newDairyProduct.name)) {
+          if (
+            fetchedProducts.some(
+              (product) => product.name === newDairyProduct.name
+            )
+          ) {
             alert("The product you selected already exists in your storage.");
           }
         });
@@ -145,16 +156,18 @@ const Dairy = () => {
   const deleteProduct = (productToBeDeleted) => {
     // Filtering the foods already available in the user foods list and excluding that specific
     // product willing to be deleted.
-    const updatedFoods = foods.filter((product) => product.name !== productToBeDeleted);
+    const updatedFoods = foods.filter(
+      (product) => product.name !== productToBeDeleted
+    );
     const userRef = doc(db, "users", user.uid);
-  
+
     updateDoc(userRef, { foods: updatedFoods })
       .then(() => {
         console.log("Dairy product deleted successfully!");
         toast.success("Product deleted successfully!", {
           position: toast.POSITION.TOP_CENTER,
         });
-  
+
         // Update the state of the products list directly
         setFoods(updatedFoods);
         setFetchedProducts(updatedFoods);
@@ -251,6 +264,7 @@ const Dairy = () => {
           onChange={handleProductNameChange}
           placeholder="Select Dairy Product"
           className="form-input dropdown-foods"
+          showClear
         />
         <Calendar
           placeholder="Expiry Date"

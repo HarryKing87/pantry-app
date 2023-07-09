@@ -75,20 +75,6 @@ function Profile() {
     }
   }
 
-  // SIGN OUT FUNCTIONALITY
-  let logoutTimeout;
-
-  // Function to reset the logout timer
-  function resetLogoutTimer() {
-    clearTimeout(logoutTimeout);
-    logoutTimeout = setTimeout(handleSignOut, 3 * 60 * 60 * 1000); // 3 hours
-  }
-
-  // Function to handle user activity
-  function handleUserActivity() {
-    resetLogoutTimer();
-  }
-
   // Function to handle user logout
   function handleSignOut() {
     signOut(auth)
@@ -100,12 +86,6 @@ function Profile() {
       });
   }
 
-  // Add event listeners to reset the logout timer on user activity
-  document.addEventListener("mousemove", handleUserActivity);
-  document.addEventListener("keydown", handleUserActivity);
-
-  // Call resetLogoutTimer() initially to start the logout timer
-  resetLogoutTimer();
   if (!user) {
     return null;
   }

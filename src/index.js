@@ -3,6 +3,16 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
+import {
+  resetLogoutTimer,
+  handleUserActivity,
+} from "../src/Profile/userActivity"; // Sign out functionality after AFK
+
+// Add event listeners to reset the logout timer on user activity
+document.addEventListener("click", handleUserActivity);
+
+// Call resetLogoutTimer() initially to start the logout timer
+resetLogoutTimer();
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

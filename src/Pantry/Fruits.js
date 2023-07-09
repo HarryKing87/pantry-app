@@ -19,6 +19,8 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 /* Calendar Import */
 import { Calendar } from "primereact/calendar";
+/*Fruit Images JSON import */
+import productOptions from "../Database/FruitImages.json";
 /* Dropdown Import */
 import { Dropdown } from "primereact/dropdown";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -213,141 +215,6 @@ const Fruits = () => {
       position: toast.POSITION.TOP_CENTER,
     });
   };
-
-  const productOptions = [
-    { label: "Select Fruit Product", value: "", image: "" },
-    { label: "Apricot", value: "Apricot", image: "./Fruit-Images/apricot.jpg" },
-    { label: "Apple", value: "Apple", image: "./Fruit-Images/apple.jpg" },
-    { label: "Avocado", value: "Avocado", image: "./Fruit-Images/avocado.jpg" },
-    { label: "Banana", value: "Banana", image: "./Fruit-Images/banana.jpg" },
-    {
-      label: "Blackberry",
-      value: "Blackberry",
-      image: "./Fruit-Images/blackberry.jpg",
-    },
-    {
-      label: "Blueberry",
-      value: "Blueberry",
-      image: "./Fruit-Images/blueberry.jpg",
-    },
-    {
-      label: "Cactus Fruit",
-      value: "Cactus Fruit",
-      image: "./Fruit-Images/cactus-fruit.jpg",
-    },
-    {
-      label: "Cantaloupe",
-      value: "Cantaloupe",
-      image: "./Fruit-Images/cantaloupe.jpg",
-    },
-    { label: "Cherry", value: "Cherry", image: "./Fruit-Images/cherry.jpg" },
-    {
-      label: "Clementine",
-      value: "Clementine",
-      image: "./Fruit-Images/clementine.jpg",
-    },
-    { label: "Coconut", value: "Coconut", image: "./Fruit-Images/coconut.jpg" },
-    {
-      label: "Cranberry",
-      value: "Cranberry",
-      image: "./Fruit-Images/cranberry.jpg",
-    },
-    {
-      label: "Dragon Fruit",
-      value: "Dragon Fruit",
-      image: "./Fruit-Images/dragon-fruit.jpg",
-    },
-    { label: "Fig", value: "Fig", image: "./Fruit-Images/fig.jpg" },
-    {
-      label: "Grapefruit",
-      value: "Grapefruit",
-      image: "./Fruit-Images/grapefruit.jpg",
-    },
-    { label: "Grapes", value: "Grapes", image: "./Fruit-Images/grapes.jpg" },
-    { label: "Guava", value: "Guava", image: "./Fruit-Images/guava.jpg" },
-    {
-      label: "Jackfruit",
-      value: "Jackfruit",
-      image: "./Fruit-Images/jackfruit.jpg",
-    },
-    { label: "Kiwi", value: "Kiwi", image: "./Fruit-Images/kiwi.jpg" },
-    { label: "Lemon", value: "Lemon", image: "./Fruit-Images/lemon.jpg" },
-    { label: "Lime", value: "Lime", image: "./Fruit-Images/lime.jpg" },
-    { label: "Lychee", value: "Lychee", image: "./Fruit-Images/lychee.jpg" },
-    { label: "Mango", value: "Mango", image: "./Fruit-Images/mango.jpg" },
-    {
-      label: "Mangosteen",
-      value: "Mangosteen",
-      image: "./Fruit-Images/mangosteen.jpg",
-    },
-    {
-      label: "Mulberry",
-      value: "Mulberry",
-      image: "./Fruit-Images/mulberry.jpg",
-    },
-    {
-      label: "Nectarine",
-      value: "Nectarine",
-      image: "./Fruit-Images/nectarine.jpg",
-    },
-    { label: "Orange", value: "Orange", image: "./Fruit-Images/orange.jpg" },
-    { label: "Papaya", value: "Papaya", image: "./Fruit-Images/papaya.jpg" },
-    {
-      label: "Passion Fruit",
-      value: "Passion Fruit",
-      image: "./Fruit-Images/passion-fruit.jpg",
-    },
-    { label: "Peach", value: "Peach", image: "./Fruit-Images/peach.jpg" },
-    { label: "Pear", value: "Pear", image: "./Fruit-Images/pear.jpg" },
-    {
-      label: "Persimmon",
-      value: "Persimmon",
-      image: "./Fruit-Images/persimmon.jpg",
-    },
-    {
-      label: "Pineapple",
-      value: "Pineapple",
-      image: "./Fruit-Images/pineapple.jpg",
-    },
-    { label: "Plum", value: "Plum", image: "./Fruit-Images/plum.jpg" },
-    {
-      label: "Pomegranate",
-      value: "Pomegranate",
-      image: "./Fruit-Images/pomegranate.jpg",
-    },
-    { label: "Quince", value: "Quince", image: "./Fruit-Images/quince.jpg" },
-    {
-      label: "Rambutan",
-      value: "Rambutan",
-      image: "./Fruit-Images/rambutan.jpg",
-    },
-    {
-      label: "Raspberry",
-      value: "Raspberry",
-      image: "./Fruit-Images/raspberry.jpg",
-    },
-    { label: "Soursop", value: "Soursop", image: "./Fruit-Images/soursop.jpg" },
-    {
-      label: "Star Fruit",
-      value: "Star Fruit",
-      image: "./Fruit-Images/star-fruit.jpg",
-    },
-    {
-      label: "Strawberry",
-      value: "Strawberry",
-      image: "./Fruit-Images/strawberry.jpg",
-    },
-    {
-      label: "Tangerine",
-      value: "Tangerine",
-      image: "./Fruit-Images/tangerine.jpg",
-    },
-    {
-      label: "Watermelon",
-      value: "Watermelon",
-      image: "./Fruit-Images/watermelon.jpg",
-    },
-  ];
 
   function showRelatedImage(product) {
     const itemMapped = productOptions

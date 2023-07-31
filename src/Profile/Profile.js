@@ -16,6 +16,8 @@ import { useNavigate } from "react-router-dom";
 import "../CSS/profile.css";
 /* Checkbox styling */
 import { Checkbox } from "primereact/checkbox";
+// Shopping List Component
+import ShoppingList from "./ShoppingList";
 
 const db = getFirestore();
 
@@ -137,6 +139,9 @@ function Profile() {
             </button>
           </div>
         </form>
+      </div>
+      <div className="shoppingList-container">
+        <ShoppingList />
       </div>
     </div>
   );

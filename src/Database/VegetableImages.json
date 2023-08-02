@@ -1,0 +1,177 @@
+[
+    {
+      "label": "Select Vegetable Product",
+      "value": "",
+      "image": ""
+    },
+    {
+      "label": "Carrot",
+      "value": "Carrot",
+      "image": "./Vegetable-Images/carrot.jpg"
+    },
+    {
+      "label": "Broccoli",
+      "value": "Broccoli",
+      "image": "./Vegetable-Images/broccoli.jpg"
+    },
+    {
+      "label": "Spinach",
+      "value": "Spinach",
+      "image": "./Vegetable-Images/spinach.jpg"
+    },
+    {
+      "label": "Tomato",
+      "value": "Tomato",
+      "image": "./Vegetable-Images/tomato.jpg"
+    },
+    {
+      "label": "Bell Pepper",
+      "value": "Bell Pepper",
+      "image": "./Vegetable-Images/bell-pepper.jpg"
+    },
+    {
+      "label": "Cucumber",
+      "value": "Cucumber",
+      "image": "./Vegetable-Images/cucumber.jpg"
+    },
+    {
+      "label": "Zucchini",
+      "value": "Zucchini",
+      "image": "./Vegetable-Images/zucchini.jpg"
+    },
+    {
+      "label": "Eggplant",
+      "value": "Eggplant",
+      "image": "./Vegetable-Images/eggplant.jpg"
+    },
+    {
+      "label": "Cauliflower",
+      "value": "Cauliflower",
+      "image": "./Vegetable-Images/cauliflower.jpg"
+    },
+    {
+      "label": "Onion",
+      "value": "Onion",
+      "image": "./Vegetable-Images/onion.jpg"
+    },
+    {
+      "label": "Garlic",
+      "value": "Garlic",
+      "image": "./Vegetable-Images/garlic.jpg"
+    },
+    {
+      "label": "Potato",
+      "value": "Potato",
+      "image": "./Vegetable-Images/potato.jpg"
+    },
+    {
+      "label": "Sweet Potato",
+      "value": "Sweet Potato",
+      "image": "./Vegetable-Images/sweet-potato.jpg"
+    },
+    {
+      "label": "Cabbage",
+      "value": "Cabbage",
+      "image": "./Vegetable-Images/cabbage.jpg"
+    },
+    {
+      "label": "Lettuce",
+      "value": "Lettuce",
+      "image": "./Vegetable-Images/lettuce.jpg"
+    },
+    {
+      "label": "Mushroom",
+      "value": "Mushroom",
+      "image": "./Vegetable-Images/mushroom.jpg"
+    },
+    {
+      "label": "Peas",
+      "value": "Peas",
+      "image": "./Vegetable-Images/peas.jpg"
+    },
+    {
+      "label": "Corn",
+      "value": "Corn",
+      "image": "./Vegetable-Images/corn.jpg"
+    },
+    {
+      "label": "Green Bean",
+      "value": "Green Bean",
+      "image": "./Vegetable-Images/green-bean.jpg"
+    },
+    {
+      "label": "Asparagus",
+      "value": "Asparagus",
+      "image": "./Vegetable-Images/asparagus.jpg"
+    },
+    {
+      "label": "Brussels Sprouts",
+      "value": "Brussels Sprouts",
+      "image": "./Vegetable-Images/brussels-sprouts.jpg"
+    },
+    {
+      "label": "Celeriac",
+      "value": "Celeriac",
+      "image": "./Vegetable-Images/celeriac.jpg"
+    },
+    {
+      "label": "Radish",
+      "value": "Radish",
+      "image": "./Vegetable-Images/radish.jpg"
+    },
+    {
+      "label": "Beetroot",
+      "value": "Beetroot",
+      "image": "./Vegetable-Images/beetroot.jpg"
+    },
+    {
+      "label": "Artichoke",
+      "value": "Artichoke",
+      "image": "./Vegetable-Images/artichoke.jpg"
+    },
+    {
+      "label": "Kale",
+      "value": "Kale",
+      "image": "./Vegetable-Images/kale.jpg"
+    },
+    {
+      "label": "Swiss Chard",
+      "value": "Swiss Chard",
+      "image": "./Vegetable-Images/swiss-chard.jpg"
+    },
+    {
+      "label": "Pumpkin",
+      "value": "Pumpkin",
+      "image": "./Vegetable-Images/pumpkin.jpg"
+    },
+    {
+      "label": "Butternut Squash",
+      "value": "Butternut Squash",
+      "image": "./Vegetable-Images/butternut-squash.jpg"
+    },
+    {
+      "label": "Turnip",
+      "value": "Turnip",
+      "image": "./Vegetable-Images/turnip.jpg"
+    },
+    {
+      "label": "Rutabaga",
+      "value": "Rutabaga",
+      "image": "./Vegetable-Images/rutabaga.jpg"
+    },
+    {
+      "label": "Leek",
+      "value": "Leek",
+      "image": "./Vegetable-Images/leek.jpg"
+    },
+    {
+      "label": "Celery",
+      "value": "Celery",
+      "image": "./Vegetable-Images/celery.jpg"
+    },
+    {
+      "label": "Fennel",
+      "value": "Fennel",
+      "image": "./Vegetable-Images/fennel.jpg"
+    }
+]

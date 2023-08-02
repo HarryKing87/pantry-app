@@ -1,0 +1,87 @@
+[
+    {
+      "label": "Select Meat Product",
+      "value": "",
+      "image": ""
+    },
+    {
+      "label": "Beef",
+      "value": "Beef",
+      "image": "./Meat-Images/beef.jpg"
+    },
+    {
+      "label": "Chicken",
+      "value": "Chicken",
+      "image": "./Meat-Images/chicken.jpg"
+    },
+    {
+      "label": "Pork",
+      "value": "Pork",
+      "image": "./Meat-Images/pork.jpg"
+    },
+    {
+      "label": "Turkey",
+      "value": "Turkey",
+      "image": "./Meat-Images/turkey.jpg"
+    },
+    {
+      "label": "Lamb",
+      "value": "Lamb",
+      "image": "./Meat-Images/lamb.jpg"
+    },
+    {
+      "label": "Duck",
+      "value": "Duck",
+      "image": "./Meat-Images/duck.jpg"
+    },
+    {
+      "label": "Venison",
+      "value": "Venison",
+      "image": "./Meat-Images/venison.jpg"
+    },
+    {
+      "label": "Bacon",
+      "value": "Bacon",
+      "image": "./Meat-Images/bacon.jpg"
+    },
+    {
+      "label": "Sausage",
+      "value": "Sausage",
+      "image": "./Meat-Images/sausage.jpg"
+    },
+    {
+      "label": "Ground Beef",
+      "value": "Ground Beef",
+      "image": "./Meat-Images/ground-beef.jpg"
+    },
+    {
+      "label": "Chicken Breast",
+      "value": "Chicken Breast",
+      "image": "./Meat-Images/chicken-breast.jpg"
+    },
+    {
+      "label": "Pork Chop",
+      "value": "Pork Chop",
+      "image": "./Meat-Images/pork-chop.jpg"
+    },
+    {
+      "label": "Turkey Leg",
+      "value": "Turkey Leg",
+      "image": "./Meat-Images/turkey-leg.jpg"
+    },
+    {
+      "label": "Lamb Shank",
+      "value": "Lamb Shank",
+      "image": "./Meat-Images/lamb-shank.jpg"
+    },
+    {
+      "label": "Duck Breast",
+      "value": "Duck Breast",
+      "image": "./Meat-Images/duck-breast.jpg"
+    },
+    {
+      "label": "Ground Venison",
+      "value": "Ground Venison",
+      "image": "./Meat-Images/ground-venison.jpg"
+    }
+]

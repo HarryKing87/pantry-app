@@ -1,0 +1,82 @@
+[
+    {
+        "label": "Select Pasta Type",
+        "value": "",
+        "image": ""
+    },
+    {
+        "label": "Spaghetti",
+        "value": "Spaghetti",
+        "image": "./Pasta-Images/spaghetti.jpg"
+    },
+    {
+        "label": "Fettuccine",
+        "value": "Fettuccine",
+        "image": "./Pasta-Images/fettuccine.jpg"
+    },
+    {
+        "label": "Penne",
+        "value": "Penne",
+        "image": "./Pasta-Images/penne.jpg"
+    },
+    {
+        "label": "Linguine",
+        "value": "Linguine",
+        "image": "./Pasta-Images/linguine.jpg"
+    },
+    {
+        "label": "Rigatoni",
+        "value": "Rigatoni",
+        "image": "./Pasta-Images/rigatoni.jpg"
+    },
+    {
+        "label": "Farfalle",
+        "value": "Farfalle",
+        "image": "./Pasta-Images/farfalle.jpg"
+    },
+    {
+        "label": "Rotini",
+        "value": "Rotini",
+        "image": "./Pasta-Images/rotini.jpg"
+    },
+    {
+        "label": "Macaroni",
+        "value": "Macaroni",
+        "image": "./Pasta-Images/macaroni.jpg"
+    },
+    {
+        "label": "Orzo",
+        "value": "Orzo",
+        "image": "./Pasta-Images/orzo.jpg"
+    },
+    {
+        "label": "Cavatappi",
+        "value": "Cavatappi",
+        "image": "./Pasta-Images/cavatappi.jpg"
+    },
+    {
+        "label": "Pappardelle",
+        "value": "Pappardelle",
+        "image": "./Pasta-Images/pappardelle.jpg"
+    },
+    {
+        "label": "Tagliatelle",
+        "value": "Tagliatelle",
+        "image": "./Pasta-Images/tagliatelle.jpg"
+    },
+    {
+        "label": "Orecchiette",
+        "value": "Orecchiette",
+        "image": "./Pasta-Images/orecchiette.jpg"
+    },
+    {
+        "label": "Campanelle",
+        "value": "Campanelle",
+        "image": "./Pasta-Images/campanelle.jpg"
+    },
+    {
+        "label": "Conchiglie",
+        "value": "Conchiglie",
+        "image": "./Pasta-Images/conchiglie.jpg"
+    }
+]

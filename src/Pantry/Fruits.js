@@ -59,7 +59,14 @@ const Fruits = () => {
         getDocs(q)
           .then((querySnapshot) => {
             if (querySnapshot.empty) {
-              setDoc(userRef, { id: user.uid, foods: [], fruits: [] }); // Create initial document with empty foods array
+              setDoc(userRef, {
+                id: user.uid,
+                foods: [],
+                fruits: [],
+                meat: [],
+                vegetables: [],
+                pasta: [],
+              }); // Create initial document with empty foods array
             } else {
               const data = querySnapshot.docs[0].data();
               setFruits(data.fruits || []);

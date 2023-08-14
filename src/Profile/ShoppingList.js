@@ -12,18 +12,6 @@ export default function ShoppingList() {
     document.querySelector(".inputElement").value = ""; // Emptying the input element after adding the item
   }
 
-  setInterval(() => {
-    document
-      .querySelector(".inputElement")
-      .addEventListener("keypress", function (event) {
-        let inputValue = document.querySelector(".inputElement").value;
-        if (event.key === "Enter") {
-          setItem([...statedItem, inputValue]);
-          localStorage.setItem("List item: ", inputValue);
-        }
-      });
-  }, 1000); // Waiting for elements to load...
-
   function deleteItem(index) {
     let updatedItemState = [...statedItem];
     updatedItemState.splice(index, 1);

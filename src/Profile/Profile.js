@@ -14,12 +14,16 @@ import { signOut } from "firebase/auth";
 import { auth } from "../Database/firebase";
 import { useNavigate } from "react-router-dom";
 import "../CSS/profile.css";
+import "../CSS/profile-modal.css";
 /* Checkbox styling */
 import { Checkbox } from "primereact/checkbox";
 // Shopping List Component
 import ShoppingList from "./ShoppingList";
 // Icon set for profile pic
 import { Avatar } from "primereact/avatar";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import "@fortawesome/fontawesome-svg-core/styles.css";
+import { faGears } from "@fortawesome/free-solid-svg-icons";
 
 const db = getFirestore();
 
@@ -32,6 +36,8 @@ function Profile() {
     gluten: false,
   });
   const [profileMenuTab, setProfileMenuTab] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -95,8 +101,18 @@ function Profile() {
     return null;
   }
 
-  // get user email from localStorage to show on Avatar
-  const userMail = localStorage.getItem("email").charAt(0).toUpperCase();
+  // get user image from PC to show on Avatar
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setSelectedImage(e.target.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   // Menu tabs for profile
   const menuTabs = [
@@ -129,14 +145,29 @@ function Profile() {
     }
   }
 
+  /* Edit Profile modal */
+  function editProfile() {
+    setIsModalOpen(true);
+  }
+
+  function closeModal() {
+    setIsModalOpen(false);
+  }
+
   return (
     <div className="navigation-container">
       <Navigation />
       <div className="Profile">
-        <h1>Profile</h1>
-        <div id="profile-img">
-          <Avatar label={userMail} size="xlarge" shape="circle" />
+        <div style={{ float: "right", fontSize: "20px" }}>
+          <FontAwesomeIcon icon={faGears} onClick={editProfile} />
         </div>
+        <div id="profile-img">
+          <Avatar image={selectedImage} size="xlarge" shape="circle" />
+          <p style={{ marginLeft: "7px", fontSize: "20px" }}>
+            Charalampos Kynigopoulos
+          </p>
+        </div>
+
         <form className="form-container">
           <div className="form-row">
             <label>
@@ -198,6 +229,18 @@ function Profile() {
       <div className="shoppingList-container transition-fade transition-fade-enter">
         {profileMenuTab}
       </div>
+
+      {isModalOpen && (
+        <div className="modal-overlay">
+          <div className="modal">
+            <span className="modal-close" onClick={closeModal}>
+              &times;
+            </span>
+            <h2>Edit Profile</h2>
+            <input type="file" accept="image/*" onChange={handleImageChange} />
+          </div>
+        </div>
+      )}
     </div>
   );
 }

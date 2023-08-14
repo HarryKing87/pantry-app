@@ -86,6 +86,53 @@
 .checkbox-allergies {
   margin-right: 6px;
 }
+
+#menu-profile-tab {
+  background: #6366F1;
+  max-width: 25%;
+  padding: 20px;
+  margin: 0 auto 5% auto;
+  border-radius: 10px;
+  /* Show items in a nice order */
+  display: flex;
+  justify-content: space-between;
+}
+
+
+#menu-tab-item {
+  text-decoration: none;
+  color: white;
+  width: 200px;
+}
+
+/* Transition Effect for each tab component */
+.transition-fade-enter {
+  opacity: 0;
+  transform: translateY(-20px);
+}
+
+.transition-fade-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 300ms, transform 300ms;
+}
+
+.transition-fade {
+  position: relative;
+}
+
+.transition-fade > * {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+}
+
+.currentTab {
+  background-color: white;
+  color: black;
+}
+
 /* Media queries for responsiveness */
 
 @media (max-width: 768px) {
@@ -97,6 +144,9 @@
   .form-row label {
     margin-right: 0;
     margin-bottom: 5px;
+  }
+  #menu-profile-tab {
+  max-width: 50%;
   }
 }
 

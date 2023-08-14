@@ -31,6 +31,7 @@ function Profile() {
     dairy: false,
     gluten: false,
   });
+  const [profileMenuTab, setProfileMenuTab] = useState(false);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -97,6 +98,37 @@ function Profile() {
   // get user email from localStorage to show on Avatar
   const userMail = localStorage.getItem("email").charAt(0).toUpperCase();
 
+  // Menu tabs for profile
+  const menuTabs = [
+    {
+      name: "Shopping List",
+      component: <ShoppingList />,
+    },
+    {
+      name: "Test 1",
+      component: "No page found",
+    },
+    {
+      name: "Test 2",
+      component: "No page found",
+    },
+  ];
+
+  function changeProfileTab(index) {
+    if (menuTabs[index]) {
+      setProfileMenuTab(null); // Clear the content first
+      setTimeout(() => {
+        setProfileMenuTab(menuTabs[index].component);
+        document
+          .querySelector(".shoppingList-container")
+          .classList.remove("transition-fade-enter");
+        document
+          .querySelector(".shoppingList-container")
+          .classList.add("transition-fade-enter-active");
+      }, 1000); // A small delay to ensure the clearing effect takes place
+    }
+  }
+
   return (
     <div className="navigation-container">
       <Navigation />
@@ -148,8 +180,23 @@ function Profile() {
           </div>
         </form>
       </div>
-      <div className="shoppingList-container">
-        <ShoppingList />
+
+      <div id="menu-profile-tab">
+        {menuTabs.map((tab, index) => (
+          <p
+            key={index}
+            id="menu-tab-item"
+            onClick={() => {
+              changeProfileTab(index);
+            }}
+          >
+            {tab.name}
+          </p>
+        ))}
+      </div>
+
+      <div className="shoppingList-container transition-fade transition-fade-enter">
+        {profileMenuTab}
       </div>
     </div>
   );

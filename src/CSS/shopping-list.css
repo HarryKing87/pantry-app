@@ -25,10 +25,15 @@ margin: 0; /* Resetting the values */
     display: flex;
 }
 
+.buttonSubmit {
+    background-color: #6366F1;
+}
+
 .buttonDelete {
     width:auto;
     font-size: 0.6rem;
-    margin-left: 1rem
+    margin-left: 1rem;
+    background-color: #6366F1;
 }
 
 .unordered-list-cont li{

@@ -18,6 +18,8 @@ import "../CSS/profile.css";
 import { Checkbox } from "primereact/checkbox";
 // Shopping List Component
 import ShoppingList from "./ShoppingList";
+// Icon set for profile pic
+import { Avatar } from "primereact/avatar";
 
 const db = getFirestore();
 
@@ -92,11 +94,17 @@ function Profile() {
     return null;
   }
 
+  // get user email from localStorage to show on Avatar
+  const userMail = localStorage.getItem("email").charAt(0).toUpperCase();
+
   return (
     <div className="navigation-container">
       <Navigation />
       <div className="Profile">
         <h1>Profile</h1>
+        <div id="profile-img">
+          <Avatar label={userMail} size="xlarge" shape="circle" />
+        </div>
         <form className="form-container">
           <div className="form-row">
             <label>

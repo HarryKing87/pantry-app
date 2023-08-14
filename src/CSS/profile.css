@@ -7,6 +7,10 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
+#profile-img {
+  margin: 1.23rem 0;
+}
+
 .nav-profile {
   display: flex;
   justify-content: space-between;

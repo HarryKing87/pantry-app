@@ -3,20 +3,37 @@ padding: 0;
 margin: 0; /* Resetting the values */
 }
 
+.shopping-list-toolbar {
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+    margin: 5% auto;
+}
+
+.inputElement {
+    border: 2px solid rgb(142, 0, 230);
+}
+
 .list-item {
     max-width: 50%;
     margin: 9px auto;
     list-style-type: none;
-    padding: 10px;
+    padding: 15px;
     font-size: 18px;
+    border-radius: 10px;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     display: flex;
+}
+
+.buttonSubmit {
+    background-color: #6366F1;
 }
 
 .buttonDelete {
     width:auto;
     font-size: 0.6rem;
-    margin-left: 1rem
+    margin-left: 1rem;
+    background-color: #6366F1;
 }
 
 .unordered-list-cont li{
@@ -30,8 +47,5 @@ margin: 0; /* Resetting the values */
         flex-direction: column;
         width: 40%;
         margin: 5% auto;
-    }
-    .inputElement {
-        border: 2px solid rgb(142, 0, 230);
     }
 }

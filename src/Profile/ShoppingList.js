@@ -6,10 +6,23 @@ export default function ShoppingList() {
   const [statedItem, setItem] = useState([]);
 
   function addItem() {
-    let input = document.querySelector(".inputElement").value;
-    setItem([...statedItem, input]);
+    let inputValue = document.querySelector(".inputElement").value;
+    setItem([...statedItem, inputValue]);
+    localStorage.setItem("List item: ", inputValue);
     document.querySelector(".inputElement").value = ""; // Emptying the input element after adding the item
   }
+
+  setInterval(() => {
+    document
+      .querySelector(".inputElement")
+      .addEventListener("keypress", function (event) {
+        let inputValue = document.querySelector(".inputElement").value;
+        if (event.key === "Enter") {
+          setItem([...statedItem, inputValue]);
+          localStorage.setItem("List item: ", inputValue);
+        }
+      });
+  }, 1000); // Waiting for elements to load...
 
   function deleteItem(index) {
     let updatedItemState = [...statedItem];

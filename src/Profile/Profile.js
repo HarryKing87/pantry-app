@@ -168,9 +168,12 @@ function Profile() {
         </div>
         <div id="profile-img">
           <Avatar image={selectedImage} size="xlarge" shape="circle" />
-          <p style={{ marginLeft: "7px", fontSize: "20px" }}>
-            {firstname} {lastname}
-          </p>
+          <div className="user-info">
+            <p style={{ marginLeft: "7px", fontSize: "20px" }}>
+              {firstname} {lastname}
+            </p>
+            <i style={{ marginLeft: "7px", fontSize: "14px" }}>@{username}</i>
+          </div>
         </div>
 
         <form className="form-container">

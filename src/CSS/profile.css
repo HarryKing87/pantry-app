@@ -13,6 +13,12 @@
   align-items: center;
 }
 
+.user-info {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
 .nav-profile {
   display: flex;
   justify-content: space-between;

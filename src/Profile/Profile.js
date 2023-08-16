@@ -24,6 +24,7 @@ import { Avatar } from "primereact/avatar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { faGears } from "@fortawesome/free-solid-svg-icons";
+import EditProfile from "./EditProfile";
 
 const db = getFirestore();
 
@@ -35,6 +36,10 @@ function Profile() {
     dairy: false,
     gluten: false,
   });
+  const [firstname, setFirstName] = useState("");
+  const [lastname, setLastName] = useState("");
+  const [mail, setMail] = useState("");
+  const [username, setUsername] = useState("");
   const [profileMenuTab, setProfileMenuTab] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -48,10 +53,23 @@ function Profile() {
         getDocs(q)
           .then((querySnapshot) => {
             if (querySnapshot.empty) {
-              setDoc(userRef, { id: user.uid, allergies });
+              setDoc(userRef, {
+                id: user.uid,
+                allergies,
+                firstname,
+                lastname,
+                mail,
+                username,
+                selectedImage,
+              });
             } else {
               const data = querySnapshot.docs[0].data();
               setAllergies(data.allergies);
+              setFirstName(data.firstname);
+              setLastName(data.lastname);
+              setMail(data.mail);
+              setUsername(data.username);
+              setSelectedImage(data.userImage);
             }
           })
           .catch((error) => {
@@ -100,19 +118,6 @@ function Profile() {
   if (!user) {
     return null;
   }
-
-  // get user image from PC to show on Avatar
-  const handleImageChange = (event) => {
-    const file = event.target.files[0];
-
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        setSelectedImage(e.target.result);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
 
   // Menu tabs for profile
   const menuTabs = [
@@ -164,7 +169,7 @@ function Profile() {
         <div id="profile-img">
           <Avatar image={selectedImage} size="xlarge" shape="circle" />
           <p style={{ marginLeft: "7px", fontSize: "20px" }}>
-            Charalampos Kynigopoulos
+            {firstname} {lastname}
           </p>
         </div>
 
@@ -237,7 +242,9 @@ function Profile() {
               &times;
             </span>
             <h2>Edit Profile</h2>
-            <input type="file" accept="image/*" onChange={handleImageChange} />
+            <div className="edit-profile">
+              <EditProfile />
+            </div>
           </div>
         </div>
       )}

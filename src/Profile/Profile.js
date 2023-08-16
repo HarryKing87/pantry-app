@@ -172,7 +172,9 @@ function Profile() {
             <p style={{ marginLeft: "7px", fontSize: "20px" }}>
               {firstname} {lastname}
             </p>
-            <i style={{ marginLeft: "7px", fontSize: "14px" }}>@{username}</i>
+            <i style={{ marginLeft: "7px", fontSize: "14px" }}>
+              {username ? "@" + username : ""}
+            </i>
           </div>
         </div>
 

@@ -8,6 +8,7 @@ import { auth } from "../Database/firebase";
 function Register() {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const registerCustomer = async (e) => {
     e.preventDefault();
@@ -22,6 +23,16 @@ function Register() {
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
+        if (errorMessage.includes("already")) {
+          setErrorMessage("Email is already in-use.");
+        } else if (errorMessage.includes("characters")) {
+          setErrorMessage("Password must contain at least 6 characters.");
+        }
+        if (errorMessage.includes("email")) {
+          setErrorMessage(
+            "The email you've entered is either already in-use or invalid."
+          );
+        }
         console.log(errorCode, errorMessage);
         // ..
       });
@@ -51,7 +62,9 @@ function Register() {
             value={password}
             onChange={(event) => setPassword(event.target.value)}
           />
-          <i className="passwordFeedback"></i>
+          <i className="passwordFeedback" style={{ color: "red" }}>
+            {errorMessage}
+          </i>
           <button id="loginButton" type="submit">
             Register
           </button>

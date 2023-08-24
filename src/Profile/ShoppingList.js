@@ -36,7 +36,7 @@ export default function ShoppingList() {
         </ul>
       </div>
       <div className="shopping-list-toolbar">
-        <input type="text" className="inputElement" />
+        <input type="text" className="inputElement" placeholder="New item..." />
         <button className="buttonSubmit" onClick={addItem}>
           Add
         </button>

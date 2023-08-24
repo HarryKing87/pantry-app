@@ -13,6 +13,13 @@ function Register() {
   const registerCustomer = async (e) => {
     e.preventDefault();
 
+    const errorMap = {
+      "auth/email-already-in-use": "Email is already in-use.",
+      "auth/weak-password": "Password must contain at least 6 characters.",
+      "auth/invalid-email":
+        "The email you've entered is either already in-use or invalid.",
+    };
+
     await createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed in
@@ -23,16 +30,12 @@ function Register() {
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        if (errorMessage.includes("already")) {
-          setErrorMessage("Email is already in-use.");
-        } else if (errorMessage.includes("characters")) {
-          setErrorMessage("Password must contain at least 6 characters.");
-        }
-        if (errorMessage.includes("email")) {
-          setErrorMessage(
-            "The email you've entered is either already in-use or invalid."
-          );
-        }
+
+        const userFriendlyErrorMessage =
+          errorMap[errorCode] || "An error occurred. Please try again.";
+
+        setErrorMessage(userFriendlyErrorMessage);
+
         console.log(errorCode, errorMessage);
         // ..
       });

@@ -1,0 +1,41 @@
+/* dashboard.css */
+.free-user-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+  }
+  
+  .free-user-content {
+    text-align: center;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .free-user-title {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .free-user-text {
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+  
+  .free-user-link {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .free-user-link:hover {
+    background-color: #0056b3;
+  }
+  

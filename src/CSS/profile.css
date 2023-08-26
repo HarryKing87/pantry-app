@@ -102,7 +102,7 @@
   border-radius: 10px;
   /* Show items in a nice order */
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
 }
 
 

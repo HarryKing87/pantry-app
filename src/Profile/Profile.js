@@ -125,14 +125,6 @@ function Profile() {
       name: "Shopping List",
       component: <ShoppingList />,
     },
-    {
-      name: "Test 1",
-      component: "No page found",
-    },
-    {
-      name: "Test 2",
-      component: "No page found",
-    },
   ];
 
   function changeProfileTab(index) {

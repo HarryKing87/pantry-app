@@ -3,7 +3,7 @@ import React from "react";
 const SubscriptionService = () => {
   const handleCheckout = async () => {
     try {
-      const response = await fetch("/.netlify/functions/server", {
+      const response = await fetch("/netlify/functions/server", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

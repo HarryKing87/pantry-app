@@ -25,6 +25,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { faGears } from "@fortawesome/free-solid-svg-icons";
 import EditProfile from "./EditProfile";
+import SubscriptionService from "../Subscriptions/SubscriptionService";
 
 const db = getFirestore();
 
@@ -239,6 +240,8 @@ function Profile() {
       <div className="shoppingList-container transition-fade transition-fade-enter">
         {profileMenuTab}
       </div>
+
+      <SubscriptionService />
 
       {isModalOpen && (
         <div className="modal-overlay">

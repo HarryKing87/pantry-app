@@ -4,8 +4,6 @@ const stripe = require("stripe")(
 
 exports.handler = async (event, context) => {
   try {
-    const body = JSON.parse(event.body);
-
     const session = await stripe.checkout.sessions.create({
       success_url: "http://localhost:3000",
       cancel_url: "http://localhost:3000/profile",

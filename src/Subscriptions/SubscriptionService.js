@@ -4,7 +4,7 @@ const SubscriptionService = () => {
   const handleCheckout = async () => {
     try {
       const response = await fetch(
-        "http://itspantry.app:9999/create-checkout-session",
+        "http://itspantry.netlify.app:9999/create-checkout-session",
         {
           method: "POST",
           headers: {

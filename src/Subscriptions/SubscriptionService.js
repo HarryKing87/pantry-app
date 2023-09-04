@@ -4,7 +4,7 @@ const SubscriptionService = () => {
   const handleCheckout = async () => {
     try {
       const response = await fetch(
-        "http://localhost:3001/create-checkout-session",
+        "http://localhost:9999/create-checkout-session",
         {
           method: "POST",
           headers: {

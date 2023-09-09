@@ -26,6 +26,9 @@ import "@fortawesome/fontawesome-svg-core/styles.css";
 import { faGears } from "@fortawesome/free-solid-svg-icons";
 import EditProfile from "./EditProfile";
 import SubscriptionService from "../Subscriptions/SubscriptionService";
+// Prime icon for verified user
+import { PrimeIcons } from "primereact/api";
+import "primeicons/primeicons.css";
 
 const db = getFirestore();
 
@@ -163,6 +166,15 @@ function Profile() {
     setIsModalOpen(false);
   }
 
+  // Verified badge
+  const verified = (
+    <i
+      className="pi pi-verified"
+      style={{ fontSize: "1rem", color: "#6366F1" }}
+      title="Premium User"
+    ></i>
+  );
+
   return (
     <div className="navigation-container">
       <Navigation />
@@ -174,7 +186,7 @@ function Profile() {
           <Avatar image={selectedImage} size="xlarge" shape="circle" />
           <div className="user-info">
             <p style={{ marginLeft: "7px", fontSize: "20px" }}>
-              {firstname} {lastname} {isUserPremium ? "(Premium)" : ""}
+              {firstname} {lastname} {isUserPremium ? verified : ""}
             </p>
             <i style={{ marginLeft: "7px", fontSize: "14px" }}>
               {username ? "@" + username : ""}

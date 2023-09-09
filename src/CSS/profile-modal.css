@@ -30,5 +30,15 @@
 
   .edit-profile {
     max-width: 50%;
-    margin: 5% auto 0 auto;
+    margin: 5% auto;
+  }
+
+  @media (max-width: 768px) {
+    .edit-profile {
+      max-width: 100%;
+    }
+
+    form {
+      width: 100%;
+    }
   }

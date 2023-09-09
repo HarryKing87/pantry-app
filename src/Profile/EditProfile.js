@@ -133,7 +133,7 @@ function EditProfile() {
         pauseOnHover
         theme="light"
       />
-      <form>
+      <form className="edit-profile-container">
         <label>Profile Image</label>
         <input type="file" accept="image/*" onChange={handleImageChange} />
 

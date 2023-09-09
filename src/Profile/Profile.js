@@ -44,6 +44,7 @@ function Profile() {
   const [profileMenuTab, setProfileMenuTab] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isUserPremium, setIsUserPremium] = useState("");
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -62,6 +63,7 @@ function Profile() {
                 mail,
                 username,
                 selectedImage,
+                isUserPremium,
               });
             } else {
               const data = querySnapshot.docs[0].data();
@@ -71,6 +73,7 @@ function Profile() {
               setMail(data.mail);
               setUsername(data.username);
               setSelectedImage(data.userImage);
+              setIsUserPremium(data.isUserPremium);
             }
           })
           .catch((error) => {
@@ -171,7 +174,7 @@ function Profile() {
           <Avatar image={selectedImage} size="xlarge" shape="circle" />
           <div className="user-info">
             <p style={{ marginLeft: "7px", fontSize: "20px" }}>
-              {firstname} {lastname}
+              {firstname} {lastname} {isUserPremium ? "(Premium)" : ""}
             </p>
             <i style={{ marginLeft: "7px", fontSize: "14px" }}>
               {username ? "@" + username : ""}

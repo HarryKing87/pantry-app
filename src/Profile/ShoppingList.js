@@ -20,6 +20,13 @@ export default function ShoppingList() {
 
   return (
     <div>
+      <div className="shopping-list-toolbar">
+        <input type="text" className="inputElement" placeholder="New item..." />
+        <button className="buttonSubmit" onClick={addItem}>
+          Add
+        </button>
+      </div>
+
       <div className="list-container">
         <ul className="unordered-list-cont">
           {statedItem.map((items, index) => (
@@ -34,12 +41,6 @@ export default function ShoppingList() {
             </li>
           ))}
         </ul>
-      </div>
-      <div className="shopping-list-toolbar">
-        <input type="text" className="inputElement" placeholder="New item..." />
-        <button className="buttonSubmit" onClick={addItem}>
-          Add
-        </button>
       </div>
     </div>
   );

@@ -53,6 +53,10 @@ function EditProfile() {
                 username: username || data.username,
                 userImage: imageUrl || data.imageUrl,
               });
+              setFirstName(data.firstname);
+              setLastName(data.lastname);
+              setEmail(data.mail);
+              setUsername(data.username);
               toast.success("Profile updated successfully!", {
                 position: toast.POSITION.TOP_RIGHT,
               });
@@ -81,10 +85,6 @@ function EditProfile() {
       if (dataToUpdate.userImage) {
         await updateDoc(userRef, { userImage: dataToUpdate.userImage });
       }
-
-      toast.success("Profile updated successfully!", {
-        position: toast.POSITION.TOP_RIGHT,
-      });
     } catch (error) {
       console.error("Error updating user data:", error);
     }
@@ -99,9 +99,6 @@ function EditProfile() {
         mail: email,
         username: username,
         userImage: imageUrl,
-      });
-      toast.success("Profile updated successfully!", {
-        position: toast.POSITION.TOP_RIGHT,
       });
     }
   };
@@ -121,18 +118,6 @@ function EditProfile() {
 
   return (
     <div>
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-      />
       <form className="edit-profile-container">
         <label>Profile Image</label>
         <input type="file" accept="image/*" onChange={handleImageChange} />
@@ -169,7 +154,11 @@ function EditProfile() {
           onChange={(e) => setUsername(e.target.value)}
         />
       </form>
-      <button type="button" onClick={handleProfileSave}>
+      <button
+        type="button"
+        style={{ background: "#6366F1" }}
+        onClick={handleProfileSave}
+      >
         Save
       </button>
     </div>

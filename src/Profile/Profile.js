@@ -27,8 +27,9 @@ import { faGears } from "@fortawesome/free-solid-svg-icons";
 import EditProfile from "./EditProfile";
 import SubscriptionService from "../Subscriptions/SubscriptionService";
 // Prime icon for verified user
-import { PrimeIcons } from "primereact/api";
 import "primeicons/primeicons.css";
+import { Sidebar } from "primereact/sidebar";
+import { Button } from "primereact/button";
 
 const db = getFirestore();
 
@@ -44,10 +45,14 @@ function Profile() {
   const [lastname, setLastName] = useState("");
   const [mail, setMail] = useState("");
   const [username, setUsername] = useState("");
-  const [profileMenuTab, setProfileMenuTab] = useState(false);
+  const [profileMenuTab] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isUserPremium, setIsUserPremium] = useState("");
+  // Prime React Component for slider menu
+  const [visible, setVisible] = useState(false);
+  const [shoppingListVisible, setShoppingListVisible] = useState(false);
+  const [settingsVisible, setSettingsVisible] = useState(false);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -126,42 +131,6 @@ function Profile() {
     return null;
   }
 
-  // Menu tabs for profile
-  const menuTabs = [
-    {
-      name: "Shopping List",
-      component: <ShoppingList />,
-    },
-    {
-      name: "Test 1",
-      component: "No page found",
-    },
-    {
-      name: "Test 2",
-      component: "No page found",
-    },
-  ];
-
-  function changeProfileTab(index) {
-    if (menuTabs[index]) {
-      setProfileMenuTab(null); // Clear the content first
-      setTimeout(() => {
-        setProfileMenuTab(menuTabs[index].component);
-        document
-          .querySelector(".shoppingList-container")
-          .classList.remove("transition-fade-enter");
-        document
-          .querySelector(".shoppingList-container")
-          .classList.add("transition-fade-enter-active");
-      }, 1000); // A small delay to ensure the clearing effect takes place
-    }
-  }
-
-  /* Edit Profile modal */
-  function editProfile() {
-    setIsModalOpen(true);
-  }
-
   function closeModal() {
     setIsModalOpen(false);
   }
@@ -178,9 +147,23 @@ function Profile() {
   return (
     <div className="navigation-container">
       <Navigation />
+      <h3
+        style={{ textAlign: "left", maxWidth: "50%", margin: "5% auto 0 auto" }}
+      >
+        Information.
+      </h3>
       <div className="Profile">
         <div style={{ float: "right", fontSize: "20px" }}>
-          <FontAwesomeIcon icon={faGears} onClick={editProfile} />
+          <Sidebar
+            visible={settingsVisible}
+            onHide={() => setSettingsVisible(false)}
+          >
+            <EditProfile />
+          </Sidebar>
+          <FontAwesomeIcon
+            icon={faGears}
+            onClick={() => setSettingsVisible(true)}
+          />
         </div>
         <div id="profile-img">
           <Avatar image={selectedImage} size="xlarge" shape="circle" />
@@ -238,25 +221,39 @@ function Profile() {
         </form>
       </div>
 
-      <div id="menu-profile-tab">
-        {menuTabs.map((tab, index) => (
-          <p
-            key={index}
-            id="menu-tab-item"
-            onClick={() => {
-              changeProfileTab(index);
-            }}
+      <h3 style={{ textAlign: "left", maxWidth: "50%", margin: "0 auto" }}>
+        Utilities.
+      </h3>
+      <div className="Profile">
+        <div className="shoppingList">
+          <h3>Shopping List</h3>
+          <Sidebar
+            visible={shoppingListVisible}
+            onHide={() => setShoppingListVisible(false)}
           >
-            {tab.name}
-          </p>
-        ))}
+            <h2>Shopping List</h2>
+            <ShoppingList />
+          </Sidebar>
+          <Button
+            icon="pi pi-arrow-right"
+            onClick={() => setShoppingListVisible(true)}
+          />
+        </div>
+        <hr />
+        <div className="manageSubscription">
+          <h3>Manage Subscription</h3>
+          <Sidebar visible={visible} onHide={() => setVisible(false)}>
+            <h2>Manage Subscription</h2>
+            <SubscriptionService />
+          </Sidebar>
+          <Button icon="pi pi-arrow-right" onClick={() => setVisible(true)} />
+        </div>
+        <hr />
       </div>
 
       <div className="shoppingList-container transition-fade transition-fade-enter">
         {profileMenuTab}
       </div>
-
-      <SubscriptionService />
 
       {isModalOpen && (
         <div className="modal-overlay">

@@ -1,4 +1,4 @@
-/*const stripe = require("stripe")(
+const stripe = require("stripe")(
   "sk_test_51Ik6M1DGpwrBbxcmOs6t6tHPgHAzKSjowSDY0ZWfrIIW4zzMPkqLwJ0eT7Dn7Ym0bSmakJP63j91IaErsc2ntNsg00FmjGvBEK"
 );
 
@@ -29,7 +29,8 @@ exports.handler = async (event, context) => {
     };
   }
 };
-*/
+
+/* TESTING FLOW
 const express = require("express");
 const app = express();
 const cors = require("cors");
@@ -65,3 +66,4 @@ app.post("/create-checkout-session", async (req, res) => {
 app.listen(3001, () => {
   console.log("Server is running on port 3001");
 });
+*/

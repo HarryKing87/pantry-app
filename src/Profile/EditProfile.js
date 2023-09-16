@@ -12,7 +12,7 @@ import {
 import { auth } from "../Database/firebase";
 import { useNavigate } from "react-router-dom";
 /* React Toastify Notifications Imports */
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const db = getFirestore();

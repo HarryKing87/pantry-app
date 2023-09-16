@@ -6,7 +6,7 @@ margin: 0; /* Resetting the values */
 .shopping-list-toolbar {
     display: flex;
     flex-direction: column;
-    width: 20%;
+    width: 90%;
     margin: 5% auto;
 }
 
@@ -15,7 +15,7 @@ margin: 0; /* Resetting the values */
 }
 
 .list-item {
-    max-width: 50%;
+    max-width: 90%;
     margin: 9px auto;
     list-style-type: none;
     padding: 15px;
@@ -45,7 +45,7 @@ margin: 0; /* Resetting the values */
     .shopping-list-toolbar {
         display: flex;
         flex-direction: column;
-        width: 40%;
+        width: 90%;
         margin: 5% auto;
     }
 }

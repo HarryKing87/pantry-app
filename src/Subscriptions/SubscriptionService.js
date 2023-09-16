@@ -136,8 +136,12 @@ const SubscriptionService = () => {
 
   return (
     <div>
-      <h1>Stripe Checkout Example</h1>
-      <button onClick={handleCheckout}>Checkout</button>
+      <button
+        onClick={handleCheckout}
+        style={{ marginTop: "5%", background: "#6366F1" }}
+      >
+        Checkout
+      </button>
     </div>
   );
 };

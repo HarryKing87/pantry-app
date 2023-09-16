@@ -4,6 +4,9 @@ import "../CSS/login.css";
 import { useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../Database/firebase";
+/* React Toastify Notifications Imports */
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Register() {
   const [password, setPassword] = useState("");
@@ -25,7 +28,14 @@ function Register() {
         // Signed in
         const user = userCredential.user;
         console.log(user);
-        // ...
+        toast.success("Profile created successfuly!", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+
+        // Delay the redirection by 3 seconds
+        setTimeout(() => {
+          window.location.href = "/profile";
+        }, 3000);
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -37,12 +47,23 @@ function Register() {
         setErrorMessage(userFriendlyErrorMessage);
 
         console.log(errorCode, errorMessage);
-        // ..
       });
   };
 
   return (
     <div>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
       <Navigation />
       <div className="container-login">
         <form

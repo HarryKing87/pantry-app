@@ -63,6 +63,7 @@ const SubscriptionService = () => {
   const [username, setUsername] = useState("");
   const [selectedImage, setSelectedImage] = useState(null);
   const [isUserPremium, setIsUserPremium] = useState(false);
+  const [subscribedUntil, setSubscribedUntil] = useState("");
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -82,6 +83,7 @@ const SubscriptionService = () => {
                 username,
                 selectedImage,
                 isUserPremium,
+                subscribedUntil,
               });
             } else {
               const data = querySnapshot.docs[0].data();
@@ -92,6 +94,7 @@ const SubscriptionService = () => {
               setUsername(data.username);
               setSelectedImage(data.userImage);
               setIsUserPremium(data.isUserPremium);
+              setSubscribedUntil(data.subscribedUntil);
             }
           })
           .catch((error) => {
@@ -122,11 +125,13 @@ const SubscriptionService = () => {
 
       const { sessionId } = await response.json();
       setIsUserPremium(true);
+      let premiumUntil = new Date();
+      premiumUntil.getMonth();
+      setSubscribedUntil(premiumUntil);
       const userRef = doc(db, "users", user.uid);
       await updateDoc(userRef, {
         isUserPremium: true,
       });
-      //alert("Premium user: " + isUserPremium);
       window.location.href = `https://checkout.stripe.com/c/pay/${sessionId}#fidkdWxOYHwnPyd1blpxYHZxWjA0TG4zSDRBQnVyd0dnfWZoSTN1fTx8ZzZ9fF1WVndiPTdOQ0tPNmtWM3NVf38za1NiTkA3YlJqN2ZRSGszVEpCfXRWbkN0dEldNWRqUl1BV3F8QTZ0S2d3NTUyUGJqN200aicpJ2N3amhWYHdzYHcnP3F3cGApJ2lkfGpwcVF8dWAnPyd2bGtiaWBabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl`;
     } catch (error) {
       console.error("Error initiating checkout:", error);

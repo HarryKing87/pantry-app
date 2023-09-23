@@ -133,6 +133,7 @@ const SubscriptionService = () => {
       const userRef = doc(db, "users", user.uid);
       await updateDoc(userRef, {
         isUserPremium: true,
+        subscribedUntil: subDate,
       });
       window.location.href = `https://checkout.stripe.com/c/pay/${sessionId}#fidkdWxOYHwnPyd1blpxYHZxWjA0TG4zSDRBQnVyd0dnfWZoSTN1fTx8ZzZ9fF1WVndiPTdOQ0tPNmtWM3NVf38za1NiTkA3YlJqN2ZRSGszVEpCfXRWbkN0dEldNWRqUl1BV3F8QTZ0S2d3NTUyUGJqN200aicpJ2N3amhWYHdzYHcnP3F3cGApJ2lkfGpwcVF8dWAnPyd2bGtiaWBabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl`;
     } catch (error) {
@@ -149,6 +150,8 @@ const SubscriptionService = () => {
       >
         Checkout
       </button>
+      <p>Subscribed for the month of: </p>
+      {subscribedUntil}
     </div>
   );
 };

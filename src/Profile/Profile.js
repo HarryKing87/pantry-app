@@ -53,6 +53,7 @@ function Profile() {
   const [visible, setVisible] = useState(false);
   const [shoppingListVisible, setShoppingListVisible] = useState(false);
   const [settingsVisible, setSettingsVisible] = useState(false);
+  const [subscribedUntil, setSubscribedUntil] = useState("");
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -72,6 +73,7 @@ function Profile() {
                 username,
                 selectedImage,
                 isUserPremium,
+                subscribedUntil,
               });
             } else {
               const data = querySnapshot.docs[0].data();
@@ -82,6 +84,7 @@ function Profile() {
               setUsername(data.username);
               setSelectedImage(data.userImage);
               setIsUserPremium(data.isUserPremium);
+              setSubscribedUntil(data.subscribedUntil);
             }
           })
           .catch((error) => {

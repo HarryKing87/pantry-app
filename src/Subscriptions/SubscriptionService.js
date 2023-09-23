@@ -126,8 +126,10 @@ const SubscriptionService = () => {
       const { sessionId } = await response.json();
       setIsUserPremium(true);
       let premiumUntil = new Date();
-      premiumUntil.getMonth();
-      setSubscribedUntil(premiumUntil);
+      let monthOptions = { month: "long" };
+      let subDate = premiumUntil.toLocaleString("en-US", monthOptions);
+      alert(subDate);
+      setSubscribedUntil(subDate);
       const userRef = doc(db, "users", user.uid);
       await updateDoc(userRef, {
         isUserPremium: true,

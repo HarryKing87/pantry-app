@@ -157,7 +157,7 @@ function Profile() {
     typeof validUntil !== "undefined"
   ) {
     if (subscribedUntil !== validUntil) {
-      setIsUserPremium(false);
+      alert(subscribedUntil + " | " + validUntil);
     }
   }
 

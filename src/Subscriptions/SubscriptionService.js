@@ -129,6 +129,7 @@ const SubscriptionService = () => {
       const { sessionId } = await response.json();
       setIsUserPremium(true);
       const currentDate = new Date();
+      currentDate.setMonth(currentDate.getMonth());
       const oneMonthLater = new Date();
       oneMonthLater.setMonth(oneMonthLater.getMonth() + 1);
       const currentMonthOptions = {

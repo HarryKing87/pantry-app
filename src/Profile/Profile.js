@@ -104,11 +104,6 @@ function Profile() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [navigate]);
 
-  // Check if user is still subscribed
-  if (subscribedUntil !== validUntil) {
-    setIsUserPremium(false);
-  }
-
   function handleAllergyChange(event) {
     const { name, checked } = event.target;
     setAllergies((prevState) => ({ ...prevState, [name]: checked }));
@@ -154,6 +149,17 @@ function Profile() {
       title="Premium User"
     ></i>
   );
+
+  // Check if user is still subscribed
+  if (
+    // Limitation for users not yet having these values on their db
+    typeof subscribedUntil !== "undefined" &&
+    typeof validUntil !== "undefined"
+  ) {
+    if (subscribedUntil !== validUntil) {
+      setIsUserPremium(false);
+    }
+  }
 
   return (
     <div className="navigation-container">

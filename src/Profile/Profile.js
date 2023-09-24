@@ -86,7 +86,7 @@ function Profile() {
               setUsername(data.username);
               setSelectedImage(data.userImage);
               setIsUserPremium(data.isUserPremium);
-              setSubscribedUntil(data.subscribedUntil);
+              setSubscribedUntil(data.subscribedOn);
               setValidUntil(data.validUntil);
             }
           })
@@ -149,17 +149,6 @@ function Profile() {
       title="Premium User"
     ></i>
   );
-
-  // Check if user is still subscribed
-  if (
-    // Limitation for users not yet having these values on their db
-    typeof subscribedUntil !== "undefined" &&
-    typeof validUntil !== "undefined"
-  ) {
-    if (subscribedUntil !== validUntil) {
-      alert(subscribedUntil + " | " + validUntil);
-    }
-  }
 
   return (
     <div className="navigation-container">

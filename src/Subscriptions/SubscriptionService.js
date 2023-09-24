@@ -64,6 +64,7 @@ const SubscriptionService = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [isUserPremium, setIsUserPremium] = useState(false);
   const [subscribedUntil, setSubscribedUntil] = useState("");
+  const [validUntil, setValidUntil] = useState("");
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -84,6 +85,7 @@ const SubscriptionService = () => {
                 selectedImage,
                 isUserPremium,
                 subscribedUntil,
+                validUntil,
               });
             } else {
               const data = querySnapshot.docs[0].data();
@@ -95,6 +97,7 @@ const SubscriptionService = () => {
               setSelectedImage(data.userImage);
               setIsUserPremium(data.isUserPremium);
               setSubscribedUntil(data.subscribedUntil);
+              setValidUntil(data.validUntil);
             }
           })
           .catch((error) => {
@@ -126,17 +129,31 @@ const SubscriptionService = () => {
       const { sessionId } = await response.json();
       setIsUserPremium(true);
       const currentDate = new Date();
-      const currentMonthOptions = { month: "long", year: "numeric" };
+      const oneMonthLater = new Date();
+      oneMonthLater.setMonth(oneMonthLater.getMonth() + 1);
+      const currentMonthOptions = {
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+      };
       const currentMonthYear = currentDate.toLocaleString(
         "en-US",
         currentMonthOptions
       );
 
+      const oneMonthLaterFormatted = oneMonthLater.toLocaleString(
+        "en-US",
+        currentMonthOptions
+      );
+
+      const subscriptionValid = oneMonthLaterFormatted;
+
       setSubscribedUntil(currentMonthYear);
       const userRef = doc(db, "users", user.uid);
       await updateDoc(userRef, {
         isUserPremium: true,
-        subscribedUntil: currentMonthYear,
+        subscribedOn: currentMonthYear,
+        validUntil: subscriptionValid,
       });
       window.location.href = `https://checkout.stripe.com/c/pay/${sessionId}#fidkdWxOYHwnPyd1blpxYHZxWjA0TG4zSDRBQnVyd0dnfWZoSTN1fTx8ZzZ9fF1WVndiPTdOQ0tPNmtWM3NVf38za1NiTkA3YlJqN2ZRSGszVEpCfXRWbkN0dEldNWRqUl1BV3F8QTZ0S2d3NTUyUGJqN200aicpJ2N3amhWYHdzYHcnP3F3cGApJ2lkfGpwcVF8dWAnPyd2bGtiaWBabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl`;
     } catch (error) {
@@ -153,7 +170,8 @@ const SubscriptionService = () => {
       >
         Checkout
       </button>
-      <p>Subscribed for: {subscribedUntil}</p>
+      <p>Subscribed on: {subscribedUntil}</p>
+      <p>Subscription valid until: {validUntil}</p>
     </div>
   );
 };

@@ -54,6 +54,7 @@ function Profile() {
   const [shoppingListVisible, setShoppingListVisible] = useState(false);
   const [settingsVisible, setSettingsVisible] = useState(false);
   const [subscribedUntil, setSubscribedUntil] = useState("");
+  const [validUntil, setValidUntil] = useState("");
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -74,6 +75,7 @@ function Profile() {
                 selectedImage,
                 isUserPremium,
                 subscribedUntil,
+                validUntil,
               });
             } else {
               const data = querySnapshot.docs[0].data();
@@ -85,6 +87,7 @@ function Profile() {
               setSelectedImage(data.userImage);
               setIsUserPremium(data.isUserPremium);
               setSubscribedUntil(data.subscribedUntil);
+              setValidUntil(data.validUntil);
             }
           })
           .catch((error) => {
@@ -100,6 +103,11 @@ function Profile() {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [navigate]);
+
+  // Check if user is still subscribed
+  if (subscribedUntil !== validUntil) {
+    setIsUserPremium(false);
+  }
 
   function handleAllergyChange(event) {
     const { name, checked } = event.target;

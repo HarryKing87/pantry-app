@@ -56,6 +56,19 @@ function Profile() {
   const [subscribedUntil, setSubscribedUntil] = useState("");
   const [validUntil, setValidUntil] = useState("");
 
+  // Check if the subscription has ended and set setIsUserPremium to false if needed
+  useEffect(() => {
+    if (validUntil) {
+      const currentDate = new Date();
+      const validUntilDate = new Date(validUntil);
+
+      if (currentDate > validUntilDate) {
+        // Subscription has ended, set setIsUserPremium to false
+        setIsUserPremium(false);
+      }
+    }
+  }, [validUntil]);
+
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {

@@ -1,4 +1,39 @@
-import React, { useState, useEffect } from "react";
+/*import React from "react";
+
+const SubscriptionService = () => {
+  const handleCheckout = async () => {
+    try {
+      const response = await fetch("/.netlify/functions/server", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
+      const { sessionId } = await response.json();
+      alert(sessionId);
+      window.location.href = `https://checkout.stripe.com/c/pay/${sessionId}#fidkdWxOYHwnPyd1blpxYHZxWjA0TG4zSDRBQnVyd0dnfWZoSTN1fTx8ZzZ9fF1WVndiPTdOQ0tPNmtWM3NVf38za1NiTkA3YlJqN2ZRSGszVEpCfXRWbkN0dEldNWRqUl1BV3F8QTZ0S2d3NTUyUGJqN200aicpJ2N3amhWYHdzYHcnP3F3cGApJ2lkfGpwcVF8dWAnPyd2bGtiaWBabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl`;
+    } catch (error) {
+      console.error("Error initiating checkout:", error);
+    }
+  };
+
+  return (
+    <div>
+      <h1>Stripe Checkout Example</h1>
+      <button onClick={handleCheckout}>Checkout</button>
+    </div>
+  );
+};
+
+export default SubscriptionService;
+*/
+import React from "react";
+import { useState, useEffect } from "react";
 import {
   getFirestore,
   collection,
@@ -30,7 +65,6 @@ const SubscriptionService = () => {
   const [isUserPremium, setIsUserPremium] = useState(false);
   const [subscribedUntil, setSubscribedUntil] = useState("");
   const [validUntil, setValidUntil] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -50,7 +84,7 @@ const SubscriptionService = () => {
                 username,
                 selectedImage,
                 isUserPremium,
-                subscribedOn: subscribedUntil,
+                subscribedUntil,
                 validUntil,
               });
             } else {
@@ -65,16 +99,13 @@ const SubscriptionService = () => {
               setSubscribedUntil(data.subscribedOn);
               setValidUntil(data.validUntil);
             }
-            setIsLoading(false); // Data loading is complete
           })
           .catch((error) => {
             console.error("Error getting user data:", error);
-            setIsLoading(false); // Data loading is complete
           });
       } else {
         setUser(null);
         navigate("/");
-        setIsLoading(false); // Data loading is complete
       }
     });
     return () => {
@@ -83,29 +114,57 @@ const SubscriptionService = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [navigate]);
 
-  useEffect(() => {
-    // Check if the subscription has ended when validUntil changes
-    if (validUntil) {
-      const currentDate = new Date();
-      const validUntilDate = new Date(validUntil);
+  const currentDate = new Date();
+  currentDate.setMonth(currentDate.getMonth());
+  const oneMonthLater = new Date();
+  oneMonthLater.setMonth(oneMonthLater.getMonth() + 1);
+  const currentMonthOptions = {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  };
+  const currentMonthYear = currentDate.toLocaleString(
+    "en-US",
+    currentMonthOptions
+  );
 
-      if (currentDate < validUntilDate) {
-        setIsUserPremium(false);
-      }
-    }
-  }, [validUntil]);
+  const oneMonthLaterFormatted = oneMonthLater.toLocaleString(
+    "en-US",
+    currentMonthOptions
+  );
+
+  const subscriptionValid = oneMonthLaterFormatted;
 
   const handleCheckout = async () => {
     try {
+      const response = await fetch("/.netlify/functions/server", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
+      const { sessionId } = await response.json();
+      setIsUserPremium(true);
+
+      setSubscribedUntil(currentMonthYear);
+      const userRef = doc(db, "users", user.uid);
+      await updateDoc(userRef, {
+        isUserPremium: true,
+        subscribedOn: currentMonthYear,
+        validUntil: subscriptionValid,
+      });
+
+      window.location.href = `https://checkout.stripe.com/c/pay/${sessionId}#fidkdWxOYHwnPyd1blpxYHZxWjA0TG4zSDRBQnVyd0dnfWZoSTN1fTx8ZzZ9fF1WVndiPTdOQ0tPNmtWM3NVf38za1NiTkA3YlJqN2ZRSGszVEpCfXRWbkN0dEldNWRqUl1BV3F8QTZ0S2d3NTUyUGJqN200aicpJ2N3amhWYHdzYHcnP3F3cGApJ2lkfGpwcVF8dWAnPyd2bGtiaWBabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl`;
     } catch (error) {
       console.error("Error initiating checkout:", error);
       setIsUserPremium(false);
     }
   };
-
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
 
   return (
     <div>

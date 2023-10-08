@@ -39,25 +39,38 @@ export default function ShoppingList() {
     }
   }
 
-  function deleteItem(index) {
-    const updatedItemState = [...statedItem];
-    updatedItemState.splice(index, 1);
-    setItem(updatedItemState);
+  const deleteItem = (index) => {
+    // Create a copy of the shopping list items array with the item at the specified index removed
+    const updatedItems = [
+      ...statedItem.slice(0, index),
+      ...statedItem.slice(index + 1),
+    ];
 
-    // Update Firestore document after deleting an item
+    // Update Firestore document to remove the item from shoppingListItems
     if (user) {
       const userRef = doc(db, "users", user.uid);
-      updateDoc(userRef, {
-        [`shoppingListItems.${index}`]: null,
-      })
+
+      // Create an update object to remove the item from Firestore
+      const updateObj = {
+        shoppingListItems: updatedItems.reduce((acc, item, idx) => {
+          acc[idx] = item;
+          return acc;
+        }, {}),
+      };
+
+      updateDoc(userRef, updateObj)
         .then(() => {
           console.log("Item deleted from Firestore.");
+
+          // Update the state of the shopping list items directly
+          setItem(updatedItems);
         })
         .catch((error) => {
-          console.error("Error updating Firestore:", error);
+          console.error("Error deleting item:", error);
+          alert("Error deleting item:", error);
         });
     }
-  }
+  };
 
   // Save the shopping list items in Firebase Firestore whenever statedItem changes.
   useEffect(() => {

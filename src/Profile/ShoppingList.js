@@ -9,6 +9,9 @@ import {
   updateDoc,
   doc,
 } from "firebase/firestore";
+/* React Toastify Notifications Imports */
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { auth } from "../Database/firebase";
 import "../CSS/shopping-list.css";
 
@@ -18,24 +21,34 @@ export default function ShoppingList() {
   const [statedItem, setItem] = useState([]);
   const [user, setUser] = useState(null);
 
-  function addItem() {
-    let inputValue = document.querySelector(".inputElement").value;
-    const updatedItems = [...statedItem, inputValue];
-    setItem(updatedItems);
-    document.querySelector(".inputElement").value = ""; // Emptying the input element after adding the item
+  const showToastMessage = () => {
+    toast.error("Please put a value inside you shopping list!", {
+      position: toast.POSITION.TOP_RIGHT,
+    });
+  };
 
-    // Update Firestore document with the new item
-    if (user) {
-      const userRef = doc(db, "users", user.uid);
-      updateDoc(userRef, {
-        [`shoppingListItems.${updatedItems.length - 1}`]: inputValue,
-      })
-        .then(() => {
-          console.log("Item added to Firestore.");
+  function addItem() {
+    let inputValue = document.querySelector(".inputElement").value.trim();
+    if (inputValue === "") {
+      showToastMessage();
+    } else {
+      const updatedItems = [...statedItem, inputValue];
+      setItem(updatedItems);
+      document.querySelector(".inputElement").value = ""; // Emptying the input element after adding the item
+
+      // Update Firestore document with the new item
+      if (user) {
+        const userRef = doc(db, "users", user.uid);
+        updateDoc(userRef, {
+          [`shoppingListItems.${updatedItems.length - 1}`]: inputValue,
         })
-        .catch((error) => {
-          console.error("Error updating Firestore:", error);
-        });
+          .then(() => {
+            console.log("Item added to Firestore.");
+          })
+          .catch((error) => {
+            console.error("Error updating Firestore:", error);
+          });
+      }
     }
   }
 
@@ -113,7 +126,20 @@ export default function ShoppingList() {
           Add
         </button>
       </div>
-
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
+      {/* Same as */}
+      <ToastContainer />
       <div className="list-container">
         <ul className="unordered-list-cont">
           {statedItem.map((items, index) => (

@@ -252,7 +252,7 @@ const Vegetable = () => {
         crossorigin="anonymous"
       ></script>
       <Navigation />
-      <h3>Vegetabe section.</h3>
+      <h3 style={{ margin: "2rem auto" }}>Vegetabe section.</h3>
       <form className="dairy-form">
         <Dropdown
           value={productName}

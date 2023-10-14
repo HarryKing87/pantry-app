@@ -250,7 +250,7 @@ const Meat = () => {
         crossorigin="anonymous"
       ></script>
       <Navigation />
-      <h3>Meat section.</h3>
+      <h3 style={{ margin: "2rem auto" }}>Meat section.</h3>
       <form className="dairy-form">
         <Dropdown
           value={productName}

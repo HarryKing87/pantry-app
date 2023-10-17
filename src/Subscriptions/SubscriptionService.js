@@ -66,13 +66,38 @@ const SubscriptionService = () => {
   const [subscribedUntil, setSubscribedUntil] = useState("");
   const [validUntil, setValidUntil] = useState("");
 
+  const handleCancelSubscription = async () => {
+    try {
+      const response = await fetch("/.netlify/functions/server", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          action: "cancelSubscription",
+          subscriptionId: user.subscriptionId, // Provide the subscription ID from your user data
+        }),
+      });
+
+      if (response.ok) {
+        // Handle successful cancellation
+        alert("Subscription canceled successfully");
+        // Update the user interface to reflect the canceled subscription
+        setIsUserPremium(false);
+      } else {
+        throw new Error("Network response was not ok");
+      }
+    } catch (error) {
+      console.error("Error canceling subscription:", error);
+      alert("Error canceling subscription");
+    }
+  };
+
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
         setUser(user);
         // Fetch subscription status and update the state
-        fetchSubscriptionStatus(user.uid);
-        console.log(isUserPremium); // test to see if the user is premium
         const userRef = doc(db, "users", user.uid);
         const q = query(collection(db, "users"), where("id", "==", user.uid));
         getDocs(q)
@@ -98,7 +123,7 @@ const SubscriptionService = () => {
               setMail(data.mail);
               setUsername(data.username);
               setSelectedImage(data.userImage);
-              setIsUserPremium(data.isUserPremium);
+              isUserPremium ? setIsUserPremium(true) : setIsUserPremium(false);
               setSubscribedUntil(data.subscribedOn);
               setValidUntil(data.validUntil);
             }
@@ -116,26 +141,6 @@ const SubscriptionService = () => {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [navigate]);
-
-  const fetchSubscriptionStatus = async (userId) => {
-    try {
-      // Make a request to your backend API to check the subscription status
-      const response = await fetch(
-        `/api/get-subscription-status?userId=${userId}`
-      );
-
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-
-      const data = await response.json();
-      // Update the state with the subscription status
-      setSubscribedUntil(data.subscribedUntil);
-      setValidUntil(data.validUntil);
-    } catch (error) {
-      console.error("Error fetching subscription status:", error);
-    }
-  };
 
   const currentDate = new Date();
   currentDate.setMonth(currentDate.getMonth());
@@ -199,6 +204,7 @@ const SubscriptionService = () => {
       </button>
       <p>Subscribed on: {subscribedUntil}</p>
       <p>Subscription valid until: {validUntil}</p>
+      <button onClick={handleCancelSubscription}>Cancel Subscription</button>
     </div>
   );
 };

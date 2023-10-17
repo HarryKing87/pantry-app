@@ -70,6 +70,9 @@ const SubscriptionService = () => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
         setUser(user);
+        // Fetch subscription status and update the state
+        fetchSubscriptionStatus(user.uid);
+        console.log(isUserPremium); // test to see if the user is premium
         const userRef = doc(db, "users", user.uid);
         const q = query(collection(db, "users"), where("id", "==", user.uid));
         getDocs(q)
@@ -113,6 +116,26 @@ const SubscriptionService = () => {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [navigate]);
+
+  const fetchSubscriptionStatus = async (userId) => {
+    try {
+      // Make a request to your backend API to check the subscription status
+      const response = await fetch(
+        `/api/get-subscription-status?userId=${userId}`
+      );
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
+      const data = await response.json();
+      // Update the state with the subscription status
+      setSubscribedUntil(data.subscribedUntil);
+      setValidUntil(data.validUntil);
+    } catch (error) {
+      console.error("Error fetching subscription status:", error);
+    }
+  };
 
   const currentDate = new Date();
   currentDate.setMonth(currentDate.getMonth());

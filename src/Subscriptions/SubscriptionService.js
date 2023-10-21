@@ -46,6 +46,7 @@ import {
 } from "firebase/firestore";
 import { auth } from "../Database/firebase";
 import { useNavigate } from "react-router-dom";
+import SubscriptionService1 from "../test";
 
 const db = getFirestore();
 
@@ -214,7 +215,8 @@ const SubscriptionService = () => {
       </button>
       <p>Subscribed on: {subscribedUntil}</p>
       <p>Subscription valid until: {validUntil}</p>
-      <button onClick={handleCancelSubscription}>Cancel Subscription</button>
+      {/*<button onClick={handleCancelSubscription}>Cancel Subscription</button>*/}
+      <SubscriptionService1 />
     </div>
   );
 };

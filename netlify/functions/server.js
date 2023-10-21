@@ -37,11 +37,8 @@ exports.handler = async (event, context) => {
   if (requestBody.action === "cancelSubscription") {
     try {
       const subscriptionId = requestBody.subscriptionId; // Get the subscription ID from the request
-      const canceledSubscription = await stripe.subscriptions.update(
-        subscriptionId,
-        {
-          cancel_at_period_end: true,
-        }
+      const canceledSubscription = await stripe.subscriptions.cancel(
+        subscriptionId
       );
 
       return {

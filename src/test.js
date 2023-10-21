@@ -5,7 +5,7 @@ const SubscriptionService1 = () => {
 
   const handleCancelSubscription = async () => {
     try {
-      const response = await fetch("/api/cancel-subscription", {
+      const response = await fetch("/.netlify/functions/server", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -66,33 +66,6 @@ const SubscriptionService = () => {
   const [subscribedUntil, setSubscribedUntil] = useState("");
   const [validUntil, setValidUntil] = useState("");
 
-  const handleCancelSubscription = async () => {
-    try {
-      const response = await fetch("/.netlify/functions/server", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          action: "cancelSubscription",
-          subscriptionId: user.subscriptionId, // Provide the subscription ID from your user data
-        }),
-      });
-
-      if (response.ok) {
-        // Handle successful cancellation
-        alert("Subscription canceled successfully");
-        // Update the user interface to reflect the canceled subscription
-        setIsUserPremium(false);
-      } else {
-        throw new Error("Network response was not ok");
-      }
-    } catch (error) {
-      console.error("Error canceling subscription:", error);
-      alert("Error canceling subscription");
-    }
-  };
-
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
@@ -191,6 +164,43 @@ const SubscriptionService = () => {
     } catch (error) {
       console.error("Error initiating checkout:", error);
       setIsUserPremium(false);
+    }
+  };
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      setUser(user);
+    });
+    return () => {
+      unsubscribe();
+    };
+  }, []);
+
+  // Cancel Subscription
+  const handleCancelSubscription = async () => {
+    try {
+      // Send a request to your server to initiate the subscription cancellation
+      const response = await fetch("/.netlify/functions/server", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          action: "cancelSubscription",
+          subscriptionId: user.subscriptionId, // Replace with the actual subscription ID
+        }),
+      });
+
+      if (response.ok) {
+        // Handle successful cancellation
+        alert("Subscription canceled successfully");
+        // Update the user interface to reflect the canceled subscription
+      } else {
+        throw new Error("Network response was not ok");
+      }
+    } catch (error) {
+      console.error("Error canceling subscription:", error);
+      alert("Error canceling subscription");
     }
   };
 

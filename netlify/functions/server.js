@@ -32,28 +32,29 @@ exports.handler = async (event, context) => {
         body: JSON.stringify({ error: "An error occurred" }),
       };
     }
-  } else if (requestBody.action === "cancelSubscription") {
-    // Handle subscription cancellation
+  }
+
+  if (requestBody.action === "cancelSubscription") {
     try {
-      const subscriptionId = requestBody.subscriptionId; // Assuming you have the subscription ID in your request
-
-      // Use the Stripe API to cancel the subscription
-      const canceledSubscription = await stripe.subscriptions.del(
-        subscriptionId
+      const subscriptionId = requestBody.subscriptionId; // Get the subscription ID from the request
+      const canceledSubscription = await stripe.subscriptions.update(
+        subscriptionId,
+        {
+          cancel_at_period_end: true,
+        }
       );
-
-      // Handle the canceledSubscription response, and update your database accordingly
-      // You should mark the subscription as canceled in your database
 
       return {
         statusCode: 200,
-        body: JSON.stringify({ status: "success" }),
+        body: JSON.stringify({ canceledSubscription: canceledSubscription }),
       };
     } catch (error) {
       console.error("Error canceling subscription:", error);
       return {
         statusCode: 500,
-        body: JSON.stringify({ error: "An error occurred" }),
+        body: JSON.stringify({
+          error: "An error occurred while canceling the subscription",
+        }),
       };
     }
   } else {

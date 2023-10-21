@@ -167,15 +167,6 @@ const SubscriptionService = () => {
     }
   };
 
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      setUser(user);
-    });
-    return () => {
-      unsubscribe();
-    };
-  }, []);
-
   return (
     <div>
       <button

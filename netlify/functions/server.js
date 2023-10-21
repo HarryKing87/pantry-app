@@ -32,28 +32,6 @@ exports.handler = async (event, context) => {
         body: JSON.stringify({ error: "An error occurred" }),
       };
     }
-  }
-
-  if (requestBody.action === "cancelSubscription") {
-    try {
-      const subscriptionId = requestBody.subscriptionId; // Get the subscription ID from the request
-      const canceledSubscription = await stripe.subscriptions.cancel(
-        subscriptionId
-      );
-
-      return {
-        statusCode: 200,
-        body: JSON.stringify({ canceledSubscription: canceledSubscription }),
-      };
-    } catch (error) {
-      console.error("Error canceling subscription:", error);
-      return {
-        statusCode: 500,
-        body: JSON.stringify({
-          error: "An error occurred while canceling the subscription",
-        }),
-      };
-    }
   } else {
     return {
       statusCode: 400,

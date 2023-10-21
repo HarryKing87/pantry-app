@@ -3,29 +3,58 @@ const stripe = require("stripe")(
 );
 
 exports.handler = async (event, context) => {
-  try {
-    const session = await stripe.checkout.sessions.create({
-      success_url: "https://itspantry.netlify.app",
-      cancel_url: "http://localhost:3000/profile",
-      payment_method_types: ["card"],
-      line_items: [
-        {
-          price: "price_1NjS6vDGpwrBbxcmyjQepCM7",
-          quantity: 1,
-        },
-      ],
-      mode: "subscription",
-    });
+  if (event.httpMethod === "POST") {
+    // Handle subscription cancellation
+    try {
+      const { subscriptionId } = JSON.parse(event.body);
 
+      // Cancel the subscription
+      const canceledSubscription = await stripe.subscriptions.del(
+        subscriptionId
+      );
+
+      return {
+        statusCode: 200,
+        body: JSON.stringify({ message: "Subscription canceled" }),
+      };
+    } catch (error) {
+      console.error("Error canceling subscription:", error);
+      return {
+        statusCode: 500,
+        body: JSON.stringify({ error: "An error occurred" }),
+      };
+    }
+  } else if (event.httpMethod === "GET") {
+    // Create a new subscription session
+    try {
+      const session = await stripe.checkout.sessions.create({
+        success_url: "https://itspantry.netlify.app",
+        cancel_url: "http://localhost:3000/profile",
+        payment_method_types: ["card"],
+        line_items: [
+          {
+            price: "price_1NjS6vDGpwrBbxcmyjQepCM7",
+            quantity: 1,
+          },
+        ],
+        mode: "subscription",
+      });
+
+      return {
+        statusCode: 200,
+        body: JSON.stringify({ sessionId: session.id }),
+      };
+    } catch (error) {
+      console.error("Error creating session:", error);
+      return {
+        statusCode: 500,
+        body: JSON.stringify({ error: "An error occurred" }),
+      };
+    }
+  } else {
     return {
-      statusCode: 200,
-      body: JSON.stringify({ sessionId: session.id }),
-    };
-  } catch (error) {
-    console.error("Error creating session:", error);
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ error: "An error occurred" }),
+      statusCode: 400,
+      body: JSON.stringify({ error: "Invalid request" }),
     };
   }
 };

@@ -168,28 +168,14 @@ const SubscriptionService = () => {
   };
 
   const handleCancelSubscription = async () => {
-    try {
-      const response = await fetch("/.netlify/functions/server", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ subscriptionId: user.uid }), // Include the user's subscription ID
-      });
-
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-
-      // Update the state to reflect the cancellation
-      setIsUserPremium(false);
-      setSubscribedUntil("");
-      setValidUntil("");
-
-      // Optionally, you can update your database to reflect the canceled subscription
-    } catch (error) {
-      console.error("Error canceling subscription:", error);
-    }
+    // Update the state to reflect the cancellation
+    setIsUserPremium(false);
+    const userRef = doc(db, "users", user.uid);
+    await updateDoc(userRef, {
+      isUserPremium: false,
+      subscribedOn: "",
+      validUntil: "",
+    });
   };
 
   return (

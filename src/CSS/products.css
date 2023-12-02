@@ -13,8 +13,16 @@
   margin: 0 auto;
 }
 
+.misc-title {
+  width: 25%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: center;
+}
+
 .form-input {
-  margin-bottom: 10px;
+  margin-bottom: 10px!important;
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -206,5 +214,17 @@ select option {
   .deletion-icon-component :hover, .info-icon-component :hover {
     color: #1E3050;
     transition: none;
+  }
+
+  .misc-title {
+    width: 25%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: center;
+  }
+  
+  #icon-misc {
+    width: 75%!important;
   }
 }

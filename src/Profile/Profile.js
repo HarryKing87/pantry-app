@@ -53,6 +53,25 @@ function Profile() {
   const [visible, setVisible] = useState(false);
   const [shoppingListVisible, setShoppingListVisible] = useState(false);
   const [settingsVisible, setSettingsVisible] = useState(false);
+  const [subscribedUntil, setSubscribedUntil] = useState("");
+  const [validUntil, setValidUntil] = useState("");
+
+  // Check if the subscription has ended and set setIsUserPremium to false if needed
+  useEffect(() => {
+    if (validUntil && isUserPremium) {
+      const currentDate = new Date();
+      const validUntilDate = new Date(validUntil);
+
+      if (currentDate > validUntilDate) {
+        // Subscription has ended, set setIsUserPremium to false
+        setIsUserPremium(false);
+      }
+
+      if (!isUserPremium) {
+        setIsUserPremium(false);
+      }
+    }
+  }, [validUntil, isUserPremium]);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -72,6 +91,8 @@ function Profile() {
                 username,
                 selectedImage,
                 isUserPremium,
+                subscribedUntil,
+                validUntil,
               });
             } else {
               const data = querySnapshot.docs[0].data();
@@ -82,6 +103,8 @@ function Profile() {
               setUsername(data.username);
               setSelectedImage(data.userImage);
               setIsUserPremium(data.isUserPremium);
+              setSubscribedUntil(data.subscribedOn);
+              setValidUntil(data.validUntil);
             }
           })
           .catch((error) => {

@@ -36,7 +36,7 @@ function App() {
   useEffect(() => {
     const timerId = setTimeout(() => {
       setIsLoading(false);
-    }, 1500); // 3-second delay
+    }, 1500); // 1.5-second delay
 
     return () => clearTimeout(timerId);
   }, []);
@@ -79,25 +79,24 @@ function App() {
           <Route element={<AuthWrapper />}>
             <Route path="/dashboard" element={<Dashboard />} />
           </Route>
-        </Routes>
-
-        <Routes>
-          <Route path="/fruits" element={<Fruits />} />
-        </Routes>
-        <Routes>
-          <Route path="/vegetables" element={<Vegetables />} />
-        </Routes>
-        <Routes>
-          <Route path="/dairy" element={<Dairy />} />
-        </Routes>
-        <Routes>
-          <Route path="/meat" element={<Meat />} />
-        </Routes>
-        <Routes>
-          <Route path="/pasta" element={<Pasta />} />
-        </Routes>
-        <Routes>
-          <Route path="/misc" element={<Misc />} />
+          <Route element={<AuthWrapper />}>
+            <Route path="/fruits" element={<Dashboard />} />
+          </Route>
+          <Route element={<AuthWrapper />}>
+            <Route path="/vegetables" element={<Dashboard />} />
+          </Route>
+          <Route element={<AuthWrapper />}>
+            <Route path="/dairy" element={<Dashboard />} />
+          </Route>
+          <Route element={<AuthWrapper />}>
+            <Route path="/meat" element={<Dashboard />} />
+          </Route>
+          <Route element={<AuthWrapper />}>
+            <Route path="/pasta" element={<Dashboard />} />
+          </Route>
+          <Route element={<AuthWrapper />}>
+            <Route path="/misc" element={<Dashboard />} />
+          </Route>
         </Routes>
         <Routes>
           <Route path="/register" element={<Register />} />

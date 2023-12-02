@@ -1,7 +1,7 @@
-import Navigation from "./Navigation";
-import "./CSS/dashboard.css";
+import "../CSS/dashboard.css";
+import Navigation from "../Navigation";
 
-const ImageScroller = ({
+const ImageScrollerPremium = ({
   image1 = "https://images.unsplash.com/photo-1546548970-71785318a17b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8ZnJ1aXRzfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=600&q=60",
   image2 = "https://images.unsplash.com/photo-1590779033100-9f60a05a013d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dmVnZXRhYmxlc3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=600&q=60",
   image3 = "https://images.unsplash.com/photo-1529258283598-8d6fe60b27f4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTF8fGRhaXJ5fGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=600&q=60",
@@ -12,7 +12,6 @@ const ImageScroller = ({
   return (
     <>
       <Navigation />
-
       <div className="image-grid">
         <a href="/fruits">
           <div className="image-container">
@@ -55,4 +54,4 @@ const ImageScroller = ({
   );
 };
 
-export default ImageScroller;
+export default ImageScrollerPremium;

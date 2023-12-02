@@ -2,7 +2,7 @@ import "./App.css";
 import { useState, useEffect } from "react";
 import Home from "./Home";
 import About from "./About";
-import Dashboard from "./Dashboard";
+import Dashboard from "./Dashboard/Dashboard";
 import Login from "./Profile/Login";
 import Profile from "./Profile/Profile";
 import Fruits from "./Pantry/Fruits";

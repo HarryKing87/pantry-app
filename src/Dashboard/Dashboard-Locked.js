@@ -1,11 +1,18 @@
 import React from 'react';
 import Navigation from "../Navigation";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import "@fortawesome/fontawesome-svg-core/styles.css";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import {
+  faLock
+} from "@fortawesome/free-solid-svg-icons";
 import '../CSS/home.css';
 
 const DashboardLocked = () => {
     const dashboardLockedStyle = {
         position: 'relative',
     };
+    library.add(faLock);
 
     const overlayStyle = {
         position: 'fixed',
@@ -56,6 +63,7 @@ const DashboardLocked = () => {
                 <div className="background-images" style={backgroundImagesStyle}></div>
                 <div style={overlayStyle}>
                     <div style={messageStyle}>
+                    <FontAwesomeIcon icon={faLock} bounce fontSize={'50px'}/>
                         <p>You are not a premium user</p>
                     </div>
                 </div>

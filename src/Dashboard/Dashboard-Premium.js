@@ -1,4 +1,5 @@
 import "../CSS/dashboard.css";
+import Navigation from "../Navigation";
 
 const ImageScrollerPremium = ({
   image1 = "https://images.unsplash.com/photo-1546548970-71785318a17b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8ZnJ1aXRzfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=600&q=60",
@@ -10,6 +11,7 @@ const ImageScrollerPremium = ({
 }) => {
   return (
     <>
+      <Navigation />
       <div className="image-grid">
         <a href="/fruits">
           <div className="image-container">

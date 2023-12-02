@@ -1,6 +1,6 @@
-import Navigation from "../Navigation";
 import { useState, useEffect } from "react";
 import ImageScrollerPremium from "./Dashboard-Premium";
+import DashboardLocked from "./Dashboard-Locked";
 import {
   getFirestore,
   collection,
@@ -77,9 +77,8 @@ const ImageScroller = () => {
 
   return (
     <>
-      <Navigation />
 
-      {isUserPremium ? <ImageScrollerPremium /> : <h1>You are not a premium user</h1>}
+      {isUserPremium ? <ImageScrollerPremium /> : <DashboardLocked />}
     </>
   );
 };

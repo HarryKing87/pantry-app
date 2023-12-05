@@ -66,9 +66,6 @@ function App() {
         <Routes>
           <Route path="/about" element={<About />} />
         </Routes>
-        <Routes>
-          <Route path="/login" element={<Login />} />
-        </Routes>
 
         <Routes>
           <Route element={<AuthWrapper />}>
@@ -76,6 +73,9 @@ function App() {
           </Route>
         </Routes>
         <Routes>
+        <Route  element={<AuthWrapper />}>
+          <Route path="/login" element={<Profile />} />
+        </Route>
           <Route element={<AuthWrapper />}>
             <Route path="/dashboard" element={<Dashboard />} />
           </Route>

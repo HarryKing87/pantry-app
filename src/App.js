@@ -11,6 +11,16 @@ import Dairy from "./Pantry/Dairy";
 import Meat from "./Pantry/Meat";
 import Pasta from "./Pantry/Pasta";
 import Misc from "./Pantry/Misc";
+import {
+  getFirestore,
+  collection,
+  query,
+  where,
+  getDocs,
+  setDoc,
+  updateDoc,
+  doc,
+} from "firebase/firestore";
 import Register from "./Profile/Register";
 import Loader from "./Loader";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
@@ -19,8 +29,44 @@ import { onAuthStateChanged } from "firebase/auth";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+const db = getFirestore();
+
 function App() {
   const [isLoading, setIsLoading] = useState(true);
+  const [isUserPremium, setIsUserPremium] = useState(false);
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        setUser(user);
+        const userRef = doc(db, "users", user.uid);
+        const q = query(collection(db, "users"), where("id", "==", user.uid));
+        getDocs(q)
+          .then((querySnapshot) => {
+            if (querySnapshot.empty) {
+              setDoc(userRef, {
+                id: user.uid,
+                isUserPremium,
+              });
+            } else {
+              const data = querySnapshot.docs[0].data();
+              setIsUserPremium(data.isUserPremium);
+            }
+          })
+          .catch((error) => {
+            console.error("Error getting user data:", error);
+          });
+      } else {
+        setUser(null);
+      }
+    });
+    return () => {
+      unsubscribe();
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   // Preventing the user from accessing the profile and dashboard page while not logged
   function useAuth() {
     const [currentUser, setCurrentUser] = useState();
@@ -57,6 +103,35 @@ function App() {
       <Navigate to="/" replace state={{ from: location }} />
     );
   };
+
+  // Define the JSX for premium user routes
+  const premiumRoutes = (
+    <Routes>
+      <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="/fruits" element={<Fruits />} />
+      <Route path="/vegetables" element={<Vegetables />} />
+      <Route path="/dairy" element={<Dairy />} />
+      <Route path="/pasta" element={<Pasta />} />
+      <Route path="/meat" element={<Meat />} />
+      <Route path="/misc" element={<Misc />} />
+    </Routes>
+  );
+
+  // Define the JSX for non-premium user routes
+  const nonPremiumRoutes = (
+    <Routes>
+      <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="/fruits" element={<Dashboard />} />
+      <Route path="/vegetables" element={<Dashboard />} />
+      <Route path="/dairy" element={<Dashboard />} />
+      <Route path="/pasta" element={<Dashboard />} />
+      <Route path="/meat" element={<Dashboard />} />
+      <Route path="/misc" element={<Dashboard />} />
+    </Routes>
+  );
+
   return (
     <div className="App">
       <BrowserRouter>
@@ -75,29 +150,8 @@ function App() {
             <Route path="/profile" element={<Profile />} />
           </Route>
         </Routes>
-        <Routes>
-          <Route element={<AuthWrapper />}>
-            <Route path="/dashboard" element={<Dashboard />} />
-          </Route>
-          <Route element={<AuthWrapper />}>
-            <Route path="/fruits" element={<Dashboard />} />
-          </Route>
-          <Route element={<AuthWrapper />}>
-            <Route path="/vegetables" element={<Dashboard />} />
-          </Route>
-          <Route element={<AuthWrapper />}>
-            <Route path="/dairy" element={<Dashboard />} />
-          </Route>
-          <Route element={<AuthWrapper />}>
-            <Route path="/meat" element={<Dashboard />} />
-          </Route>
-          <Route element={<AuthWrapper />}>
-            <Route path="/pasta" element={<Dashboard />} />
-          </Route>
-          <Route element={<AuthWrapper />}>
-            <Route path="/misc" element={<Dashboard />} />
-          </Route>
-        </Routes>
+
+        {isUserPremium ? premiumRoutes : nonPremiumRoutes}
         <Routes>
           <Route path="/register" element={<Register />} />
         </Routes>

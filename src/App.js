@@ -122,7 +122,6 @@ function App() {
   const nonPremiumRoutes = (
     <Routes>
       <Route path="/dashboard" element={<Dashboard />} />
-      <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/fruits" element={<Dashboard />} />
       <Route path="/vegetables" element={<Dashboard />} />
       <Route path="/dairy" element={<Dashboard />} />
@@ -141,8 +140,11 @@ function App() {
         <Routes>
           <Route path="/about" element={<About />} />
         </Routes>
+        {/* Preventing logged-in users from accessing the login page. */}
         <Routes>
-          <Route path="/login" element={<Login />} />
+        {isUserPremium ? <Route element={<AuthWrapper />}><Route path="/login" element={<Profile />} /></Route> : (
+            <Route path="/login" element={<Login />} />
+          )}
         </Routes>
 
         <Routes>

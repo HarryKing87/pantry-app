@@ -6,6 +6,7 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../Database/firebase";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import emailjs from 'emailjs-com';
 
 function Register() {
   const [password, setPassword] = useState("");
@@ -34,6 +35,7 @@ function Register() {
       toast.success("Profile created successfully!", {
         position: toast.POSITION.TOP_RIGHT,
       });
+      sendEmail();
 
       setTimeout(() => {
         window.location.href = "/profile";
@@ -54,6 +56,24 @@ function Register() {
   const changeTemplate = () => {
     setTemplate(template === "login" ? "register" : "login");
   };
+
+
+  /* Send an email to the newly-created user */
+  const sendEmail = () => {
+    const templateParams = {
+      user_email: email
+    };
+
+    emailjs.send('service_4bh0cmh', 'template_p06hl1e', templateParams, 'zFZZEFLtVv1iU_uPw')
+    .then(function(response) {
+       console.log('SUCCESS!', response.status, response.text);
+       console.log(templateParams.user_email);
+    }, function(error) {
+       console.log('FAILED...', error);
+    });
+  }
+
+  // userid -> zFZZEFLtVv1iU_uPw
 
   return (
     <div>
@@ -106,7 +126,7 @@ function Register() {
               <p className="imageBy">
                 <i>Image by: Tania Melnyczuk</i>
               </p>
-            </form>
+           </form>
           </div>
         </>
       ) : (

@@ -4,6 +4,25 @@ h3 {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
 
+/* New user modal */
+.welcome-message {
+  max-width: 600px;
+  margin: 0 auto;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h4 {
+  color: #333;
+}
+
+p {
+  margin-bottom: 15px;
+  line-height: 1.5;
+}
+
 .Profile {
   max-width: 500px;
   margin:5% auto;

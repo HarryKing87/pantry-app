@@ -73,6 +73,11 @@ body {
     font-size: 16px;
     margin-top: 5px;
   }
+
+  .colored-auth {
+    color: #4CAF50;
+    cursor: pointer;
+  }
   
   /* Responsive styles */
   @media (max-width: 768px) {

@@ -7,7 +7,7 @@ const stripe = require("stripe")(
 
 // PRODUTION LIVE PAYMENTS
 const stripe = require("stripe")(
-  "sk_test_51Ik6M1DGpwrBbxcmOs6t6tHPgHAzKSjowSDY0ZWfrIIW4zzMPkqLwJ0eT7Dn7Ym0bSmakJP63j91IaErsc2ntNsg00FmjGvBEK"
+  "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"
 );
 
 exports.handler = async (event, context) => {

@@ -308,7 +308,7 @@ function Profile() {
       <Dialog
         header="The Pantry Team"
         visible={visibleNewUser}
-        style={{ width: "50vw" }}
+        style={{ width: "90%" }}
         onHide={() => setVisibleNewUser(false)}
         className="welcome-message"
       >

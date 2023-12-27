@@ -12,10 +12,12 @@ User Authentication: Securely create an account and log in to access your pantry
 
 # Technologies Used
 
-Frontend: HTML, CSS, JavaScript
-Backend: Node.js, Express.js
-Database: MongoDB
-Authentication: JSON Web Tokens (JWT)
+Frontend: ReactJS
+Backend: Javascript
+Database: Firestore, Firebase
+Authentication: JSON Web Tokens (JWT), Firestore
+Email: Email-js
+Payments: Stripe API
 Deployment: Netlify
 
 ## Getting Started

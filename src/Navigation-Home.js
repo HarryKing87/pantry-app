@@ -10,6 +10,7 @@ export default function Navigation() {
   return (
     <nav className="nav-home">
       <div className="logo">
+        <a href="/">
         <img
           src={
             process.env.PUBLIC_URL +
@@ -18,6 +19,7 @@ export default function Navigation() {
           alt="Logo"
           style={{ borderRadius: "10px" }}
         />
+</a>
       </div>
       <ul className={isOpen ? "menu open" : "menu"}>
         <li>

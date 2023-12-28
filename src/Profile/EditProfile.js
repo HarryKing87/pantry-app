@@ -24,6 +24,11 @@ function EditProfile() {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [imageUrl, setImageUrl] = useState("");
+  // Validation states
+  const [firstNameError, setFirstNameError] = useState("");
+  const [lastNameError, setLastNameError] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [usernameError, setUsernameError] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -91,7 +96,48 @@ function EditProfile() {
   };
 
   const handleProfileSave = () => {
-    if (user) {
+    let isValid = true;
+
+    // Validation for First Name
+    if (!/^[A-Za-z]{1,30}$/.test(firstName)) {
+      setFirstNameError(
+        "Please enter only letters with a maximum of 30 characters"
+      );
+      isValid = false;
+    } else {
+      setFirstNameError("");
+    }
+
+    // Validation for Last Name
+    if (!/^[A-Za-z]{1,30}$/.test(lastName)) {
+      setLastNameError(
+        "Please enter only letters with a maximum of 30 characters"
+      );
+      isValid = false;
+    } else {
+      setLastNameError("");
+    }
+
+    // Validation for Email
+    if (!/^\S+@\S+\.\S+$/.test(email)) {
+      setEmailError("Please enter a valid email address");
+      isValid = false;
+    } else {
+      setEmailError("");
+    }
+
+    // Validation for Username
+    if (!/^[A-Za-z0-9_-]{1,15}$/.test(username)) {
+      setUsernameError(
+        "Please enter only letters, numbers, '_', or '-' with a maximum of 15 characters"
+      );
+      isValid = false;
+    } else {
+      setUsernameError("");
+    }
+
+    
+    if (isValid && user) {
       const userRef = doc(db, "users", user.uid);
       updateUserData(userRef, {
         firstname: firstName,
@@ -118,50 +164,61 @@ function EditProfile() {
 
   return (
     <div>
-      <form className="edit-profile-container">
-        <label>Profile Image</label>
-        <input type="file" accept="image/*" onChange={handleImageChange} />
+  <form className="edit-profile-container">
+    <label>Profile Image</label>
+    <input type="file" accept="image/*" onChange={handleImageChange} />
 
-        <label>First Name</label>
-        <input
-          type="text"
-          required
-          value={firstName}
-          onChange={(e) => setFirstName(e.target.value)}
-        />
+    <label>First Name</label>
+    <input
+      type="text"
+      required
+      pattern="[A-Za-z]{1,30}"
+      title="Please enter only letters with a maximum of 30 characters"
+      value={firstName}
+      onChange={(e) => setFirstName(e.target.value)}
+    />
 
-        <label>Last Name</label>
-        <input
-          type="text"
-          required
-          value={lastName}
-          onChange={(e) => setLastName(e.target.value)}
-        />
+    <label>Last Name</label>
+    <input
+      type="text"
+      required
+      pattern="[A-Za-z]{1,30}"
+      title="Please enter only letters with a maximum of 30 characters"
+      value={lastName}
+      onChange={(e) => setLastName(e.target.value)}
+    />
 
-        <label>Email</label>
-        <input
-          type="email"
-          required
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
+    <label>Email</label>
+    <input
+      type="email"
+      required
+      value={email}
+      onChange={(e) => setEmail(e.target.value)}
+    />
 
-        <label>Username</label>
-        <input
-          type="text"
-          required
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-      </form>
-      <button
-        type="button"
-        style={{ background: "#6366F1" }}
-        onClick={handleProfileSave}
-      >
-        Save
-      </button>
-    </div>
+    <label>Username</label>
+    <input
+      type="text"
+      required
+      pattern="[A-Za-z0-9_-]{1,15}"
+      title="Please enter only letters, numbers, '_', or '-' with a maximum of 15 characters"
+      value={username}
+      onChange={(e) => setUsername(e.target.value)}
+    />
+    <div style={{color:'red', fontSize: '12px'}}>{firstNameError && <span>{firstNameError}</span>}</div>
+    <div style={{color:'red', fontSize: '12px'}}>{lastNameError && <span>{lastNameError}</span>}</div>
+    <div style={{color:'red', fontSize: '12px'}}>{emailError && <span>{emailError}</span>}</div>
+    <div style={{color:'red', fontSize: '12px'}}>{usernameError && <span>{usernameError}</span>}</div>
+  </form>
+  <button
+    type="button"
+    style={{ background: "#6366F1" }}
+    onClick={handleProfileSave}
+  >
+    Save
+  </button>
+</div>
+
   );
 }
 

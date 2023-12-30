@@ -13,6 +13,8 @@ import {
 import { auth } from "../Database/firebase";
 import { useNavigate } from "react-router-dom";
 import "../CSS/dashboard.css";
+// Dark Mode Flow
+import '../CSS/dark-mode.css';
 
 const db = getFirestore();
 
@@ -30,6 +32,8 @@ const ImageScroller = () => {
   const [username, setUsername] = useState("");
   const [selectedImage, setSelectedImage] = useState(null);
   const [isUserPremium, setIsUserPremium] = useState("");
+  const [darkModeChecked, setdarkModeChecked] = useState(false);
+
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -49,6 +53,7 @@ const ImageScroller = () => {
                 username,
                 selectedImage,
                 isUserPremium,
+                darkModeChecked,
               });
             } else {
               const data = querySnapshot.docs[0].data();
@@ -59,6 +64,7 @@ const ImageScroller = () => {
               setUsername(data.username);
               setSelectedImage(data.userImage);
               setIsUserPremium(data.isUserPremium);
+              setdarkModeChecked(data.isDarkModeEnabled);
             }
           })
           .catch((error) => {
@@ -74,6 +80,14 @@ const ImageScroller = () => {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [navigate]);
+
+  useEffect(() => {
+    if (darkModeChecked && darkModeChecked !== null) {
+      document.body.classList.add('dark-mode');
+    } else {
+      document.body.classList.remove('dark-mode');
+    }
+  }, [darkModeChecked]);
 
   return (
     <>

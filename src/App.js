@@ -142,7 +142,7 @@ function App() {
         </Routes>
         {/* Preventing logged-in users from accessing the login page. */}
         <Routes>
-        {isUserPremium ? <Route element={<AuthWrapper />}><Route path="/login" element={<Profile />} /></Route> : (
+        {user !== null ? <Route element={<AuthWrapper />}><Route path="/login" element={<Profile />} /></Route> : (
             <Route path="/login" element={<Login />} />
           )}
         </Routes>

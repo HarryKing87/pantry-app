@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { ToggleButton } from 'primereact/togglebutton';
 import {
   getFirestore,
   doc,
@@ -14,6 +15,7 @@ import { useNavigate } from "react-router-dom";
 /* React Toastify Notifications Imports */
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import '../CSS/dark-mode.css';
 
 const db = getFirestore();
 
@@ -29,6 +31,7 @@ function EditProfile() {
   const [lastNameError, setLastNameError] = useState("");
   const [emailError, setEmailError] = useState("");
   const [usernameError, setUsernameError] = useState("");
+  const [darkModeChecked, setdarkModeChecked] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -47,6 +50,7 @@ function EditProfile() {
                 mail: email,
                 username: username,
                 userImage: imageUrl,
+                isDarkModeEnabled: darkModeChecked
               });
             } else {
               // Existing user, update fields in the document
@@ -57,11 +61,13 @@ function EditProfile() {
                 mail: email || data.mail,
                 username: username || data.username,
                 userImage: imageUrl || data.imageUrl,
+                isDarkModeEnabled: darkModeChecked || data.isDarkModeEnabled
               });
               setFirstName(data.firstname);
               setLastName(data.lastname);
               setEmail(data.mail);
               setUsername(data.username);
+              setdarkModeChecked(data.isDarkModeEnabled);
               toast.success("Profile updated successfully!", {
                 position: toast.POSITION.TOP_RIGHT,
               });
@@ -145,6 +151,7 @@ function EditProfile() {
         mail: email,
         username: username,
         userImage: imageUrl,
+        isDarkModeEnabled: darkModeChecked
       });
     }
   };
@@ -162,8 +169,20 @@ function EditProfile() {
     }
   };
 
+  useEffect(() => {
+    if (darkModeChecked) {
+      document.body.classList.add('dark-mode');
+    } else {
+      document.body.classList.remove('dark-mode');
+    }
+  }, [darkModeChecked]);
+
+
   return (
     <div>
+      <div className="darkMode">
+        <ToggleButton id="dark-mode" checked={darkModeChecked} onChange={(event) => setdarkModeChecked(event.value)} />
+      </div>
   <form className="edit-profile-container">
     <label>Profile Image</label>
     <input type="file" accept="image/*" onChange={handleImageChange} />

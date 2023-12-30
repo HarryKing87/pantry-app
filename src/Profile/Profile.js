@@ -58,6 +58,7 @@ function Profile() {
   const [subscribedUntil, setSubscribedUntil] = useState("");
   const [validUntil, setValidUntil] = useState("");
   const [visibleNewUser, setVisibleNewUser] = useState();
+  const [darkModeChecked, setdarkModeChecked] = useState(false);
 
   // Check if the subscription has ended and set setIsUserPremium to false if needed
   useEffect(() => {
@@ -96,6 +97,7 @@ function Profile() {
                 isUserPremium,
                 subscribedUntil,
                 validUntil,
+                darkModeChecked,
               });
             } else {
               const data = querySnapshot.docs[0].data();
@@ -108,6 +110,7 @@ function Profile() {
               setIsUserPremium(data.isUserPremium);
               setSubscribedUntil(data.subscribedOn);
               setValidUntil(data.validUntil);
+              setdarkModeChecked(data.isDarkModeEnabled);
             }
           })
           .catch((error) => {
@@ -134,6 +137,14 @@ function Profile() {
       setVisibleNewUser(true);
     }
   }, []);
+
+  useEffect(() => {
+    if (darkModeChecked && darkModeChecked !== null) {
+      document.body.classList.add('dark-mode');
+    } else {
+      document.body.classList.remove('dark-mode');
+    }
+  }, [darkModeChecked]);
 
   function handleAllergyChange(event) {
     const { name, checked } = event.target;

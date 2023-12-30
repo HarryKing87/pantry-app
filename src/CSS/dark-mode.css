@@ -1,0 +1,20 @@
+/* Dark mode styles */
+.dark-mode {
+    background-color: #1f1f1f;
+    color: #ffffff;
+  }
+  
+  /* Example styles for dark-mode elements */
+  .dark-mode input[type="text"],
+  .dark-mode input[type="email"],
+  .dark-mode input[type="file"], 
+  .dark-mode .nav-profile, .dark-mode .nav-profile li a,
+  .dark-mode .Profile,
+  .dark-mode .form-container,
+  .dark-mode .p-sidebar,
+  .dark-mode .edit-profile-container {
+    background-color: #333;
+    color: #fff;
+    border-radius: 10px;
+  }
+  

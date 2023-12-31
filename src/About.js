@@ -1,7 +1,66 @@
 import Navigation from "./Navigation";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import {
+  getFirestore,
+  collection,
+  query,
+  where,
+  getDocs,
+  setDoc,
+  updateDoc,
+  doc,
+} from "firebase/firestore";
+import { auth } from "./Database/firebase";
 import "./CSS/about.css";
 
+const db = getFirestore();
+
+
 export default function About() {
+  const navigate = useNavigate();
+  const [user, setUser] = useState(null);
+  const [darkModeChecked, setdarkModeChecked] = useState(false);
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        setUser(user);
+        const userRef = doc(db, "users", user.uid);
+        const q = query(collection(db, "users"), where("id", "==", user.uid));
+        getDocs(q)
+          .then((querySnapshot) => {
+            if (querySnapshot.empty) {
+              setDoc(userRef, {
+                id: user.uid,
+                darkModeChecked,
+              });
+            } else {
+              const data = querySnapshot.docs[0].data();
+              setdarkModeChecked(data.isDarkModeEnabled);
+            }
+          })
+          .catch((error) => {
+            console.error("Error getting user data:", error);
+          });
+      } else {
+        setUser(null);
+        navigate("/");
+      }
+    });
+    return () => {
+      unsubscribe();
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [navigate]);
+
+  useEffect(() => {
+    if (darkModeChecked && darkModeChecked !== null) {
+      document.body.classList.add('dark-mode');
+    } else {
+      document.body.classList.remove('dark-mode');
+    }
+  }, [darkModeChecked]);
+
   return (
     <div>
       <Navigation />

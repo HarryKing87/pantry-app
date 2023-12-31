@@ -48,6 +48,7 @@ const Fruits = () => {
   const [expiryDate, setExpiryDate] = useState("");
   const [amount, setAmount] = useState("");
   const [fetchedProducts, setFetchedProducts] = useState([]);
+  const [darkModeChecked, setdarkModeChecked] = useState(false);
   library.add(faCoffee, faCircleQuestion);
 
   useEffect(() => {
@@ -71,6 +72,7 @@ const Fruits = () => {
               const data = querySnapshot.docs[0].data();
               setFruits(data.fruits || []);
               setFetchedProducts(data.fruits || []); // Set fetched products in state
+              setdarkModeChecked(data.isDarkModeEnabled);
             }
           })
           .catch((error) => {
@@ -87,6 +89,14 @@ const Fruits = () => {
       unsubscribe();
     };
   }, [navigate]);
+
+  useEffect(() => {
+    if (darkModeChecked && darkModeChecked !== null) {
+      document.body.classList.add('dark-mode');
+    } else {
+      document.body.classList.remove('dark-mode');
+    }
+  }, [darkModeChecked]);
 
   const handleProductNameChange = (e) => {
     setProductName(e.target.value);

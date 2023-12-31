@@ -15,6 +15,7 @@ import { useNavigate } from "react-router-dom";
 /* React Toastify Notifications Imports */
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
 import '../CSS/dark-mode.css';
 
 const db = getFirestore();
@@ -91,6 +92,9 @@ function EditProfile() {
     try {
       await updateDoc(userRef, dataToUpdate);
       console.log("User data updated successfully!");
+      toast.success("Profile updated successfully!", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
 
       // If imageUrl exists in dataToUpdate, update it separately
       if (dataToUpdate.userImage) {
@@ -142,7 +146,7 @@ function EditProfile() {
       setUsernameError("");
     }
 
-    
+    // When arriving at the Edit Profile, fill in the data already known
     if (isValid && user) {
       const userRef = doc(db, "users", user.uid);
       updateUserData(userRef, {
@@ -181,7 +185,7 @@ function EditProfile() {
   return (
     <div>
       <div className="darkMode">
-        <ToggleButton id="dark-mode" checked={darkModeChecked} onChange={(event) => setdarkModeChecked(event.value)} />
+        <ToggleButton id="dark-mode" onLabel="Dark Mode" offLabel="Light Mode" checked={darkModeChecked} onChange={(event) => setdarkModeChecked(event.value)} />
       </div>
   <form className="edit-profile-container">
     <label>Profile Image</label>
@@ -236,6 +240,20 @@ function EditProfile() {
   >
     Save
   </button>
+  <ToastContainer
+                  position="top-right"
+                  autoClose={5000}
+                  hideProgressBar={false}
+                  newestOnTop={false}
+                  closeOnClick
+                  rtl={false}
+                  pauseOnFocusLoss
+                  draggable
+                  pauseOnHover
+                  theme="light"
+                />
+                {/* Same as */}
+                <ToastContainer />
 </div>
 
   );

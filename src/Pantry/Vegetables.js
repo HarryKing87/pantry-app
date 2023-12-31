@@ -48,6 +48,7 @@ const Vegetable = () => {
   const [expiryDate, setExpiryDate] = useState("");
   const [amount, setAmount] = useState("");
   const [fetchedProducts, setFetchedProducts] = useState([]);
+  const [darkModeChecked, setdarkModeChecked] = useState(false);
   library.add(faCoffee, faCircleQuestion);
 
   useEffect(() => {
@@ -71,6 +72,7 @@ const Vegetable = () => {
               const data = querySnapshot.docs[0].data();
               setVegetable(data.vegetables || []);
               setFetchedProducts(data.vegetables || []); // Set fetched products in state
+              setdarkModeChecked(data.isDarkModeEnabled);
             }
           })
           .catch((error) => {
@@ -87,6 +89,14 @@ const Vegetable = () => {
       unsubscribe();
     };
   }, [navigate]);
+
+  useEffect(() => {
+    if (darkModeChecked && darkModeChecked !== null) {
+      document.body.classList.add('dark-mode');
+    } else {
+      document.body.classList.remove('dark-mode');
+    }
+  }, [darkModeChecked]);
 
   const handleProductNameChange = (e) => {
     setProductName(e.target.value);
@@ -252,7 +262,7 @@ const Vegetable = () => {
         crossorigin="anonymous"
       ></script>
       <Navigation />
-      <h3 style={{ margin: "2rem auto" }}>Vegetabe section.</h3>
+      <h3 style={{ margin: "2rem auto" }}>Vegetable section.</h3>
       <form className="dairy-form">
         <Dropdown
           value={productName}

@@ -1,0 +1,37 @@
+/* Dark mode styles */
+.dark-mode {
+    background-color: #1f1f1f;
+    color: #ffffff;
+  }
+  
+  /* Example styles for dark-mode elements */
+  .dark-mode input[type="text"],
+  .dark-mode input[type="email"],
+  .dark-mode input[type="file"], 
+  .dark-mode .nav-profile, .dark-mode .nav-profile li a,
+  .dark-mode .nav-home,
+  .dark-mode .nav-home li a,
+  .dark-mode .Profile,
+  .dark-mode .form-container,
+  .dark-mode .p-sidebar,
+  .dark-mode .p-dropdown,
+  .dark-mode .p-dropdown span,
+  .dark-mode .form-input,
+  .dark-mode .p-inputtext,
+  .dark-mode .edit-profile-container,
+  .dark-mode .container .text,
+  .dark-mode .question,
+  .dark-mode .dairy-form {
+    background-color: #333;
+    color: #fff;
+    border-radius: 10px;
+  }
+
+  @media only screen and (max-width: 768px) {
+  .dark-mode .hamburger span{
+    background:white;
+  }
+  .dark-mode .nav-profile, .dark-mode .nav-profile li a, .dark-mode .nav-home li a{
+    background: inherit;
+  }
+  }

@@ -31,7 +31,7 @@
   .dark-mode .hamburger span{
     background:white;
   }
-  .dark-mode .nav-profile, .dark-mode .nav-profile li a {
+  .dark-mode .nav-profile, .dark-mode .nav-profile li a, .dark-mode .nav-home li a{
     background: inherit;
   }
   }

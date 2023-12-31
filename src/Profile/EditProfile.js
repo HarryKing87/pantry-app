@@ -69,9 +69,6 @@ function EditProfile() {
               setEmail(data.mail);
               setUsername(data.username);
               setdarkModeChecked(data.isDarkModeEnabled);
-              toast.success("Profile updated successfully!", {
-                position: toast.POSITION.TOP_RIGHT,
-              });
             }
           })
           .catch((error) => {

@@ -22,7 +22,8 @@
   .dark-mode .container .text,
   .dark-mode .question,
   .dark-mode .dairy-form,
-  .dark-mode .dashboard-dairy {
+  .dark-mode .dashboard-dairy,
+  .dark-mode .navigation-container {
     background-color: #1f1f1f;
     color: #fff;
     border-radius: 10px;
@@ -50,9 +51,10 @@
   .dark-mode .container .text,
   .dark-mode .question,
   .dark-mode .dairy-form,
-  .dark-mode .dashboard-dairy {
+  .dark-mode .dashboard-dairy,
+  .dark-mode .navigation-container {
     background-color: #1f1f1f;
     color: #fff;
-    border-radius: 10px;
+    border-radius: 0;
   }
   }

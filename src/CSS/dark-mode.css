@@ -23,7 +23,7 @@
   .dark-mode .question,
   .dark-mode .dairy-form,
   .dark-mode .dashboard-dairy {
-    background-color: #333;
+    background-color: #1f1f1f;
     color: #fff;
     border-radius: 10px;
   }

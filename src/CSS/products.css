@@ -80,6 +80,7 @@ select option {
   /*Showing the products in a 3x3 grid*/
   display: grid;
   grid-template-columns: 3;
+  padding: 0 0 100% 0; /* Modifying the padding of the create element in order to hide the background color changing mid-way */
 }
 
 .product-card {

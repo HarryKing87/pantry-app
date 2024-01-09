@@ -91,9 +91,9 @@ const Misc = () => {
 
   useEffect(() => {
     if (darkModeChecked && darkModeChecked !== null) {
-      document.body.classList.add('dark-mode');
+      document.body.classList.add("dark-mode");
     } else {
-      document.body.classList.remove('dark-mode');
+      document.body.classList.remove("dark-mode");
     }
   }, [darkModeChecked]);
 
@@ -120,7 +120,9 @@ const Misc = () => {
     if (
       fetchedProducts.some((product) => product.name === newMiscProduct.name)
     ) {
-      alert("The product you selected already exists in your storage.");
+      toast.error("The product you selected already exists in your storage.", {
+        position: toast.POSITION.TOP_CENTER,
+      });
     } else {
       const userRef = doc(db, "users", user.uid);
       const updatedMisc = [...misc, newMiscProduct]; // Create a new array with the added product

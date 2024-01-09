@@ -90,9 +90,9 @@ const Dairy = () => {
 
   useEffect(() => {
     if (darkModeChecked && darkModeChecked !== null) {
-      document.body.classList.add('dark-mode');
+      document.body.classList.add("dark-mode");
     } else {
-      document.body.classList.remove('dark-mode');
+      document.body.classList.remove("dark-mode");
     }
   }, [darkModeChecked]);
 
@@ -142,7 +142,12 @@ const Dairy = () => {
               (product) => product.name === newDairyProduct.name
             )
           ) {
-            alert("The product you selected already exists in your storage.");
+            toast.error(
+              "The product you selected already exists in your storage.",
+              {
+                position: toast.POSITION.TOP_CENTER,
+              }
+            );
           }
         });
       } catch (error) {

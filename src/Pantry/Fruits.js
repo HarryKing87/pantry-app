@@ -92,9 +92,9 @@ const Fruits = () => {
 
   useEffect(() => {
     if (darkModeChecked && darkModeChecked !== null) {
-      document.body.classList.add('dark-mode');
+      document.body.classList.add("dark-mode");
     } else {
-      document.body.classList.remove('dark-mode');
+      document.body.classList.remove("dark-mode");
     }
   }, [darkModeChecked]);
 
@@ -121,7 +121,9 @@ const Fruits = () => {
     if (
       fetchedProducts.some((product) => product.name === newFruitProduct.name)
     ) {
-      alert("The product you selected already exists in your storage.");
+      toast.error("The product you selected already exists in your storage.", {
+        position: toast.POSITION.TOP_CENTER,
+      });
     } else {
       const userRef = doc(db, "users", user.uid);
       const updatedFruits = [...fruits, newFruitProduct]; // Create a new array with the added product

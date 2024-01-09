@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { ToggleButton } from 'primereact/togglebutton';
+import { ToggleButton } from "primereact/togglebutton";
 import {
   getFirestore,
   doc,
@@ -16,7 +16,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
-import '../CSS/dark-mode.css';
+import "../CSS/dark-mode.css";
 
 const db = getFirestore();
 
@@ -51,7 +51,7 @@ function EditProfile() {
                 mail: email,
                 username: username,
                 userImage: imageUrl,
-                isDarkModeEnabled: darkModeChecked
+                isDarkModeEnabled: darkModeChecked,
               });
             } else {
               // Existing user, update fields in the document
@@ -62,7 +62,7 @@ function EditProfile() {
                 mail: email || data.mail,
                 username: username || data.username,
                 userImage: imageUrl || data.imageUrl,
-                isDarkModeEnabled: darkModeChecked || data.isDarkModeEnabled
+                isDarkModeEnabled: darkModeChecked || data.isDarkModeEnabled,
               });
               setFirstName(data.firstname);
               setLastName(data.lastname);
@@ -152,7 +152,7 @@ function EditProfile() {
         mail: email,
         username: username,
         userImage: imageUrl,
-        isDarkModeEnabled: darkModeChecked
+        isDarkModeEnabled: darkModeChecked,
       });
     }
   };
@@ -172,87 +172,99 @@ function EditProfile() {
 
   useEffect(() => {
     if (darkModeChecked) {
-      document.body.classList.add('dark-mode');
+      document.body.classList.add("dark-mode");
     } else {
-      document.body.classList.remove('dark-mode');
+      document.body.classList.remove("dark-mode");
     }
   }, [darkModeChecked]);
-
 
   return (
     <div>
       <div className="darkMode">
-        <ToggleButton id="dark-mode" onLabel="Dark Mode" offLabel="Light Mode" checked={darkModeChecked} onChange={(event) => setdarkModeChecked(event.value)} />
+        <ToggleButton
+          id="dark-mode"
+          onLabel="Dark Mode"
+          offLabel="Light Mode"
+          checked={darkModeChecked}
+          onChange={(event) => setdarkModeChecked(event.value)}
+        />
       </div>
-  <form className="edit-profile-container">
-    <label>Profile Image</label>
-    <input type="file" accept="image/*" onChange={handleImageChange} />
+      <form className="edit-profile-container">
+        <label>Profile Image</label>
+        <input type="file" accept="image/*" onChange={handleImageChange} />
 
-    <label>First Name</label>
-    <input
-      type="text"
-      required
-      pattern="[A-Za-z]{1,30}"
-      title="Please enter only letters with a maximum of 30 characters"
-      value={firstName}
-      onChange={(e) => setFirstName(e.target.value)}
-    />
+        <label>First Name</label>
+        <input
+          type="text"
+          required
+          pattern="[A-Za-z]{1,30}"
+          title="Please enter only letters with a maximum of 30 characters"
+          value={firstName}
+          onChange={(e) => setFirstName(e.target.value)}
+        />
 
-    <label>Last Name</label>
-    <input
-      type="text"
-      required
-      pattern="[A-Za-z]{1,30}"
-      title="Please enter only letters with a maximum of 30 characters"
-      value={lastName}
-      onChange={(e) => setLastName(e.target.value)}
-    />
+        <label>Last Name</label>
+        <input
+          type="text"
+          required
+          pattern="[A-Za-z]{1,30}"
+          title="Please enter only letters with a maximum of 30 characters"
+          value={lastName}
+          onChange={(e) => setLastName(e.target.value)}
+        />
 
-    <label>Email</label>
-    <input
-      type="email"
-      required
-      value={email}
-      onChange={(e) => setEmail(e.target.value)}
-    />
+        <label>Email</label>
+        <input
+          type="email"
+          required
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
 
-    <label>Username</label>
-    <input
-      type="text"
-      required
-      pattern="[A-Za-z0-9_-]{1,15}"
-      title="Please enter only letters, numbers, '_', or '-' with a maximum of 15 characters"
-      value={username}
-      onChange={(e) => setUsername(e.target.value)}
-    />
-    <div style={{color:'red', fontSize: '12px'}}>{firstNameError && <span>{firstNameError}</span>}</div>
-    <div style={{color:'red', fontSize: '12px'}}>{lastNameError && <span>{lastNameError}</span>}</div>
-    <div style={{color:'red', fontSize: '12px'}}>{emailError && <span>{emailError}</span>}</div>
-    <div style={{color:'red', fontSize: '12px'}}>{usernameError && <span>{usernameError}</span>}</div>
-  </form>
-  <button
-    type="button"
-    style={{ background: "#6366F1" }}
-    onClick={handleProfileSave}
-  >
-    Save
-  </button>
-  <ToastContainer
-                  position="top-right"
-                  autoClose={5000}
-                  hideProgressBar={false}
-                  newestOnTop={false}
-                  closeOnClick
-                  rtl={false}
-                  pauseOnFocusLoss
-                  draggable
-                  pauseOnHover
-                  theme="light"
-                />
-                {/* Same as */}
-                <ToastContainer />
-</div>
-
+        <label>Username</label>
+        <input
+          type="text"
+          required
+          pattern="[A-Za-z0-9_-]{1,15}"
+          title="Please enter only letters, numbers, '_', or '-' with a maximum of 15 characters"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+        />
+        <div style={{ color: "red", fontSize: "12px" }}>
+          {firstNameError && <span>{firstNameError}</span>}
+        </div>
+        <div style={{ color: "red", fontSize: "12px" }}>
+          {lastNameError && <span>{lastNameError}</span>}
+        </div>
+        <div style={{ color: "red", fontSize: "12px" }}>
+          {emailError && <span>{emailError}</span>}
+        </div>
+        <div style={{ color: "red", fontSize: "12px" }}>
+          {usernameError && <span>{usernameError}</span>}
+        </div>
+      </form>
+      <button
+        type="button"
+        style={{ background: "#4caf50" }}
+        onClick={handleProfileSave}
+      >
+        Save
+      </button>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
+      {/* Same as */}
+      <ToastContainer />
+    </div>
   );
 }
 

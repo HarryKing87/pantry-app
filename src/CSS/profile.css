@@ -85,7 +85,7 @@ p {
 }
 
 .Profile button {
-  background-color: #6366F1;
+  background-color: #4caf50;
   color: #fff;
   padding: 10px 20px;
   border: none;
@@ -107,6 +107,10 @@ p {
   align-items: center;
 }
 
+.p-checkbox .p-checkbox-box.p-highlight {
+  background-color: #4caf50!important;
+}
+
 .form-row {
   display: flex;
 }
@@ -120,7 +124,7 @@ p {
 }
 
 #menu-profile-tab {
-  background: #6366F1;
+  background: #4caf50;
   max-width: 25%;
   padding: 20px;
   margin: 0 auto 5% auto;

@@ -133,16 +133,20 @@ function Profile() {
 
     // If the cookie doesn't exist or its value is 'false', set it to 'true' and show the modal
     if (!bannerNewUserWelcome || bannerNewUserWelcome === "false") {
-      Cookies.set("bannerNewUserWelcome", "true");
+      // Set the cookie with an expiration date 365 days from now (you can adjust the expiry as needed)
+      const expirationDate = new Date();
+      expirationDate.setDate(expirationDate.getDate() + 365); // Expires in 365 days
+
+      Cookies.set("bannerNewUserWelcome", "true", { expires: expirationDate });
       setVisibleNewUser(true);
     }
   }, []);
 
   useEffect(() => {
     if (darkModeChecked && darkModeChecked !== null) {
-      document.body.classList.add('dark-mode');
+      document.body.classList.add("dark-mode");
     } else {
-      document.body.classList.remove('dark-mode');
+      document.body.classList.remove("dark-mode");
     }
   }, [darkModeChecked]);
 
@@ -323,29 +327,27 @@ function Profile() {
         onHide={() => setVisibleNewUser(false)}
         className="welcome-message"
       >
-          <h4>Welcome to Pantry!</h4>
-          <p>
-            We are delighted to welcome you aboard. 🎉 <br /> Your presence
-            means a lot to us, and we're excited to have you as part of our
-            community.
-          </p>
-          <p>
-            To enhance your experience and make the most out of Pantry, we
-            encourage you to complete your profile. Click on the gear icon
-            located in the top-right corner to access your settings. There, you
-            can fill in your profile details to personalize your journey with
-            us.
-          </p>
-          <p>
-            At Pantry, we're dedicated to providing you with a seamless and
-            personalized experience. Explore our features, discover new
-            possibilities, and don't hesitate to reach out if you have any
-            questions or need assistance. Your satisfaction is our priority.
-          </p>
-          <p>
-            Thank you for joining us on this exciting adventure. Let's create
-            something amazing together! 🌟
-          </p>
+        <h4>Welcome to Pantry!</h4>
+        <p>
+          We are delighted to welcome you aboard. 🎉 <br /> Your presence means
+          a lot to us, and we're excited to have you as part of our community.
+        </p>
+        <p>
+          To enhance your experience and make the most out of Pantry, we
+          encourage you to complete your profile. Click on the gear icon located
+          in the top-right corner to access your settings. There, you can fill
+          in your profile details to personalize your journey with us.
+        </p>
+        <p>
+          At Pantry, we're dedicated to providing you with a seamless and
+          personalized experience. Explore our features, discover new
+          possibilities, and don't hesitate to reach out if you have any
+          questions or need assistance. Your satisfaction is our priority.
+        </p>
+        <p>
+          Thank you for joining us on this exciting adventure. Let's create
+          something amazing together! 🌟
+        </p>
       </Dialog>
     </div>
   );

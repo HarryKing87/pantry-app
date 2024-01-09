@@ -144,7 +144,14 @@ function Profile() {
 
   useEffect(() => {
     if (darkModeChecked && darkModeChecked !== null) {
-      document.body.classList.add("dark-mode");
+      document.documentElement.classList.add("dark-mode");
+      // Setting also the cookie for the dark mode
+      const darkModeFlow = Cookies.get("isDarkModeEnabled");
+      if (!darkModeFlow || darkModeFlow === "false") {
+        const expirationDate = new Date();
+        expirationDate.setDate(expirationDate.getDate() + 365);
+        Cookies.set("isDarkModeEnabled", "true", { expires: expirationDate });
+      }
     } else {
       document.body.classList.remove("dark-mode");
     }

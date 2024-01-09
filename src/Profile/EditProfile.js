@@ -26,7 +26,6 @@ function EditProfile() {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
   // Validation states
   const [firstNameError, setFirstNameError] = useState("");
   const [lastNameError, setLastNameError] = useState("");
@@ -50,7 +49,6 @@ function EditProfile() {
                 lastname: lastName,
                 mail: email,
                 username: username,
-                userImage: imageUrl,
                 isDarkModeEnabled: darkModeChecked,
               });
             } else {
@@ -61,7 +59,6 @@ function EditProfile() {
                 lastname: lastName || data.lastname,
                 mail: email || data.mail,
                 username: username || data.username,
-                userImage: imageUrl || data.imageUrl,
                 isDarkModeEnabled: darkModeChecked || data.isDarkModeEnabled,
               });
               setFirstName(data.firstname);
@@ -92,11 +89,6 @@ function EditProfile() {
       toast.success("Profile updated successfully!", {
         position: toast.POSITION.TOP_RIGHT,
       });
-
-      // If imageUrl exists in dataToUpdate, update it separately
-      if (dataToUpdate.userImage) {
-        await updateDoc(userRef, { userImage: dataToUpdate.userImage });
-      }
     } catch (error) {
       console.error("Error updating user data:", error);
     }
@@ -151,22 +143,8 @@ function EditProfile() {
         lastname: lastName,
         mail: email,
         username: username,
-        userImage: imageUrl,
         isDarkModeEnabled: darkModeChecked,
       });
-    }
-  };
-
-  // get user image from PC to show on Avatar
-  const handleImageChange = (event) => {
-    const file = event.target.files[0];
-
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        setImageUrl(reader.result); // Store the data URL in the state
-      };
-      reader.readAsDataURL(file);
     }
   };
 
@@ -190,9 +168,6 @@ function EditProfile() {
         />
       </div>
       <form className="edit-profile-container">
-        <label>Profile Image</label>
-        <input type="file" accept="image/*" onChange={handleImageChange} />
-
         <label>First Name</label>
         <input
           type="text"

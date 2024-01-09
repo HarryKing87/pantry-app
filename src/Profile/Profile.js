@@ -27,6 +27,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { faGears } from "@fortawesome/free-solid-svg-icons";
 import EditProfile from "./EditProfile";
+import ChangeImage from "./ChangeImage";
 import SubscriptionService from "../Subscriptions/SubscriptionService";
 // Prime icon for verified user
 import "primeicons/primeicons.css";
@@ -55,6 +56,7 @@ function Profile() {
   const [visible, setVisible] = useState(false);
   const [shoppingListVisible, setShoppingListVisible] = useState(false);
   const [settingsVisible, setSettingsVisible] = useState(false);
+  const [changeImageVisible, setChangeImageVisible] = useState(false);
   const [subscribedUntil, setSubscribedUntil] = useState("");
   const [validUntil, setValidUntil] = useState("");
   const [visibleNewUser, setVisibleNewUser] = useState();
@@ -225,7 +227,12 @@ function Profile() {
           />
         </div>
         <div id="profile-img">
-          <Avatar image={selectedImage} size="xlarge" shape="circle" />
+          <Avatar
+            onClick={() => setChangeImageVisible(true)}
+            image={selectedImage}
+            size="xlarge"
+            shape="circle"
+          />
           <div className="user-info">
             <p style={{ marginLeft: "7px", fontSize: "20px" }}>
               {firstname} {lastname} {isUserPremium ? verified : ""}
@@ -308,6 +315,14 @@ function Profile() {
           <Button icon="pi pi-arrow-right" onClick={() => setVisible(true)} />
         </div>
         <hr />
+        <div className="changeImage">
+          <Sidebar
+            visible={changeImageVisible}
+            onHide={() => setChangeImageVisible(false)}
+          >
+            <ChangeImage />
+          </Sidebar>
+        </div>
       </div>
 
       <div className="shoppingList-container transition-fade transition-fade-enter">

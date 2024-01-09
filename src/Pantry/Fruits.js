@@ -295,7 +295,7 @@ const Fruits = () => {
         </button>
       </form>
 
-      <div className="dashboard-dairy"></div>
+      <div className="dashboard-dairy-product-list"></div>
 
       <div className="product-list" style={styles.productList}>
         {fetchedProducts.map((product, index) => {

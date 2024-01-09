@@ -182,7 +182,7 @@ const SubscriptionService = () => {
     <div>
       <button
         onClick={handleCheckout}
-        style={{ marginTop: "5%", background: "#6366F1" }}
+        style={{ marginTop: "5%", background: "#4caf50" }}
       >
         Checkout
       </button>

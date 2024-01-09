@@ -26,14 +26,14 @@ margin: 0; /* Resetting the values */
 }
 
 .buttonSubmit {
-    background-color: #6366F1;
+    background-color: #4caf50;
 }
 
 .buttonDelete {
     width:auto;
     font-size: 0.6rem;
     margin-left: 1rem;
-    background-color: #6366F1;
+    background-color: #4caf50;
 }
 
 .unordered-list-cont li{

@@ -7,7 +7,7 @@ exports.handler = async (event, context) => {
   try {
     const session = await stripe.checkout.sessions.create({
       success_url: "https://itspantry.netlify.app",
-      cancel_url: "http://localhost:3000/profile",
+      cancel_url: "https://itspantry.netlify.app/profile",
       payment_method_types: ["card"],
       line_items: [
         {

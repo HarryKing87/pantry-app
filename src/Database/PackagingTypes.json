@@ -1,0 +1,55 @@
+[
+    {
+      "label": "Select Container Type",
+      "value": ""
+    },
+    {
+      "label": "Can",
+      "value": "Can"
+    },
+    {
+      "label": "Bottle",
+      "value": "Bottle"
+    },
+    {
+      "label": "Box",
+      "value": "Box"
+    },
+    {
+      "label": "Jar",
+      "value": "Jar"
+    },
+    {
+      "label": "Carton",
+      "value": "Carton"
+    },
+    {
+      "label": "Pouch",
+      "value": "Pouch"
+    },
+    {
+      "label": "Plastic container/Tub",
+      "value": "Plastic container/Tub"
+    },
+    {
+      "label": "Aseptic container",
+      "value": "Aseptic container"
+    },
+    {
+      "label": "Cask/Barrel",
+      "value": "Cask/Barrel"
+    },
+    {
+      "label": "Tin",
+      "value": "Tin"
+    },
+    {
+      "label": "Vacuum-sealed bag",
+      "value": "Vacuum-sealed bag"
+    },
+    {
+      "label": "Foil pouch",
+      "value": "Foil pouch"
+    }
+  ]
+  

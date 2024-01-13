@@ -12,6 +12,7 @@
   .dark-mode .nav-home,
   .dark-mode .nav-home li a,
   .dark-mode .Profile,
+  .dark-mode html,
   .dark-mode .form-container,
   .dark-mode .p-sidebar,
   .dark-mode .p-dropdown,
@@ -27,6 +28,10 @@
     background-color: #1f1f1f;
     color: #fff;
     border-radius: 10px;
+  }
+
+  html {
+    height: 100%!important;
   }
 
   @media only screen and (max-width: 768px) {

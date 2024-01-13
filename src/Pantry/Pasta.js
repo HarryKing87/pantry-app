@@ -21,6 +21,8 @@ import "react-toastify/dist/ReactToastify.css";
 import { Calendar } from "primereact/calendar";
 /*Meat Images JSON import */
 import productOptions from "../Database/PastaImages.json";
+// Importing Packaging types
+import packaging from "../Database/PackagingTypes.json";
 /* Dropdown Import */
 import { Dropdown } from "primereact/dropdown";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -50,6 +52,12 @@ const Pasta = () => {
   const [fetchedProducts, setFetchedProducts] = useState([]);
   const [darkModeChecked, setdarkModeChecked] = useState(false);
   library.add(faCoffee, faCircleQuestion);
+  const [packageType, setPackageType] = useState([]);
+
+  useEffect(() => {
+    // Set the containers state with the data from the imported JSON file
+    setPackageType(packaging.value);
+  }, []);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -110,11 +118,16 @@ const Pasta = () => {
     setAmount(e.target.value);
   };
 
+  const handlePackagingTypeChange = (e) => {
+    setPackageType(e.target.value);
+  }
+
   const saveMeatProduct = async () => {
     const newPastaProduct = {
       name: productName,
       expiryDate: expiryDate.toLocaleDateString("en-GB"),
       amount: amount,
+      packagingType: packageType
     };
 
     // Checking if the product currently being inserted already exists in the storage.
@@ -139,6 +152,7 @@ const Pasta = () => {
         setProductName("");
         setExpiryDate("");
         setAmount("");
+        setPackageType(""); 
 
         fetchedProducts.map((product, index) => {
           if (
@@ -277,14 +291,23 @@ const Pasta = () => {
           value={expiryDate}
           onChange={handleExpiryDateChange}
           dateFormat="dd/mm/yy"
-          className="calendar"
+          className="calendar form-input"
         />
         <input
           type="number"
           placeholder="Amount"
           value={amount}
           onChange={handleAmountChange}
-          className="form-input"
+          className="form-input amount"
+          pattern="\d*"
+        />
+        <Dropdown
+          value={packageType}
+          options={packaging}
+          onChange={handlePackagingTypeChange}
+          placeholder="Select Packaging"
+          className="form-input dropdown-foods"
+          showClear
         />
         <button
           type="button"
@@ -378,7 +401,7 @@ const Pasta = () => {
                     )}
                   </p>
                   <p className="amount" style={styles.amount}>
-                    Amount: {product.amount}
+                    Amount: {product.amount} {product.packagingType}
                   </p>
                 </div>
               </div>

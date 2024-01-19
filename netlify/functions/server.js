@@ -1,7 +1,60 @@
+import React from "react";
+import { useState, useEffect } from "react";
+import {
+  getFirestore,
+  collection,
+  query,
+  where,
+  getDocs,
+  setDoc,
+  updateDoc,
+  doc,
+} from "firebase/firestore";
+import { auth } from "../Database/firebase";
+
+const db = getFirestore();
+
 // TEST MODE
 const stripe = require("stripe")(
   "sk_test_51Ik6M1DGpwrBbxcmOs6t6tHPgHAzKSjowSDY0ZWfrIIW4zzMPkqLwJ0eT7Dn7Ym0bSmakJP63j91IaErsc2ntNsg00FmjGvBEK"
 );
+
+const DBConnection = () => {
+  const [user, setUser] = useState(null);
+  const [isUserPremium, setIsUserPremium] = useState(false);
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        setUser(user);
+        // Fetch subscription status and update the state
+        const userRef = doc(db, "users", user.uid);
+        const q = query(collection(db, "users"), where("id", "==", user.uid));
+        getDocs(q)
+          .then((querySnapshot) => {
+            if (querySnapshot.empty) {
+              setDoc(userRef, {
+                id: user.uid,
+                isUserPremium
+              });
+            } else {
+              const data = querySnapshot.docs[0].data();
+              isUserPremium ? setIsUserPremium(true) : setIsUserPremium(false);
+            }
+          })
+          .catch((error) => {
+            console.error("Error getting user data:", error);
+          });
+      } else {
+        setUser(null);
+      }
+    });
+    return () => {
+      unsubscribe();
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+}
 
 exports.handler = async (event, context) => {
   try {
@@ -17,6 +70,16 @@ exports.handler = async (event, context) => {
       ],
       mode: "subscription",
     });
+
+    // If the session creation is successful, set the user as premium
+    if (session) {
+      const userId = /* Get the user ID from your authentication system */;
+      const userRef = doc(db, "users", userId);
+
+      await updateDoc(userRef, {
+        isUserPremium: true,
+      });
+    }
 
     return {
       statusCode: 200,
@@ -68,3 +131,4 @@ app.listen(3001, () => {
   console.log("Server is running on port 3001");
 });
 */
+export default DBConnection;

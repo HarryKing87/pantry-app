@@ -150,12 +150,10 @@ const SubscriptionService = () => {
       }
 
       const { sessionId } = await response.json();
-      setIsUserPremium(true);
 
       setSubscribedUntil(currentMonthYear);
       const userRef = doc(db, "users", user.uid);
       await updateDoc(userRef, {
-        isUserPremium: true,
         subscribedOn: currentMonthYear,
         validUntil: subscriptionValid,
       });

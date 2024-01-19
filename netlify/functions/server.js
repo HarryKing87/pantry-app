@@ -9,7 +9,7 @@ import {
   updateDoc,
   doc,
 } from "firebase/firestore";
-import { auth } from "../Database/firebase";
+import { auth } from ".../src//Database/firebase";
 
 const db = getFirestore();
 

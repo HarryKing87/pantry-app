@@ -143,7 +143,7 @@ function EditProfile() {
         lastname: lastName,
         mail: email,
         username: username,
-        isDarkModeEnabled: darkModeChecked,
+        isDarkModeEnabled: darkModeChecked !== undefined ? darkModeChecked : false,
       });
     }
   };

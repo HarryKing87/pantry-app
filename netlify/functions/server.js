@@ -3,6 +3,9 @@ const stripe = require("stripe")(
   "sk_test_51Ik6M1DGpwrBbxcmOs6t6tHPgHAzKSjowSDY0ZWfrIIW4zzMPkqLwJ0eT7Dn7Ym0bSmakJP63j91IaErsc2ntNsg00FmjGvBEK"
 );
 
+const paymentIntent = await stripe.paymentIntents.create();
+alert(paymentIntent);
+
 exports.handler = async (event, context) => {
   try {
     const session = await stripe.checkout.sessions.create({

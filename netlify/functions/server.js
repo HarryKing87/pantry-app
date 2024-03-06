@@ -20,7 +20,7 @@ exports.handler = async (event, context) => {
 
     return {
       statusCode: 200,
-      body: JSON.stringify({ sessionId: session.id, userPremium: true }),
+      body: JSON.stringify({ sessionId: session.id, status: session.status }),
     };
   } catch (error) {
     console.error("Error creating session:", error);

@@ -149,8 +149,8 @@ const SubscriptionService = () => {
         throw new Error("Network response was not ok");
       }
 
-      const { sessionId, userPremium } = await response.json();
-      alert(userPremium);
+      const { sessionId, status } = await response.json();
+      alert("status is: " + status);
 
       setSubscribedUntil(currentMonthYear);
       const userRef = doc(db, "users", user.uid);

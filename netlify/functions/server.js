@@ -18,9 +18,6 @@ exports.handler = async (event, context) => {
       mode: "subscription",
     });
 
-    const paymentIntent = await stripe.paymentIntents.create();
-    console.log(paymentIntent);
-
     return {
       statusCode: 200,
       body: JSON.stringify({ sessionId: session.id }),

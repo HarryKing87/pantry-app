@@ -168,6 +168,7 @@ const SubscriptionService = () => {
 
   const handleCancelSubscription = async () => {
     // Update the state to reflect the cancellation
+    // TODO: Implement real Stripe sub cancellation
     setIsUserPremium(false);
     const userRef = doc(db, "users", user.uid);
     await updateDoc(userRef, {

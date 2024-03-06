@@ -6,7 +6,7 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../Database/firebase";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import emailjs from 'emailjs-com';
+import emailjs from "emailjs-com";
 
 function Register() {
   const [password, setPassword] = useState("");
@@ -36,10 +36,6 @@ function Register() {
         position: toast.POSITION.TOP_RIGHT,
       });
       sendEmail();
-
-      setTimeout(() => {
-        window.location.href = "/profile";
-      }, 3000);
     } catch (error) {
       const errorCode = error.code;
       const errorMessage = error.message;
@@ -57,21 +53,29 @@ function Register() {
     setTemplate(template === "login" ? "register" : "login");
   };
 
-
   /* Send an email to the newly-created user */
   const sendEmail = () => {
     const templateParams = {
-      user_email: email
+      user_email: email,
     };
 
-    emailjs.send('service_4bh0cmh', 'template_p06hl1e', templateParams, 'zFZZEFLtVv1iU_uPw')
-    .then(function(response) {
-       console.log('SUCCESS!', response.status, response.text);
-       console.log(templateParams.user_email);
-    }, function(error) {
-       console.log('FAILED...', error);
-    });
-  }
+    emailjs
+      .send(
+        "service_4bh0cmh",
+        "template_p06hl1e",
+        templateParams,
+        "zFZZEFLtVv1iU_uPw"
+      )
+      .then(
+        function (response) {
+          console.log("SUCCESS!", response.status, response.text);
+          console.log(templateParams.user_email);
+        },
+        function (error) {
+          console.log("FAILED...", error);
+        }
+      );
+  };
 
   // userid -> zFZZEFLtVv1iU_uPw
 
@@ -121,12 +125,14 @@ function Register() {
               </button>
               <h5>
                 Already have an account?{" "}
-                <span onClick={changeTemplate} className="colored-auth">Login</span>
+                <span onClick={changeTemplate} className="colored-auth">
+                  Login
+                </span>
               </h5>
               <p className="imageBy">
                 <i>Image by: Tania Melnyczuk</i>
               </p>
-           </form>
+            </form>
           </div>
         </>
       ) : (

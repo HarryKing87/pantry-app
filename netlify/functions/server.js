@@ -18,22 +18,15 @@ exports.handler = async (event, context) => {
       mode: "subscription",
     });
 
-    const paymentIntent = await stripe.paymentIntents.create();
-    console.log("The payment intent: " + paymentIntent);
-
     return {
       statusCode: 200,
-      body: JSON.stringify({
-        sessionId: session.id,
-        status: session.status,
-        metadata: session.metadata,
-      }),
+      body: JSON.stringify({ sessionId: session.id }),
     };
   } catch (error) {
     console.error("Error creating session:", error);
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: "An error occurred", userPremium: false }),
+      body: JSON.stringify({ error: "An error occurred" }),
     };
   }
 };

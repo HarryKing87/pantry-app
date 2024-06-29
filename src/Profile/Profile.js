@@ -25,9 +25,10 @@ import ShoppingList from "./ShoppingList";
 import { Avatar } from "primereact/avatar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "@fortawesome/fontawesome-svg-core/styles.css";
-import { faGears } from "@fortawesome/free-solid-svg-icons";
+import { faEllipsisVertical } from "@fortawesome/free-solid-svg-icons";
 import EditProfile from "./EditProfile";
 import ChangeImage from "./ChangeImage";
+import ChangeCoverImage from "./ChangeCoverImage";
 import SubscriptionService from "../Subscriptions/SubscriptionService";
 // Prime icon for verified user
 import "primeicons/primeicons.css";
@@ -50,6 +51,7 @@ function Profile() {
   const [username, setUsername] = useState("");
   const [profileMenuTab] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
+  const [backgroundImage, setBackgroundImage] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isUserPremium, setIsUserPremium] = useState("");
   // Prime React Component for slider menu
@@ -57,6 +59,7 @@ function Profile() {
   const [shoppingListVisible, setShoppingListVisible] = useState(false);
   const [settingsVisible, setSettingsVisible] = useState(false);
   const [changeImageVisible, setChangeImageVisible] = useState(false);
+  const [changeCoverVisible, setChangeCoverVisible] = useState(false);
   const [subscribedUntil, setSubscribedUntil] = useState("");
   const [validUntil, setValidUntil] = useState("");
   const [visibleNewUser, setVisibleNewUser] = useState();
@@ -100,6 +103,7 @@ function Profile() {
                 subscribedUntil,
                 validUntil,
                 darkModeChecked,
+                backgroundImage
               });
             } else {
               const data = querySnapshot.docs[0].data();
@@ -113,6 +117,7 @@ function Profile() {
               setSubscribedUntil(data.subscribedOn);
               setValidUntil(data.validUntil);
               setdarkModeChecked(data.isDarkModeEnabled);
+              setBackgroundImage(data.backgroundImage);
             }
           })
           .catch((error) => {
@@ -208,12 +213,22 @@ function Profile() {
   return (
     <div className="navigation-container">
       <Navigation />
-      <h3
-        style={{ textAlign: "left", maxWidth: "50%", margin: "5% auto 0 auto" }}
-      >
-        Information.
-      </h3>
       <div className="Profile">
+        <div className="profile-cover-image"
+        style={{'--background-image': `url(${backgroundImage})`}}
+        >
+        <button id="changeBackground-button"
+        onClick={() => setChangeCoverVisible(true)}
+        >Change background</button>
+        <Avatar
+            onClick={() => setChangeImageVisible(true)}
+            image={selectedImage}
+            size="xlarge"
+            shape="circle"
+            className="profile-picture"
+            style={{width: "100px", height: "100px"}}
+          />
+        </div>
         <div style={{ float: "right", fontSize: "20px" }}>
           <Sidebar
             visible={settingsVisible}
@@ -221,18 +236,14 @@ function Profile() {
           >
             <EditProfile />
           </Sidebar>
-          <FontAwesomeIcon
-            icon={faGears}
-            onClick={() => setSettingsVisible(true)}
-          />
+          <span className="edit-profileButton">
+          <FontAwesomeIcon className="settingsIcon" icon={faEllipsisVertical} onClick={() => setSettingsVisible(true)}/>
+          <button id="signOutButton" type="button" onClick={handleSignOut}>
+              Sign Out
+            </button>
+          </span>
         </div>
         <div id="profile-img">
-          <Avatar
-            onClick={() => setChangeImageVisible(true)}
-            image={selectedImage}
-            size="xlarge"
-            shape="circle"
-          />
           <div className="user-info">
             <p style={{ marginLeft: "7px", fontSize: "20px" }}>
               {firstname} {lastname} {isUserPremium ? verified : ""}
@@ -242,7 +253,6 @@ function Profile() {
             </i>
           </div>
         </div>
-
         <form className="form-container">
           <div className="form-row">
             <label>
@@ -280,16 +290,11 @@ function Profile() {
             <button type="button" onClick={handleSave}>
               Save Allergies
             </button>
-            <button type="button" onClick={handleSignOut}>
-              Sign Out
-            </button>
+            
           </div>
         </form>
       </div>
 
-      <h3 style={{ textAlign: "left", maxWidth: "50%", margin: "0 auto" }}>
-        Utilities.
-      </h3>
       <div className="Profile">
         <div className="shoppingList">
           <h3>Shopping List</h3>
@@ -321,6 +326,14 @@ function Profile() {
             onHide={() => setChangeImageVisible(false)}
           >
             <ChangeImage />
+          </Sidebar>
+        </div>
+        <div className="changeCover">
+          <Sidebar
+            visible={changeCoverVisible}
+            onHide={() => setChangeCoverVisible(false)}
+          >
+            <ChangeCoverImage />
           </Sidebar>
         </div>
       </div>

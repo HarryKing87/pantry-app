@@ -25,7 +25,7 @@ import ShoppingList from "./ShoppingList";
 import { Avatar } from "primereact/avatar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "@fortawesome/fontawesome-svg-core/styles.css";
-import { faEllipsisVertical, faEarthEurope } from "@fortawesome/free-solid-svg-icons";
+import { faEllipsisVertical, faEarthEurope, faCalendar } from "@fortawesome/free-solid-svg-icons";
 import EditProfile from "./EditProfile";
 import ChangeImage from "./ChangeImage";
 import ChangeCoverImage from "./ChangeCoverImage";
@@ -66,6 +66,7 @@ function Profile() {
   const [validUntil, setValidUntil] = useState("");
   const [visibleNewUser, setVisibleNewUser] = useState();
   const [darkModeChecked, setdarkModeChecked] = useState(false);
+  const [joined, setJoined] = useState("");
 
   // Check if the subscription has ended and set setIsUserPremium to false if needed
   useEffect(() => {
@@ -107,7 +108,8 @@ function Profile() {
                 subscribedUntil,
                 validUntil,
                 darkModeChecked,
-                backgroundImage
+                backgroundImage,
+                joined
               });
             } else {
               const data = querySnapshot.docs[0].data();
@@ -123,7 +125,8 @@ function Profile() {
               setdarkModeChecked(data.isDarkModeEnabled);
               setBackgroundImage(data.backgroundImage);
               setUserDescription(data.userDescription);
-              setSelectedCity(data.selectedCity)
+              setSelectedCity(data.selectedCity);
+              setJoined(data.joined);
             }
           })
           .catch((error) => {
@@ -267,7 +270,10 @@ function Profile() {
               {locationArray[0].name + ", " + locationArray[0].country}
             </p>
             </span>
-            
+            <span id="userJoined">
+            <FontAwesomeIcon icon={faCalendar} style={{paddingRight: "4px", marginTop: "2%"}}/>
+              <p>Joined: {joined}</p>
+            </span>
             </div>
           </div>
         </div>

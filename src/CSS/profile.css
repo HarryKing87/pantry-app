@@ -121,7 +121,7 @@ p {
   text-align: left;
 }
 
-#userLocation {
+#userLocation, #userJoined {
   display: flex;
 }
 
@@ -370,8 +370,12 @@ hr:last-child {
     font-size: 1rem;
   }
 
-  #userDescription, #userUsername, #userLocation {
+  #userDescription, #userUsername, #userLocation, #userJoined {
     font-size: 12px;
+  }
+
+  .general-user-info {
+    align-items:flex-start;
   }
 
   /* Utilities Card Box */

@@ -116,18 +116,14 @@ p {
   text-align: left;
 }
 
-#userUsername {
-  font-size: 20px;
-  text-align: left;
-}
-
-#userLocation, #userJoined {
+#userLocation, #userJoined, #userName {
   display: flex;
+  padding: 0 5px 5px 5px;
+  font-size: 12px;
 }
 
 .general-user-info {
   display: flex;
-  justify-content: space-between;
   padding: 0;
   margin: 0;
   text-decoration: none;
@@ -370,8 +366,8 @@ hr:last-child {
     font-size: 1rem;
   }
 
-  #userDescription, #userUsername, #userLocation, #userJoined {
-    font-size: 12px;
+  #userDescription, #userName, #userLocation, #userJoined {
+    font-size: 11px;
   }
 
   .general-user-info {

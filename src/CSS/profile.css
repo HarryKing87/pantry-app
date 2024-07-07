@@ -410,7 +410,6 @@ hr:last-child {
     width: initial;
     display: flex;
     justify-content: center;
-    border: 1px solid magenta;
   }
 
   .user-info { /* Resetting the value on mobile */

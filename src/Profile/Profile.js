@@ -72,6 +72,7 @@ function Profile() {
   const [darkModeChecked, setdarkModeChecked] = useState(false);
   const [joined, setJoined] = useState("");
   const [storedFood, setStoredFood] = useState();
+  const [consumedFood, setConsumedFood] = useState();
 
   // Check if the subscription has ended and set setIsUserPremium to false if needed
   useEffect(() => {
@@ -116,6 +117,7 @@ function Profile() {
                 backgroundImage,
                 joined,
                 storedFood,
+                consumedFood,
               });
             } else {
               const data = querySnapshot.docs[0].data();
@@ -134,6 +136,7 @@ function Profile() {
               setSelectedCity(data.selectedCity);
               setJoined(data.joined);
               setStoredFood(data.storedFood);
+              setConsumedFood(data.consumedFood);
             }
           })
           .catch((error) => {
@@ -312,6 +315,12 @@ function Profile() {
                   {storedFood}
                 </span>
                 <span style={{ fontSize: "11px" }}>Stored Food</span>
+              </div>
+              <div id="consumedFood">
+                <span style={{ fontSize: "30px", fontWeight: "bolder" }}>
+                  {consumedFood}
+                </span>
+                <span style={{ fontSize: "11px" }}>Consumed Food</span>
               </div>
             </div>
           </div>

@@ -52,6 +52,7 @@ const Meat = () => {
   const [amount, setAmount] = useState("");
   const [fetchedProducts, setFetchedProducts] = useState([]);
   const [darkModeChecked, setdarkModeChecked] = useState(false);
+  const [consumedFood, setConsumedFood] = useState("");
   library.add(faCoffee, faCircleQuestion);
   const [packageType, setPackageType] = useState([]);
 
@@ -77,12 +78,14 @@ const Meat = () => {
                 vegetables: [],
                 pasta: [],
                 storedFood: 0,
+                consumedFood: 0,
               }); // Create initial document with empty foods array
             } else {
               const data = querySnapshot.docs[0].data();
               setMeat(data.meat || []);
               setFetchedProducts(data.meat || []); // Set fetched products in state
               setdarkModeChecked(data.isDarkModeEnabled);
+              setConsumedFood(data.consumedFood);
             }
           })
           .catch((error) => {
@@ -175,15 +178,41 @@ const Meat = () => {
     }
   };
 
+  // Check today's date in order to alert the user.
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = String(today.getMonth() + 1).padStart(2, "0");
+  const day = String(today.getDate()).padStart(2, "0");
+
+  const formattedDate = `${day}-${month}-${year}`;
+
+  const showToastMessage = (product) => {
+    toast.warning(product + " has expired!", {
+      position: toast.POSITION.TOP_CENTER,
+    });
+  };
+
   const deleteProduct = (productToBeDeleted) => {
     // Filtering the foods already available in the user foods list and excluding that specific
     // product willing to be deleted.
     const updatedMeat = meat.filter(
-      (product) => product.name !== productToBeDeleted
+      (product) => product.name !== productToBeDeleted.name
     );
     const userRef = doc(db, "users", user.uid);
 
-    updateDoc(userRef, { meat: updatedMeat })
+    // Check today's date in order to alert the user.
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, "0");
+    const day = String(today.getDate()).padStart(2, "0");
+
+    const formattedDate = `${day}/${month}/${year}`;
+
+    updateDoc(userRef, {
+      meat: updatedMeat,
+      consumedFood:
+        formattedDate <= productToBeDeleted.expiryDate ? increment(1) : null,
+    })
       .then(() => {
         console.log("Dairy product deleted successfully!");
         toast.success("Product deleted successfully!", {
@@ -238,20 +267,6 @@ const Meat = () => {
       flexWrap: "wrap",
       gap: "20px",
     },
-  };
-
-  // Check today's date in order to alert the user.
-  const today = new Date();
-  const year = today.getFullYear();
-  const month = String(today.getMonth() + 1).padStart(2, "0");
-  const day = String(today.getDate()).padStart(2, "0");
-
-  const formattedDate = `${day}-${month}-${year}`;
-
-  const showToastMessage = (product) => {
-    toast.warning(product + " has expired!", {
-      position: toast.POSITION.TOP_CENTER,
-    });
   };
 
   function showRelatedImage(product) {
@@ -358,7 +373,7 @@ const Meat = () => {
                     className="deletion-icon-component"
                     onClick={() =>
                       window.confirm("Would you like to delete this product?")
-                        ? deleteProduct(product.name)
+                        ? deleteProduct(product)
                         : ""
                     } // Running the code once on event handler level and not on initial rendering
                   />

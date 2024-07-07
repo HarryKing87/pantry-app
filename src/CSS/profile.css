@@ -136,8 +136,24 @@ p {
   border-radius: 7px;
 }
 
-#storedFood span {
+#consumedFood {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  margin: 10px;
+  background-color: #d1e3f8;
+  height: fit-content;
+  padding: 5px;
+  width: 110px;
+  border-radius: 7px;
+}
+
+#storedFood span{
   color: #573CE2;
+}
+
+#consumedFood span {
+  color: #4797ec;
 }
 
 #userDescription {

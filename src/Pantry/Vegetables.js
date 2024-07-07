@@ -12,6 +12,7 @@ import {
   setDoc,
   updateDoc,
   doc,
+  increment,
 } from "firebase/firestore";
 import "../CSS/products.css";
 /* React Toastify Notifications Imports */
@@ -75,6 +76,7 @@ const Vegetable = () => {
                 meat: [],
                 vegetables: [],
                 pasta: [],
+                storedFood: 0,
               }); // Create initial document with empty foods array
             } else {
               const data = querySnapshot.docs[0].data();
@@ -120,14 +122,14 @@ const Vegetable = () => {
 
   const handlePackagingTypeChange = (e) => {
     setPackageType(e.target.value);
-  }
+  };
 
   const saveVegetableProduct = async () => {
     const newVegetableProduct = {
       name: productName,
       expiryDate: expiryDate.toLocaleDateString("en-GB"),
       amount: amount,
-      packagingType: packageType
+      packagingType: packageType,
     };
 
     // Checking if the product currently being inserted already exists in the storage.
@@ -144,7 +146,10 @@ const Vegetable = () => {
       const updatedVegetable = [...vegetable, newVegetableProduct]; // Create a new array with the added product
 
       try {
-        await updateDoc(userRef, { vegetables: updatedVegetable });
+        await updateDoc(userRef, {
+          vegetables: updatedVegetable,
+          storedFood: increment(1),
+        });
 
         // Update the state of the products list directly
         setVegetable(updatedVegetable);

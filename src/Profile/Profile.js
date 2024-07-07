@@ -71,6 +71,7 @@ function Profile() {
   const [visibleNewUser, setVisibleNewUser] = useState();
   const [darkModeChecked, setdarkModeChecked] = useState(false);
   const [joined, setJoined] = useState("");
+  const [storedFood, setStoredFood] = useState();
 
   // Check if the subscription has ended and set setIsUserPremium to false if needed
   useEffect(() => {
@@ -114,6 +115,7 @@ function Profile() {
                 darkModeChecked,
                 backgroundImage,
                 joined,
+                storedFood,
               });
             } else {
               const data = querySnapshot.docs[0].data();
@@ -131,6 +133,7 @@ function Profile() {
               setUserDescription(data.userDescription);
               setSelectedCity(data.selectedCity);
               setJoined(data.joined);
+              setStoredFood(data.storedFood);
             }
           })
           .catch((error) => {
@@ -273,33 +276,43 @@ function Profile() {
         </div>
         <div id="profile-img">
           <div className="user-info">
-            <p style={{ fontSize: "20px", textAlign: "left" }}>
-              {firstname} {lastname} {isUserPremium ? verified : ""}
-            </p>
-            <p id="userDescription">{userDescription}</p>
-            <div className="general-user-info">
-              <span id="userName">
-                <p>{username ? "@" + username : ""}</p>
-              </span>
-              {isValidLocation && (
-                <span id="userLocation">
+            <div className="user-info-general">
+              <p style={{ fontSize: "20px", textAlign: "left" }}>
+                {firstname} {lastname} {isUserPremium ? verified : ""}
+              </p>
+              <p id="userDescription">{userDescription}</p>
+              <div className="general-user-info">
+                <span id="userName">
+                  <p>{username ? "@" + username : ""}</p>
+                </span>
+                {isValidLocation && (
+                  <span id="userLocation">
+                    <FontAwesomeIcon
+                      icon={faEarthEurope}
+                      style={{ paddingRight: "4px", marginTop: "2%" }}
+                    />
+                    <p>
+                      {locationArray[0].name + ", " + locationArray[0].country}
+                    </p>
+                  </span>
+                )}
+
+                <span id="userJoined">
                   <FontAwesomeIcon
-                    icon={faEarthEurope}
+                    icon={faCalendar}
                     style={{ paddingRight: "4px", marginTop: "2%" }}
                   />
-                  <p>
-                    {locationArray[0].name + ", " + locationArray[0].country}
-                  </p>
+                  <p>Joined: {joined}</p>
                 </span>
-              )}
-
-              <span id="userJoined">
-                <FontAwesomeIcon
-                  icon={faCalendar}
-                  style={{ paddingRight: "4px", marginTop: "2%" }}
-                />
-                <p>Joined: {joined}</p>
-              </span>
+              </div>
+            </div>
+            <div id="storingInfo">
+              <div id="storedFood">
+                <span style={{ fontSize: "30px", fontWeight: "bolder" }}>
+                  {storedFood}
+                </span>
+                <span style={{ fontSize: "11px" }}>Stored Food</span>
+              </div>
             </div>
           </div>
         </div>

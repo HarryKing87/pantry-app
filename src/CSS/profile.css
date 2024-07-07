@@ -106,10 +106,38 @@ p {
 
 .user-info {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   text-align: left;
   padding: 0;
   opacity: 0.8;
+  width: 100%;
+}
+
+.user-info-general {
+  display: flex;
+  flex-direction: column;
+}
+
+#storingInfo {
+  padding: 10px;
+  width: fit-content;
+  display: flex;
+}
+
+#storedFood {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  margin: 10px;
+  background-color: rgb(227, 223, 253);
+  height: fit-content;
+  padding: 5px;
+  width: 110px;
+  border-radius: 7px;
+}
+
+#storedFood span {
+  color: #573CE2;
 }
 
 #userDescription {
@@ -372,6 +400,21 @@ hr:last-child {
 
   .general-user-info {
     align-items:flex-start;
+  }
+
+  .user-info, .user-info-general {
+    width: max-content;
+  }
+
+  #storingInfo {
+    width: initial;
+    display: flex;
+    justify-content: center;
+    border: 1px solid magenta;
+  }
+
+  .user-info { /* Resetting the value on mobile */
+    flex-direction: column;
   }
 
   /* Utilities Card Box */

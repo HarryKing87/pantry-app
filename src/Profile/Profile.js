@@ -73,6 +73,7 @@ function Profile() {
   const [joined, setJoined] = useState("");
   const [storedFood, setStoredFood] = useState();
   const [consumedFood, setConsumedFood] = useState();
+  const [wastedFood, setWastedFood] = useState();
 
   // Check if the subscription has ended and set setIsUserPremium to false if needed
   useEffect(() => {
@@ -118,6 +119,7 @@ function Profile() {
                 joined,
                 storedFood,
                 consumedFood,
+                wastedFood,
               });
             } else {
               const data = querySnapshot.docs[0].data();
@@ -137,6 +139,7 @@ function Profile() {
               setJoined(data.joined);
               setStoredFood(data.storedFood);
               setConsumedFood(data.consumedFood);
+              setWastedFood(data.wastedFood);
             }
           })
           .catch((error) => {
@@ -321,6 +324,12 @@ function Profile() {
                   {consumedFood}
                 </span>
                 <span style={{ fontSize: "11px" }}>Consumed Food</span>
+              </div>
+              <div id="wastedFood">
+                <span style={{ fontSize: "30px", fontWeight: "bolder" }}>
+                  {wastedFood}
+                </span>
+                <span style={{ fontSize: "11px" }}>Wasted Food</span>
               </div>
             </div>
           </div>

@@ -1,0 +1,32 @@
+.credentials-change {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-top: 1rem;
+}
+
+.credentials-change .p-inputtext-sm {
+    width: 100%;
+}
+
+.confirmationButton {
+    width: 30%;
+}
+
+.credentialsChange-dialog {
+    width: 20%;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .credentialsChange-dialog {
+        width: 80vw;
+    }
+  }
+
+/* Responsive styles */
+@media (min-width: 768px) and (max-width: 1100px) {
+    .credentialsChange-dialog {
+        width: 40%;
+    }
+  }

@@ -264,9 +264,9 @@ useEffect(() => {
         </div>
         <div style={{ float: "right", fontSize: "20px" }}>
           <Sidebar
+            className="sideBar-settings"
             visible={settingsVisible}
             onHide={() => setSettingsVisible(false)}
-            style={{ width: "29rem" }}
           >
             <EditProfile />
           </Sidebar>

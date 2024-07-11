@@ -1,6 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { ToggleButton } from "primereact/togglebutton";
-import { AutoComplete } from 'primereact/autocomplete';
+import { AutoComplete } from "primereact/autocomplete";
+import { InputText } from "primereact/inputtext";
+import { ConfirmDialog } from "primereact/confirmdialog"; // For <ConfirmDialog /> component
+import { confirmDialog } from "primereact/confirmdialog"; // For confirmDialog method
+import { Toast } from "primereact/toast";
+import { Button } from "primereact/button";
 import {
   getFirestore,
   doc,
@@ -14,12 +19,14 @@ import {
 // All countries and cities
 import citiesData from "./countries.json";
 import { auth } from "../Database/firebase";
+import { getAuth, updateEmail, updatePassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 /* React Toastify Notifications Imports */
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import "../CSS/dark-mode.css";
+import "../CSS/EditProfile.css";
 
 const db = getFirestore();
 
@@ -41,6 +48,43 @@ function EditProfile() {
   const [joined, setJoined] = useState("");
   const navigate = useNavigate();
   var date = new Date();
+
+  // Confirmation change password/email flow
+  const [passwordVisible, setPasswordVisible] = useState(false);
+  const [emailVisible, setEmailVisible] = useState(false);
+  const [newEmail, setNewEmail] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const toast = useRef(null);
+
+  const acceptEmail = () => {
+    handleEmailChange(newEmail);
+    toast.current.show({
+      severity: "info",
+      summary: "Confirmed",
+      detail: `Email changed to ${newEmail}`,
+      life: 3000,
+    });
+    setEmailVisible(false);
+  };
+
+  const rejectEmail = () => {
+    setEmailVisible(false);
+  };
+
+  const acceptPassword = () => {
+    handlePasswordChange(newPassword);
+    setPasswordVisible(false);
+  };
+
+  const rejectPassword = () => {
+    toast.current.show({
+      severity: "warn",
+      summary: "Rejected",
+      detail: "You have rejected",
+      life: 3000,
+    });
+    setPasswordVisible(false);
+  };
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -72,7 +116,7 @@ function EditProfile() {
                 userDescription: userDescription || data.userDescription,
                 selectedCity: selectedCity || data.selectedCity,
                 isDarkModeEnabled: darkModeChecked || data.isDarkModeEnabled,
-                joined: data.joined ? data.joined : date.getFullYear()
+                joined: data.joined ? data.joined : date.getFullYear(),
               });
               setFirstName(data.firstname);
               setLastName(data.lastname);
@@ -160,7 +204,14 @@ function EditProfile() {
         username: username,
         userDescription: userDescription,
         selectedCity: selectedCity,
-        isDarkModeEnabled: darkModeChecked !== undefined ? darkModeChecked : false,
+        isDarkModeEnabled:
+          darkModeChecked !== undefined ? darkModeChecked : false,
+      });
+      toast.current.show({
+        severity: "success",
+        summary: "Success",
+        detail: "Your profile has been updated!",
+        life: 3000,
       });
     }
   };
@@ -180,7 +231,7 @@ function EditProfile() {
     const citiesList = [];
 
     Object.entries(citiesData).forEach(([country, cityArray]) => {
-      cityArray.forEach(city => {
+      cityArray.forEach((city) => {
         citiesList.push({ name: city, country: country });
       });
     });
@@ -198,7 +249,56 @@ function EditProfile() {
 
   const handleCityChange = (e) => {
     setSelectedCity(e.value);
-    console.log('Selected city:', e.value);
+    console.log("Selected city:", e.value);
+  };
+
+  const handleEmailChange = (emailToChangeTo) => {
+    const auth = getAuth();
+    const userRef = doc(db, "users", user.uid);
+    updateEmail(auth.currentUser, emailToChangeTo)
+      .then(() => {
+        toast.current.show({
+          severity: "success",
+          summary: "Success",
+          detail: "Your e-mail has been saved!",
+          life: 3000,
+        });
+        setEmail(emailToChangeTo);
+        // The email is changing after the updateEmail function, but the visualization remains the same
+        // and shows the old email. We are updating again the user data to show the correct value.
+        updateUserData(userRef, {
+          mail: emailToChangeTo,
+        });
+      })
+      .catch((error) => {
+        toast.current.show({
+          severity: "error",
+          summary: "Error",
+          detail: "Your e-mail could not be saved! Reason: " + error,
+          life: 3000,
+        });
+      });
+  };
+
+  const handlePasswordChange = (passwordToChangeTo) => {
+    const auth = getAuth();
+    updatePassword(auth.currentUser, passwordToChangeTo)
+      .then(() => {
+        toast.current.show({
+          severity: "success",
+          summary: "Success",
+          detail: "Your password has been saved!",
+          life: 3000,
+        });
+      })
+      .catch((error) => {
+        toast.current.show({
+          severity: "error",
+          summary: "Error",
+          detail: "Your password could not be saved! Reason: " + error,
+          life: 3000,
+        });
+      });
   };
 
   // Template to display city with country in the suggestions
@@ -267,18 +367,19 @@ function EditProfile() {
           title="Please enter only letters, numbers, '_', or '-' with a maximum of 15 characters"
           value={userDescription}
           onChange={(e) => setUserDescription(e.target.value)}
-          style={{resize: "vertical", width: "345px"}}
+          style={{ resize: "vertical", width: "345px" }}
         />
 
         <label>Location</label>
-        <AutoComplete value={selectedCity} 
-        suggestions={filteredCities} 
-        completeMethod={searchCity} 
-        field="name" 
-        onChange={handleCityChange} 
-        placeholder="Type to search for a city" 
-        itemTemplate={itemTemplate}
-        style={{width: "100%"}}
+        <AutoComplete
+          value={selectedCity}
+          suggestions={filteredCities}
+          completeMethod={searchCity}
+          field="name"
+          onChange={handleCityChange}
+          placeholder="Type to search for a city"
+          itemTemplate={itemTemplate}
+          style={{ width: "100%" }}
         />
 
         <div style={{ color: "red", fontSize: "12px" }}>
@@ -301,6 +402,64 @@ function EditProfile() {
       >
         Save
       </button>
+
+      <label>Change E-mail</label>
+      <div className="credentials-change">
+        <InputText
+          type="text"
+          className="p-inputtext-sm"
+          placeholder="Type new e-mail"
+          onBlur={(e) => setNewEmail(e.target.value)}
+        />
+        <Toast ref={toast} />
+        <ConfirmDialog
+          className="credentialsChange-dialog"
+          group="declarative"
+          visible={emailVisible}
+          onHide={() => setEmailVisible(false)}
+          message={`Are you sure you want to change your email to ${newEmail}?`}
+          header="Confirmation"
+          icon="pi pi-exclamation-triangle"
+          accept={acceptEmail}
+          reject={rejectEmail}
+        />
+        <Button
+          onClick={() => setEmailVisible(true)}
+          icon="pi pi-check"
+          label="Confirm"
+          className="confirmationButton"
+          style={{ background: "#4caf50" }}
+        />
+      </div>
+
+      <label>Change Password</label>
+      <div className="credentials-change">
+        <InputText
+          type="text"
+          className="p-inputtext-sm"
+          placeholder="Type new password"
+          onBlur={(e) => setNewPassword(e.target.value)}
+        />
+        <Toast ref={toast} />
+        <ConfirmDialog
+          className="credentialsChange-dialog"
+          group="declarative"
+          visible={passwordVisible}
+          onHide={() => setPasswordVisible(false)}
+          message={`Are you sure you would like to change your password?`}
+          header="Confirmation"
+          icon="pi pi-exclamation-triangle"
+          accept={acceptPassword}
+          reject={rejectPassword}
+        />
+        <Button
+          onClick={() => setPasswordVisible(true)}
+          icon="pi pi-check"
+          label="Confirm"
+          className="confirmationButton"
+          style={{ background: "#4caf50" }}
+        />
+      </div>
       <ToastContainer
         position="top-right"
         autoClose={5000}

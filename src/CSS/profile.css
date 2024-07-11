@@ -350,6 +350,10 @@ hr:last-child {
   margin: 5% auto 0 auto;
   opacity: 0.2;
 }
+
+.sideBar-settings {
+  width: 25%!important;
+}
 /* Media queries for responsiveness */
 
 @media (max-width: 768px) {
@@ -369,7 +373,9 @@ hr:last-child {
 
 
 @media only screen and (max-width: 768px) {
-
+  .sideBar-settings {
+    width: 100%!important;
+  }
   h3 {
     max-width: 90%!important; /* Resetting the max value for mobile */
   }

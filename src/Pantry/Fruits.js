@@ -12,6 +12,7 @@ import {
   setDoc,
   updateDoc,
   doc,
+  increment,
 } from "firebase/firestore";
 import "../CSS/products.css";
 /* React Toastify Notifications Imports */
@@ -75,6 +76,7 @@ const Fruits = () => {
                 meat: [],
                 vegetables: [],
                 pasta: [],
+                storedFood: 0,
               }); // Create initial document with empty foods array
             } else {
               const data = querySnapshot.docs[0].data();
@@ -120,14 +122,14 @@ const Fruits = () => {
 
   const handlePackagingTypeChange = (e) => {
     setPackageType(e.target.value);
-  }
+  };
 
   const saveFruitProduct = async () => {
     const newFruitProduct = {
       name: productName,
       expiryDate: expiryDate.toLocaleDateString("en-GB"),
       amount: amount,
-      packagingType: packageType
+      packagingType: packageType,
     };
 
     // Checking if the product currently being inserted already exists in the storage.
@@ -142,7 +144,10 @@ const Fruits = () => {
       const updatedFruits = [...fruits, newFruitProduct]; // Create a new array with the added product
 
       try {
-        await updateDoc(userRef, { fruits: updatedFruits });
+        await updateDoc(userRef, {
+          fruits: updatedFruits,
+          storedFood: increment(1),
+        });
 
         // Update the state of the products list directly
         setFruits(updatedFruits);
@@ -309,7 +314,7 @@ const Fruits = () => {
           className="form-input dropdown-foods"
           showClear
         />
-        
+
         <button
           type="button"
           onClick={saveFruitProduct}
@@ -402,7 +407,8 @@ const Fruits = () => {
                     )}
                   </p>
                   <p className="amount" style={styles.amount}>
-                    Amount: < br/>{product.amount} {product.packagingType}
+                    Amount: <br />
+                    {product.amount} {product.packagingType}
                   </p>
                 </div>
               </div>

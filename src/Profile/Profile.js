@@ -28,6 +28,7 @@ import "@fortawesome/fontawesome-svg-core/styles.css";
 import { faGears } from "@fortawesome/free-solid-svg-icons";
 import EditProfile from "./EditProfile";
 import ChangeImage from "./ChangeImage";
+import MarketingPillBox from "./MarketingPillBox";
 import SubscriptionService from "../Subscriptions/SubscriptionService";
 // Prime icon for verified user
 import "primeicons/primeicons.css";
@@ -242,6 +243,8 @@ useEffect(() => {
             </i>
           </div>
         </div>
+        {/* Showing and hiding the marketing box for free and premium users */}
+        {(user && isUserPremium) ? "" : <MarketingPillBox/>}
 
         <form className="form-container">
           <div className="form-row">

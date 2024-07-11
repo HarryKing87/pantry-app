@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { ToggleButton } from "primereact/togglebutton";
+import { AutoComplete } from 'primereact/autocomplete';
 import {
   getFirestore,
   doc,
@@ -10,6 +11,8 @@ import {
   getDocs,
   setDoc,
 } from "firebase/firestore";
+// All countries and cities
+import citiesData from "./countries.json";
 import { auth } from "../Database/firebase";
 import { useNavigate } from "react-router-dom";
 /* React Toastify Notifications Imports */
@@ -31,7 +34,10 @@ function EditProfile() {
   const [lastNameError, setLastNameError] = useState("");
   const [emailError, setEmailError] = useState("");
   const [usernameError, setUsernameError] = useState("");
+  const [userDescription, setUserDescription] = useState("");
   const [darkModeChecked, setdarkModeChecked] = useState(false);
+  const [selectedCity, setSelectedCity] = useState("");
+  const [cities, setCities] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -49,6 +55,8 @@ function EditProfile() {
                 lastname: lastName,
                 mail: email,
                 username: username,
+                userDescription: userDescription,
+                selectedCity: selectedCity,
                 isDarkModeEnabled: darkModeChecked,
               });
             } else {
@@ -59,12 +67,16 @@ function EditProfile() {
                 lastname: lastName || data.lastname,
                 mail: email || data.mail,
                 username: username || data.username,
+                userDescription: userDescription || data.userDescription,
+                selectedCity: selectedCity || data.selectedCity,
                 isDarkModeEnabled: darkModeChecked || data.isDarkModeEnabled,
               });
               setFirstName(data.firstname);
               setLastName(data.lastname);
               setEmail(data.mail);
               setUsername(data.username);
+              setUserDescription(data.userDescription);
+              setSelectedCity(data.selectedCity);
               setdarkModeChecked(data.isDarkModeEnabled);
             }
           })
@@ -143,6 +155,8 @@ function EditProfile() {
         lastname: lastName,
         mail: email,
         username: username,
+        userDescription: userDescription,
+        selectedCity: selectedCity,
         isDarkModeEnabled: darkModeChecked !== undefined ? darkModeChecked : false,
       });
     }
@@ -155,6 +169,43 @@ function EditProfile() {
       document.body.classList.remove("dark-mode");
     }
   }, [darkModeChecked]);
+
+  const [filteredCities, setFilteredCities] = useState([]);
+
+  useEffect(() => {
+    // Flatten the cities data into the desired format
+    const citiesList = [];
+
+    Object.entries(citiesData).forEach(([country, cityArray]) => {
+      cityArray.forEach(city => {
+        citiesList.push({ name: city, country: country });
+      });
+    });
+
+    setCities(citiesList);
+  }, []);
+
+  const searchCity = (event) => {
+    setFilteredCities(
+      cities.filter((city) =>
+        city.name.toLowerCase().startsWith(event.query.toLowerCase())
+      )
+    );
+  };
+
+  const handleCityChange = (e) => {
+    setSelectedCity(e.value);
+    console.log('Selected city:', e.value);
+  };
+
+  // Template to display city with country in the suggestions
+  const itemTemplate = (city) => {
+    return (
+      <div>
+        {city.name}, {city.country}
+      </div>
+    );
+  };
 
   return (
     <div>
@@ -205,6 +256,28 @@ function EditProfile() {
           value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
+
+        <label>Description</label>
+        <textarea
+          type="text"
+          pattern="[A-Za-z0-9_-]{1,}"
+          title="Please enter only letters, numbers, '_', or '-' with a maximum of 15 characters"
+          value={userDescription}
+          onChange={(e) => setUserDescription(e.target.value)}
+          style={{resize: "vertical", width: "345px"}}
+        />
+
+        <label>Location</label>
+        <AutoComplete value={selectedCity} 
+        suggestions={filteredCities} 
+        completeMethod={searchCity} 
+        field="name" 
+        onChange={handleCityChange} 
+        placeholder="Type to search for a city" 
+        itemTemplate={itemTemplate}
+        style={{width: "100%"}}
+        />
+
         <div style={{ color: "red", fontSize: "12px" }}>
           {firstNameError && <span>{firstNameError}</span>}
         </div>

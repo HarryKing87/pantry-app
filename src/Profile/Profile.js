@@ -25,7 +25,7 @@ import ShoppingList from "./ShoppingList";
 import { Avatar } from "primereact/avatar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "@fortawesome/fontawesome-svg-core/styles.css";
-import { faEllipsisVertical } from "@fortawesome/free-solid-svg-icons";
+import { faEllipsisVertical, faEarthEurope } from "@fortawesome/free-solid-svg-icons";
 import EditProfile from "./EditProfile";
 import ChangeImage from "./ChangeImage";
 import ChangeCoverImage from "./ChangeCoverImage";
@@ -50,6 +50,8 @@ function Profile() {
   const [lastname, setLastName] = useState("");
   const [mail, setMail] = useState("");
   const [username, setUsername] = useState("");
+  const [userDescription, setUserDescription] = useState("");
+  const [selectedCity, setSelectedCity] = useState([]);
   const [profileMenuTab] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
   const [backgroundImage, setBackgroundImage] = useState("");
@@ -100,6 +102,8 @@ useEffect(() => {
                 lastname,
                 mail,
                 username,
+                userDescription,
+                selectedCity,
                 selectedImage,
                 isUserPremium,
                 subscribedUntil,
@@ -120,6 +124,8 @@ useEffect(() => {
               setValidUntil(data.validUntil);
               setdarkModeChecked(data.isDarkModeEnabled);
               setBackgroundImage(data.backgroundImage);
+              setUserDescription(data.userDescription);
+              setSelectedCity(data.selectedCity)
             }
           })
           .catch((error) => {
@@ -211,6 +217,7 @@ useEffect(() => {
     ></i>
   );
 
+  let locationArray = [selectedCity]; // Setting the location object received from the data base, as an array object.
   return (
     <div className="navigation-container">
       <Navigation />
@@ -234,6 +241,7 @@ useEffect(() => {
           <Sidebar
             visible={settingsVisible}
             onHide={() => setSettingsVisible(false)}
+            style={{width: "29rem"}}
           >
             <EditProfile />
           </Sidebar>
@@ -246,12 +254,22 @@ useEffect(() => {
         </div>
         <div id="profile-img">
           <div className="user-info">
-            <p style={{ marginLeft: "7px", fontSize: "20px" }}>
+            <p style={{ fontSize: "20px", textAlign: "left" }}>
               {firstname} {lastname} {isUserPremium ? verified : ""}
             </p>
-            <i style={{ marginLeft: "7px", fontSize: "14px" }}>
+            <p id="userDescription">{userDescription}</p>
+            <div className="general-user-info">
+            <p id="userUsername">
               {username ? "@" + username : ""}
-            </i>
+            </p>
+            <span id="userLocation">
+            <FontAwesomeIcon icon={faEarthEurope} style={{paddingRight: "4px", marginTop: "2%"}}/>
+            <p>
+              {locationArray[0].name + ", " + locationArray[0].country}
+            </p>
+            </span>
+            
+            </div>
           </div>
         </div>
         {/* Showing and hiding the marketing box for free and premium users */}

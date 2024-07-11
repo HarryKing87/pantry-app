@@ -108,6 +108,31 @@ p {
   display: flex;
   flex-direction: column;
   text-align: left;
+  padding: 0;
+  opacity: 0.8;
+}
+
+#userDescription {
+  text-align: left;
+}
+
+#userUsername {
+  font-size: 20px;
+  text-align: left;
+}
+
+#userLocation {
+  display: flex;
+}
+
+.general-user-info {
+  display: flex;
+  justify-content: space-between;
+  padding: 0;
+  margin: 0;
+  text-decoration: none;
+  text-transform: none;
+  align-items: center;
 }
 
 .nav-profile {
@@ -343,6 +368,10 @@ hr:last-child {
 
   .Profile button {
     font-size: 1rem;
+  }
+
+  #userDescription, #userUsername, #userLocation {
+    font-size: 12px;
   }
 
   /* Utilities Card Box */

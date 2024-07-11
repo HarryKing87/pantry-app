@@ -25,7 +25,11 @@ import ShoppingList from "./ShoppingList";
 import { Avatar } from "primereact/avatar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "@fortawesome/fontawesome-svg-core/styles.css";
-import { faEllipsisVertical, faEarthEurope } from "@fortawesome/free-solid-svg-icons";
+import {
+  faEllipsisVertical,
+  faEarthEurope,
+  faCalendar,
+} from "@fortawesome/free-solid-svg-icons";
 import EditProfile from "./EditProfile";
 import ChangeImage from "./ChangeImage";
 import ChangeCoverImage from "./ChangeCoverImage";
@@ -67,6 +71,7 @@ function Profile() {
   const [validUntil, setValidUntil] = useState("");
   const [visibleNewUser, setVisibleNewUser] = useState();
   const [darkModeChecked, setdarkModeChecked] = useState(false);
+  const [joined, setJoined] = useState("");
   const [bannerNewUserWelcome, setBannerNewUserWelcome] = useState(false);
 
   // Check if the subscription has ended and set setIsUserPremium to false if needed
@@ -109,7 +114,8 @@ useEffect(() => {
                 subscribedUntil,
                 validUntil,
                 darkModeChecked,
-                backgroundImage
+                backgroundImage,
+                joined,
               });
             } else {
               const data = querySnapshot.docs[0].data();
@@ -125,7 +131,8 @@ useEffect(() => {
               setdarkModeChecked(data.isDarkModeEnabled);
               setBackgroundImage(data.backgroundImage);
               setUserDescription(data.userDescription);
-              setSelectedCity(data.selectedCity)
+              setSelectedCity(data.selectedCity);
+              setJoined(data.joined);
             }
           })
           .catch((error) => {
@@ -218,36 +225,49 @@ useEffect(() => {
   );
 
   let locationArray = [selectedCity]; // Setting the location object received from the data base, as an array object.
+  const isValidLocation =
+    locationArray &&
+    locationArray[0] &&
+    locationArray[0].name !== "undefined" &&
+    locationArray[0].country !== "undefined";
   return (
     <div className="navigation-container">
       <Navigation />
       <div className="Profile">
-        <div className="profile-cover-image"
-        style={{'--background-image': `url(${backgroundImage})`}}
+        <div
+          className="profile-cover-image"
+          style={{ "--background-image": `url(${backgroundImage})` }}
         >
-        <button id="changeBackground-button"
-        onClick={() => setChangeCoverVisible(true)}
-        >Change background</button>
-        <Avatar
+          <button
+            id="changeBackground-button"
+            onClick={() => setChangeCoverVisible(true)}
+          >
+            Change background
+          </button>
+          <Avatar
             onClick={() => setChangeImageVisible(true)}
             image={selectedImage}
             size="xlarge"
             shape="circle"
             className="profile-picture"
-            style={{width: "100px", height: "100px"}}
+            style={{ width: "100px", height: "100px" }}
           />
         </div>
         <div style={{ float: "right", fontSize: "20px" }}>
           <Sidebar
             visible={settingsVisible}
             onHide={() => setSettingsVisible(false)}
-            style={{width: "29rem"}}
+            style={{ width: "29rem" }}
           >
             <EditProfile />
           </Sidebar>
           <span className="edit-profileButton">
-          <FontAwesomeIcon className="settingsIcon" icon={faEllipsisVertical} onClick={() => setSettingsVisible(true)}/>
-          <button id="signOutButton" type="button" onClick={handleSignOut}>
+            <FontAwesomeIcon
+              className="settingsIcon"
+              icon={faEllipsisVertical}
+              onClick={() => setSettingsVisible(true)}
+            />
+            <button id="signOutButton" type="button" onClick={handleSignOut}>
               Sign Out
             </button>
           </span>
@@ -259,16 +279,28 @@ useEffect(() => {
             </p>
             <p id="userDescription">{userDescription}</p>
             <div className="general-user-info">
-            <p id="userUsername">
-              {username ? "@" + username : ""}
-            </p>
-            <span id="userLocation">
-            <FontAwesomeIcon icon={faEarthEurope} style={{paddingRight: "4px", marginTop: "2%"}}/>
-            <p>
-              {locationArray[0].name + ", " + locationArray[0].country}
-            </p>
-            </span>
-            
+              <span id="userName">
+                <p>{username ? "@" + username : ""}</p>
+              </span>
+              {isValidLocation && (
+                <span id="userLocation">
+                  <FontAwesomeIcon
+                    icon={faEarthEurope}
+                    style={{ paddingRight: "4px", marginTop: "2%" }}
+                  />
+                  <p>
+                    {locationArray[0].name + ", " + locationArray[0].country}
+                  </p>
+                </span>
+              )}
+
+              <span id="userJoined">
+                <FontAwesomeIcon
+                  icon={faCalendar}
+                  style={{ paddingRight: "4px", marginTop: "2%" }}
+                />
+                <p>Joined: {joined}</p>
+              </span>
             </div>
           </div>
         </div>
@@ -311,7 +343,6 @@ useEffect(() => {
             <button type="button" onClick={handleSave}>
               Save Allergies
             </button>
-            
           </div>
         </form>
       </div>

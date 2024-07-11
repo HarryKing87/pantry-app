@@ -38,7 +38,9 @@ function EditProfile() {
   const [darkModeChecked, setdarkModeChecked] = useState(false);
   const [selectedCity, setSelectedCity] = useState("");
   const [cities, setCities] = useState([]);
+  const [joined, setJoined] = useState("");
   const navigate = useNavigate();
+  var date = new Date();
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -70,6 +72,7 @@ function EditProfile() {
                 userDescription: userDescription || data.userDescription,
                 selectedCity: selectedCity || data.selectedCity,
                 isDarkModeEnabled: darkModeChecked || data.isDarkModeEnabled,
+                joined: data.joined ? data.joined : date.getFullYear()
               });
               setFirstName(data.firstname);
               setLastName(data.lastname);

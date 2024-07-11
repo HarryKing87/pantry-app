@@ -12,7 +12,6 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [template, setTemplate] = useState("login");
-  const navigate = useNavigate();
 
   const showToastMessageLogin = () => {
     toast.success("Welcome back, " + email + "!", {
@@ -32,11 +31,7 @@ function Login() {
     e.preventDefault();
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        localStorage.setItem("email", email);
         showToastMessageLogin();
-        setTimeout(() => {
-          navigate("/profile");
-        }, 3000);
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -80,6 +75,7 @@ function Login() {
               <button id="loginButton" type="submit">
                 Login
               </button>
+              
               <h5>
             Don't have an account? <span onClick={changeTemplate} className="colored-auth">Register</span>
           </h5>

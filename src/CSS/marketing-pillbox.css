@@ -1,6 +1,6 @@
 #marketing-pillbox {
     background: #4169e1;
-    width: 80%;
+    width: 20%;
     margin:1rem auto;
     padding: 10px 20px 10px 20px;
     color: white;
@@ -16,3 +16,9 @@
     background: whitesmoke;
     color:#0041c4;
 }
+
+@media (max-width: 768px) {
+    #marketing-pillbox {
+        width: 80%;
+    }
+  }

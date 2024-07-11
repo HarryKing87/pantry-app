@@ -49,6 +49,7 @@ const Dairy = () => {
   const [expiryDate, setExpiryDate] = useState("");
   const [amount, setAmount] = useState("");
   const [consumedFood, setConsumedFood] = useState("");
+  const [wastedFood, setWastedFood] = useState("");
   const [fetchedProducts, setFetchedProducts] = useState([]);
   const [darkModeChecked, setdarkModeChecked] = useState(false);
   library.add(faCoffee, faCircleQuestion);
@@ -77,6 +78,7 @@ const Dairy = () => {
                 pasta: [],
                 storedFood: 0,
                 consumedFood: 0,
+                wastedFood: 0,
               }); // Create initial document with empty foods array
             } else {
               const data = querySnapshot.docs[0].data();
@@ -84,6 +86,7 @@ const Dairy = () => {
               setFetchedProducts(data.foods || []); // Set fetched products in state
               setdarkModeChecked(data.isDarkModeEnabled);
               setConsumedFood(data.consumedFood);
+              setWastedFood(data.wastedFood);
             }
           })
           .catch((error) => {
@@ -227,11 +230,18 @@ const Dairy = () => {
 
     const formattedDate = `${day}/${month}/${year}`;
 
-    updateDoc(userRef, {
+    let updateData = {
       foods: updatedFoods,
-      consumedFood:
-        formattedDate <= productToBeDeleted.expiryDate ? increment(1) : null,
-    })
+    };
+
+    if (formattedDate <= productToBeDeleted.expiryDate) {
+      updateData.consumedFood = increment(1);
+    }
+
+    if (formattedDate >= productToBeDeleted.expiryDate) {
+      updateData.wastedFood = increment(1);
+    }
+    updateDoc(userRef, updateData)
       .then(() => {
         console.log("Dairy product deleted successfully!");
         toast.success("Product deleted successfully!", {

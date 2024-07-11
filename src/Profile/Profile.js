@@ -73,6 +73,7 @@ function Profile() {
   const [darkModeChecked, setdarkModeChecked] = useState(false);
   const [joined, setJoined] = useState("");
   const [storedFood, setStoredFood] = useState();
+  const [consumedFood, setConsumedFood] = useState();
   const [bannerNewUserWelcome, setBannerNewUserWelcome] = useState(false);
 
   // Check if the subscription has ended and set setIsUserPremium to false if needed
@@ -118,6 +119,7 @@ useEffect(() => {
                 backgroundImage,
                 joined,
                 storedFood,
+                consumedFood,
               });
             } else {
               const data = querySnapshot.docs[0].data();
@@ -136,6 +138,7 @@ useEffect(() => {
               setSelectedCity(data.selectedCity);
               setJoined(data.joined);
               setStoredFood(data.storedFood);
+              setConsumedFood(data.consumedFood);
             }
           })
           .catch((error) => {
@@ -313,6 +316,12 @@ useEffect(() => {
                   {storedFood}
                 </span>
                 <span style={{ fontSize: "11px" }}>Stored Food</span>
+              </div>
+              <div id="consumedFood">
+                <span style={{ fontSize: "30px", fontWeight: "bolder" }}>
+                  {consumedFood}
+                </span>
+                <span style={{ fontSize: "11px" }}>Consumed Food</span>
               </div>
             </div>
           </div>

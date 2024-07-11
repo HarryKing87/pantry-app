@@ -136,8 +136,24 @@ p {
   border-radius: 7px;
 }
 
-#storedFood span {
+#consumedFood {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  margin: 10px;
+  background-color: #d1e3f8;
+  height: fit-content;
+  padding: 5px;
+  width: 110px;
+  border-radius: 7px;
+}
+
+#storedFood span{
   color: #573CE2;
+}
+
+#consumedFood span {
+  color: #4797ec;
 }
 
 #userDescription {
@@ -402,19 +418,39 @@ hr:last-child {
     align-items:flex-start;
   }
 
-  .user-info, .user-info-general {
-    width: max-content;
+  #profile-img {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    box-sizing: border-box;
   }
-
+  
+  .user-info {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .user-info-general {
+    width: 50%;
+    padding: 10px;
+    box-sizing: border-box;
+  }
+  
   #storingInfo {
-    width: initial;
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    margin: 0 auto;
     display: flex;
     justify-content: center;
   }
-
-  .user-info { /* Resetting the value on mobile */
-    flex-direction: column;
+  
+  #userDescription, .general-user-info {
+    width: max-content;
   }
+  
 
   /* Utilities Card Box */
 .shoppingList , .manageSubscription {

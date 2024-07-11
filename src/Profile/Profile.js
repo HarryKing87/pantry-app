@@ -61,24 +61,25 @@ function Profile() {
   const [validUntil, setValidUntil] = useState("");
   const [visibleNewUser, setVisibleNewUser] = useState();
   const [darkModeChecked, setdarkModeChecked] = useState(false);
+  const [bannerNewUserWelcome, setBannerNewUserWelcome] = useState(false);
 
   // Check if the subscription has ended and set setIsUserPremium to false if needed
-  useEffect(() => {
-    if (validUntil && isUserPremium) {
-      const currentDate = new Date();
-      const validUntilDate = new Date(validUntil);
+useEffect(() => {
+  if (validUntil && isUserPremium) {
+    const currentDate = new Date();
+    const validUntilDate = new Date(validUntil);
 
-      if (currentDate > validUntilDate) {
-        // Subscription has ended, set setIsUserPremium to false
-        setIsUserPremium(false);
-      }
-
-      if (!isUserPremium) {
-        setIsUserPremium(false);
-      }
+    if (currentDate > validUntilDate) {
+      // Subscription has ended, set setIsUserPremium to false
+      setIsUserPremium(false);
     }
-  }, [validUntil, isUserPremium]);
 
+    if (!isUserPremium) {
+      setIsUserPremium(false);
+    }
+  }
+}, [validUntil, isUserPremium]);
+  
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
@@ -120,15 +121,13 @@ function Profile() {
           });
       } else {
         setUser(null);
-        navigate("/");
       }
     });
     return () => {
       unsubscribe();
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [navigate]);
-
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);  
   useEffect(() => {
     // Check if the cookie exists
     const bannerNewUserWelcome = Cookies.get("bannerNewUserWelcome");
@@ -143,11 +142,10 @@ function Profile() {
       setVisibleNewUser(true);
     }
   }, []);
-
+  
   useEffect(() => {
-    if (darkModeChecked && darkModeChecked !== null) {
+    if (darkModeChecked) {
       document.documentElement.classList.add("dark-mode");
-      // Setting also the cookie for the dark mode
       const darkModeFlow = Cookies.get("isDarkModeEnabled");
       if (!darkModeFlow || darkModeFlow === "false") {
         const expirationDate = new Date();
@@ -155,9 +153,11 @@ function Profile() {
         Cookies.set("isDarkModeEnabled", "true", { expires: expirationDate });
       }
     } else {
-      document.body.classList.remove("dark-mode");
+      document.documentElement.classList.remove("dark-mode");
+      Cookies.set("isDarkModeEnabled", "false");
     }
   }, [darkModeChecked]);
+  
 
   function handleAllergyChange(event) {
     const { name, checked } = event.target;

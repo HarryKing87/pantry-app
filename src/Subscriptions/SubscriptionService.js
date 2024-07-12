@@ -154,6 +154,7 @@ const SubscriptionService = () => {
       setSubscribedUntil(currentMonthYear);
       const userRef = doc(db, "users", user.uid);
       await updateDoc(userRef, {
+        isUserPremium: true,
         subscribedOn: "",
         validUntil: "",
       });

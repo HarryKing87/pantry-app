@@ -1,25 +1,55 @@
-/* subscription-comparison.css */
+.pricing-card {
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 30px;
+  text-align: center;
+  margin: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
 
-.subscription-comparison {
-    margin: 0 auto;
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  .subscription-comparison th,
-  .subscription-comparison td {
-    padding: 1rem;
-    border: 1px solid #ddd;
-    width: 9%;
-    text-align: left;
-  }
-  
-  .subscription-comparison thead th {
-    background-color: #f2f2f2;
-    font-weight: bold;
-  }
-  
-  .subscription-comparison .limited {
-    color: #ccc;
-  }
-  
+.pricing-card.premium {
+  background-color: #f0f8ff;
+  border: 1px solid #ddd;
+}
+
+.price-tag {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.features-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.features-list li {
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.premium-badge {
+  background-color: #007bff;
+  color: #fff;
+  padding: 5px 8px;
+  border-radius: 3px;
+  font-size: 12px;
+  margin-left: 5px;
+}
+
+.free-text {
+  color: #999;
+  font-weight: normal;
+  margin-left: 5px;
+}
+
+.plan-button {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+}

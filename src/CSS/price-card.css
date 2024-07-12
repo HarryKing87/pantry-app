@@ -1,0 +1,52 @@
+.price-card {
+    background-color: #fff;
+    border-radius: 5px;
+    margin: 10px;
+    text-align: center;
+    width: 100%;
+  }
+  
+  .price-card h3 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+  }
+  
+  .price-card .price {
+    font-weight: bold;
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
+  
+  .price-card .features {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .price-card .features li {
+    margin-bottom: 5px;
+  }
+  
+  .priceList {
+    display: flex;
+    width: 30%;
+    margin: 0 auto;
+  }
+
+  .price-card-container {
+    display: flex;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  /* Responsive styles */
+@media (max-width: 768px) {
+  .priceList {
+    display: flex;
+    width: 100%;
+    margin: 0 auto;
+  }
+  .price-card-container {
+    flex-direction: column;
+  }
+}

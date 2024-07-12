@@ -1,69 +1,30 @@
-import React from 'react';
+import React from "react";
+import PriceCard from "./PriceCard";
+
+const features = [
+  { name: "Learn how the app works", free: true, paid: true },
+  { name: "Learn food saving tips", free: true, paid: true },
+  { name: "Learn food storage tips", free: true, paid: true },
+  { name: "View personal profile", free: false, paid: true },
+  { name: "Dashboard by food type", free: false, paid: true },
+  { name: "Access hundreds of foods", free: "Limited", paid: true },
+  {
+    name: "Save food items",
+    free: "Limited",
+    paid: "Yes (categorized by type)",
+  },
+  { name: "Expiry notifications", free: false, paid: true },
+  { name: "Food/Drink information", free: "Limited", paid: true },
+  { name: "Add/Remove from list", free: "Limited", paid: true },
+];
 
 function SubscriptionComparison() {
+  const title = "Subscription Comparison";
+  const price = "Free"; // Or any relevant price
+
   return (
     <div className="subscription-comparison">
-      <table>
-        <thead>
-          <tr>
-            <th>Feature</th>
-            <th>Free</th>
-            <th>Paid ($2/month)</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Learn how the app works</td>
-            <td>Yes</td>
-            <td>Yes</td>
-          </tr>
-          <tr>
-            <td>Learn food saving tips</td>
-            <td>Yes</td>
-            <td>Yes</td>
-          </tr>
-          <tr>
-            <td>Learn food storage tips</td>
-            <td>Yes</td>
-            <td>Yes</td>
-          </tr>
-          <tr>
-            <td>View personal profile</td>
-            <td>No</td>
-            <td>Yes</td>
-          </tr>
-          <tr>
-            <td>Dashboard by food type</td>
-            <td>No</td>
-            <td>Yes</td>
-          </tr>
-          <tr>
-            <td>Access hundreds of foods</td>
-            <td>Limited</td>
-            <td>Yes</td>
-          </tr>
-          <tr>
-            <td>Save food items</td>
-            <td>Limited</td>
-            <td>Yes (categorized by type)</td>
-          </tr>
-          <tr>
-            <td>Expiry notifications</td>
-            <td>No</td>
-            <td>Yes</td>
-          </tr>
-          <tr>
-            <td>Food/Drink information</td>
-            <td>Limited</td>
-            <td>Yes</td>
-          </tr>
-          <tr>
-            <td>Add/Remove from list</td>
-            <td>Limited</td>
-            <td>Yes</td>
-          </tr>
-        </tbody>
-      </table>
+      <PriceCard title={title} price={price} features={features} />
     </div>
   );
 }

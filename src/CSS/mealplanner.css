@@ -1,0 +1,142 @@
+.mealplan-dashboard {
+    display: flex;
+}
+
+.mealplan-left {
+    width: 20%;
+    height: 100vh;
+    background-color: white;
+}
+
+.mealplan-image, .mealplan-desc {
+    width: 100%;
+}
+
+.mealplan-image img {
+    border-radius: 5px;
+}
+
+.mealplan-prefs {
+    width: 80%;
+    float: left;
+    display: flex;
+    align-items: center;
+}
+
+.mealplan-desc {
+    font-size:18px;
+    font-weight: 900;
+}
+
+.planner-icons {
+    display: flex;
+    float: space-between;
+    margin-top: 0.2rem;
+    padding: 6px;
+    cursor: pointer;
+}
+
+.planner-icons #meal-icon {
+    font-size: 19px;
+}
+
+#meal-icon {
+    padding-right: 1rem;
+}
+
+.mealplan-options {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.mealplan-right {
+    width: 80%;
+}
+
+#container {
+    width: 95%;
+    margin: 0 auto;
+}
+
+.mealplan-right h1 {
+    text-align: left;
+    overflow: hidden;
+}
+
+.mealplan-search, .mealplan-utilities {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.mealplan-search {
+    margin-top: 0.7rem;
+}
+
+.mealplan-search-input {
+    display: flex;
+    align-items: center;
+}
+
+.mealplan-search label {
+    font-size: 12px;
+}
+
+#search #ac {
+    height: 35px!important;
+    width: 25rem;
+}
+
+.mealplan-utilities button {
+    margin-right: 5px;
+    padding: 7px;
+    width: 100px;
+}
+
+#util-icon {
+    padding-right: 0.5rem;
+}
+
+.mealplan-utilities #labels, .mealplan-utilities #addNotes {
+    background-color: transparent;
+    border: 1px solid #573CE2;
+    color: #573CE2;
+    font-size: 13px;
+}
+
+.mealplan-utilities #share {
+    background-color: #573CE2;
+    color: white;
+    font-size: 13px;
+}
+
+.weekly-plan {
+    width: 95%;
+    display: flex;
+    margin:2rem;
+    padding: 0;
+    overflow-x: scroll;
+    height: 80vh;
+}
+
+.weekly-plan > div {
+    flex: 0 0 300px;
+    margin:0 15px 0 15px;
+}
+
+.weekly-plan > div:nth-child(1) .day-of-week { background-color: #8FB996; height: 6%; display: flex; justify-content: center; align-items: center;}
+.weekly-plan > div:nth-child(2) .day-of-week { background-color: #F7B267; height: 6%; display: flex; justify-content: center; align-items: center;}
+.weekly-plan > div:nth-child(3) .day-of-week { background-color: #F28A8A; height: 6%; display: flex; justify-content: center; align-items: center;}
+.weekly-plan > div:nth-child(4) .day-of-week { background-color: #91A3B0; height: 6%; display: flex; justify-content: center; align-items: center;}
+.weekly-plan > div:nth-child(5) .day-of-week { background-color: #F4A4A4; height: 6%; display: flex; justify-content: center; align-items: center;}
+.weekly-plan > div:nth-child(6) .day-of-week { background-color: #7FC4C4; height: 6%; display: flex; justify-content: center; align-items: center;}
+.weekly-plan > div:nth-child(7) .day-of-week { background-color: #BFA1C6; height: 6%; display: flex; justify-content: center; align-items: center;}
+
+.day-of-week p {
+    font-size: 20px;
+    font-weight: 600;
+    color: white;
+    height: 50%;
+}

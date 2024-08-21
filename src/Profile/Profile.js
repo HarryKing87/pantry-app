@@ -403,6 +403,11 @@ useEffect(() => {
           <Button icon="pi pi-arrow-right" onClick={() => setVisible(true)} />
         </div>
         <hr />
+        <div className="manageSubscription">
+          <h3>Meal Planner</h3>
+          <Button icon="pi pi-arrow-right" onClick={() => window.location.href = "/meal-planner"} />
+        </div>
+        <hr />
         <div className="changeImage">
           <Sidebar
             visible={changeImageVisible}

@@ -1,10 +1,61 @@
 /* Font Awesome icons */
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "@fortawesome/fontawesome-svg-core/styles.css";
-import { faEllipsis } from "@fortawesome/free-solid-svg-icons";
+import { useState, useEffect } from "react";
+import {
+  faEllipsis,
+  faFireFlameCurved,
+} from "@fortawesome/free-solid-svg-icons";
+// Icon set for profile pic
+import { Avatar } from "primereact/avatar";
+import {
+  getFirestore,
+  collection,
+  query,
+  where,
+  getDocs,
+  setDoc,
+  updateDoc,
+  doc,
+} from "firebase/firestore";
+import { signOut } from "firebase/auth";
+import { auth } from "../Database/firebase";
 
+const db = getFirestore();
 
 export default function MealPlanDays() {
+  const [user, setUser] = useState(null);
+  const [selectedImage, setSelectedImage] = useState(null);
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        setUser(user);
+        const userRef = doc(db, "users", user.uid);
+        const q = query(collection(db, "users"), where("id", "==", user.uid));
+        getDocs(q)
+          .then((querySnapshot) => {
+            if (querySnapshot.empty) {
+              setDoc(userRef, {
+                id: user.uid,
+                selectedImage,
+              });
+            } else {
+              const data = querySnapshot.docs[0].data();
+              setSelectedImage(data.userImage);
+            }
+          })
+          .catch((error) => {
+            console.error("Error getting user data:", error);
+          });
+      } else {
+        setUser(null);
+      }
+    });
+    return () => {
+      unsubscribe();
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
     <div>
       <div className="weekly-plan">
@@ -15,21 +66,29 @@ export default function MealPlanDays() {
           <div id="mealplan-task">
             <div className="mealplan-title">
               <h3>Avocado & Eggs</h3>
-              <span><FontAwesomeIcon icon={faEllipsis} /></span>
+              <span>
+                <FontAwesomeIcon icon={faEllipsis} />
+              </span>
             </div>
-            <span id="mealplan-tag"></span>
+            <span id="mealplan-tag">Breakfast</span>
             <img
-                    src={
-                        process.env.PUBLIC_URL +
-                        "/Images/testphoto.png"
-                    }
-                    alt="Logo"
-                    style={{width: "45%" }}
-                    />            
-                    <div className="mealplan-nutriscore-img">
+              src={process.env.PUBLIC_URL + "/Images/testphoto.png"}
+              alt="Logo"
+              style={{ width: "100%", marginTop: "0.5rem" }}
+            />
+            <div className="mealplan-nutriscore-img">
               <div id="mealplan-nutriinfo">
-                <span id="nutriscore"></span>
-                <img src="#" id="profile-img" />
+                <span id="nutriscore">
+                  <FontAwesomeIcon icon={faFireFlameCurved} id="caloriesIcon" />
+                </span>
+                <a href="/Profile">
+                  <Avatar
+                    image={selectedImage}
+                    size="large"
+                    shape="circle"
+                    style={{ width: "35px", height: "35px" }}
+                  />
+                </a>
               </div>
             </div>
           </div>

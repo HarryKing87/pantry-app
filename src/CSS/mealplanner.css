@@ -99,7 +99,7 @@
     padding-right: 0.5rem;
 }
 
-.mealplan-utilities #labels, .mealplan-utilities #addNotes {
+.mealplan-utilities #labels, .mealplan-utilities #addMeal {
     background-color: transparent;
     border: 1px solid #573CE2;
     color: #573CE2;
@@ -139,4 +139,36 @@
     font-weight: 600;
     color: white;
     height: 50%;
+}
+
+/* Mealplan tasker box */
+#mealplan-task {
+    background-color: white;
+    padding: 10px;
+}
+.mealplan-title, #mealplan-nutriinfo  {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#mealplan-nutriinfo {
+    margin-top: 0.5rem;
+}
+
+#mealplan-tag {
+    background-color: #F28A8A;
+    color: white;
+    border-radius: 15px;
+    padding: 6px;
+    display: flex;
+    float: left;
+    margin: 0.5rem 0;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+#caloriesIcon {
+    font-size: 17px;
+    color: #FF5733;
 }

@@ -210,3 +210,13 @@
     font-size: 17px;
     color: #FF5733;
 }
+
+#nutriscore {
+    display: flex;
+}
+#nutriscore .nutriscore-font {
+    font-size: 15px;
+    padding: 0 5px;
+    font-family: "Roboto", sans-serif;
+    font-weight: bold;
+}

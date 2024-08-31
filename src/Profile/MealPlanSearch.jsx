@@ -12,7 +12,6 @@ import { Dialog } from "primereact/dialog";
 import { InputText } from "primereact/inputtext";
 import { InputTextarea } from "primereact/inputtextarea";
 import { ListBox } from "primereact/listbox";
-import { Tag } from "primereact/tag";
 
 import { getFirestore, doc, updateDoc } from "firebase/firestore";
 import { auth } from "../Database/firebase";
@@ -50,7 +49,7 @@ export default function MealPlanSearch({ setMeal, meal }) {
         tag: mealTag,
       };
       const userRef = doc(db, "users", user.uid);
-      const updatedMeal = meal ? [...meal, newMeal] : [newMeal]; // Correctly appending new meal
+      const updatedMeal = meal ? [...meal, newMeal] : [newMeal];
       try {
         await updateDoc(userRef, {
           meal: updatedMeal,

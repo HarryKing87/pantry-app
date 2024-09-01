@@ -6,14 +6,21 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Avatar } from "primereact/avatar";
 import { useState, useEffect } from "react";
+/* React Toastify Notifications Imports */
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { ConfirmDialog } from "primereact/confirmdialog"; // For <ConfirmDialog /> component
+import { Toast } from "primereact/toast";
 
-export default function MealPlanDays({ meal, userImage }) {
+export default function MealPlanDays({ meal, setMeal, userImage }) {
   // State to store the fetched data
   const [nutritionalData, setNutritionalData] = useState({});
   const [mealLoading, setMealLoading] = useState(true);
   const [mealError, setMealError] = useState(null);
-  // State to track if data has been fetched
   const [hasFetched, setHasFetched] = useState(false);
+
+  // State to track the item selected for deletion
+  const [selectedItem, setSelectedItem] = useState(null);
 
   useEffect(() => {
     const fetchNutritionalData = async () => {
@@ -27,13 +34,11 @@ export default function MealPlanDays({ meal, userImage }) {
           const response = await fetch(
             `https://api.nal.usda.gov/fdc/v1/foods/search?api_key=6jaxoYBjQGg51OL2IvFCk8nqzx6o0MbwV4sqt5eW&query=${foodName}`
           );
-          console.log("Response: ", response);
           if (!response.ok) {
             throw new Error("Network response was not ok");
           }
           const result = await response.json();
 
-          // Assuming the first result is the relevant one
           if (
             result.foods &&
             result.foods[0] &&
@@ -53,10 +58,8 @@ export default function MealPlanDays({ meal, userImage }) {
           };
         });
 
-        // Resolve all promises
         const results = await Promise.all(fetchPromises);
 
-        // Map results to nutritionalData
         const nutritionalMap = results.reduce(
           (acc, { foodName, kcalValue }) => {
             acc[foodName] = kcalValue;
@@ -89,6 +92,16 @@ export default function MealPlanDays({ meal, userImage }) {
     "sunday",
   ];
 
+  const handleDeleteMeal = () => {
+    if (selectedItem) {
+      const updatedMeal = meal.filter(
+        (product) => product.foodName !== selectedItem.foodName
+      );
+      setMeal(updatedMeal);
+      setSelectedItem(null); // Clear the selected item after deletion
+    }
+  };
+
   const renderMealsForDay = (day) => {
     return meal
       .filter((item) => item.selectedDay.name.toLowerCase() === day)
@@ -97,7 +110,25 @@ export default function MealPlanDays({ meal, userImage }) {
           <div className="mealplan-title">
             <h3>{item.foodName}</h3>
             <span>
-              <FontAwesomeIcon icon={faEllipsis} />
+              <Toast ref={toast} />
+              {/* Only show ConfirmDialog for the selected item */}
+              {selectedItem && selectedItem.foodName === item.foodName && (
+                <ConfirmDialog
+                  className="credentialsChange-dialog"
+                  group="declarative"
+                  visible={!!selectedItem}
+                  onHide={() => setSelectedItem(null)}
+                  message={`Are you sure you would like to remove ${selectedItem.foodName}?`}
+                  header="Confirmation"
+                  icon="pi pi-exclamation-triangle"
+                  accept={handleDeleteMeal}
+                  reject={() => setSelectedItem(null)}
+                />
+              )}
+              <FontAwesomeIcon
+                icon={faEllipsis}
+                onClick={() => setSelectedItem(item)}
+              />
             </span>
           </div>
           <span id="mealplan-tag" className={item.tag}>
@@ -125,7 +156,6 @@ export default function MealPlanDays({ meal, userImage }) {
                     ? `${nutritionalData[item.foodName]} Kcal`
                     : "N/A"}
                 </div>{" "}
-                {/* Display Kcal value */}
               </span>
               <a href="/Profile">
                 <Avatar

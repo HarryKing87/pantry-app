@@ -56,6 +56,11 @@ export default function MealPlanner() {
     setMeal(meal);
   };
 
+  const handleUpdatedMeal = (meal) => {
+    const userRef = doc(db, "users", user.uid);
+    updateDoc(userRef, { meal: meal });
+  };
+
   return (
     <div>
       <NavigationMealPlan />
@@ -109,7 +114,7 @@ export default function MealPlanner() {
           </div>
           <MealPlanDays
             user={user}
-            setMeal={meal}
+            setMeal={handleUpdatedMeal}
             meal={meal}
             userImage={userImage}
           />

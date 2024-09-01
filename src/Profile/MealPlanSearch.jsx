@@ -27,6 +27,8 @@ export default function MealPlanSearch({ setMeal, meal }) {
   const [newFoodImage, setNewFoodImage] = useState("");
   const [newMealNotes, setNewMealNotes] = useState("");
   const [mealTag, setMealTag] = useState("");
+  const [selectedDay, setSelectedDay] = useState(null);
+  const [isFormValid, setIsFormValid] = useState(false);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
@@ -39,8 +41,22 @@ export default function MealPlanSearch({ setMeal, meal }) {
     return () => unsubscribe();
   }, []);
 
+  useEffect(() => {
+    validateForm(); // Check form validity whenever input values change
+  }, [newFoodName, selectedDay, newMealNotes, mealTag]);
+
+  const validateForm = () => {
+    const isValid =
+      newFoodName !== "" &&
+      selectedDay !== null &&
+      newMealNotes !== "" &&
+      mealTag !== "";
+
+    setIsFormValid(isValid);
+  };
+
   const handleMealPlanSave = async () => {
-    if (user) {
+    if (isFormValid && user) {
       const newMeal = {
         foodName: newFoodName,
         foodImage: newFoodImage ? newFoodImage : "",
@@ -59,10 +75,11 @@ export default function MealPlanSearch({ setMeal, meal }) {
       } catch (error) {
         console.error("Error updating user data:", error);
       }
+    } else {
+      toast.error("Please fill out all required fields.", { life: 3000 });
     }
   };
 
-  // get user image from PC to show on Food section
   const handleImageChange = (event) => {
     const file = event.target.files[0];
 
@@ -75,7 +92,6 @@ export default function MealPlanSearch({ setMeal, meal }) {
     }
   };
 
-  const [selectedDay, setSelectedDay] = useState(null);
   const days = [
     { name: "monday", code: "MON" },
     { name: "tuesday", code: "TUE" },
@@ -86,21 +102,8 @@ export default function MealPlanSearch({ setMeal, meal }) {
     { name: "sunday", code: "SUN" },
   ];
 
-  document.querySelectorAll("#mealTags span").forEach((span) => {
-    span.addEventListener("click", function () {
-      // Remove the selected class from all spans
-      document
-        .querySelectorAll("#mealTags span")
-        .forEach((el) => el.classList.remove("selected"));
-
-      // Add the selected class to the clicked span
-      this.classList.add("selected");
-    });
-  });
-
   const handleTagClick = (el) => {
     setMealTag(el);
-    console.log(el);
   };
 
   return (
@@ -137,19 +140,22 @@ export default function MealPlanSearch({ setMeal, meal }) {
       >
         <InputText
           id="foodName"
+          value={newFoodName}
           onChange={(e) => setNewFoodName(e.target.value)}
+          required
         />
         <small htmlFor="foodName">Add a name of the food.</small>
         <br />
         <br />
         <input type="file" accept="image/*" onChange={handleImageChange} />
-        <small>Add an image.</small>
+        <small>Add an image (optional).</small>
         <br />
         <br />
         <ListBox
           onChange={(e) => setSelectedDay(e.value)}
           options={days}
           optionLabel="name"
+          required
         />
         <small>Add a day.</small>
         <br />
@@ -159,44 +165,47 @@ export default function MealPlanSearch({ setMeal, meal }) {
           id="notes"
           rows={5}
           cols={71}
+          value={newMealNotes}
           onChange={(e) => setNewMealNotes(e.target.value)}
+          required
         />
-        <br />
         <small htmlFor="notes">Add any related notes.</small>
         <br />
         <br />
         <div id="mealTags">
           <span
             id="mealplan-tag"
-            className="breakfast"
+            className={`breakfast ${mealTag === "breakfast" ? "selected" : ""}`}
             onClick={() => handleTagClick("breakfast")}
           >
             Breakfast
           </span>
           <span
             id="mealplan-tag"
-            className="lunch"
+            className={`lunch ${mealTag === "lunch" ? "selected" : ""}`}
             onClick={() => handleTagClick("lunch")}
           >
             Lunch
           </span>
           <span
             id="mealplan-tag"
-            className="dinner"
+            className={`dinner ${mealTag === "dinner" ? "selected" : ""}`}
             onClick={() => handleTagClick("dinner")}
           >
             Dinner
           </span>
           <span
             id="mealplan-tag"
-            className="snack"
+            className={`snack ${mealTag === "snack" ? "selected" : ""}`}
             onClick={() => handleTagClick("snack")}
           >
             Snack
           </span>
         </div>
         <br />
-        <button onClick={handleMealPlanSave}>Add</button>{" "}
+        <button onClick={handleMealPlanSave} disabled={!isFormValid}>
+          Add
+        </button>
       </Dialog>
     </div>
   );

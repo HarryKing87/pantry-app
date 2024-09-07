@@ -113,7 +113,6 @@ export default function MealPlanner() {
             <MealPlanSearch setMeal={handleSetMeal} meal={meal} />
           </div>
           <MealPlanDays
-            user={user}
             setMeal={handleUpdatedMeal}
             meal={meal}
             userImage={userImage}

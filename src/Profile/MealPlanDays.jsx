@@ -111,6 +111,7 @@ export default function MealPlanDays({ meal, setMeal, userImage }) {
         (product) => product.foodName !== selectedItem.foodName
       );
       setMeal(updatedMeal);
+      setHasFetched(false); // Recalling the hasFetched to update any properties that may have never updated
       setSelectedItem(null); // Clear the selected item after deletion
     }
   };
@@ -183,6 +184,7 @@ export default function MealPlanDays({ meal, setMeal, userImage }) {
                 onClick={() => {
                   setSelectedItem(item); // Set the selected item
                   setFoodDialogVisible(true); // Open the dialog
+                  setHasFetched(false);
                 }}
               />
             </span>
@@ -209,7 +211,7 @@ export default function MealPlanDays({ meal, setMeal, userImage }) {
                 <div className="nutriscore-font">
                   {nutritionalData[item.foodName]
                     ? `${nutritionalData[item.foodName].kcalValue} Kcal`
-                    : "N/A"}
+                    : "-"}
                 </div>{" "}
               </span>
               <a href="/Profile">

@@ -16,6 +16,7 @@ import { ListBox } from "primereact/listbox";
 import { getFirestore, doc, updateDoc } from "firebase/firestore";
 import { auth } from "../Database/firebase";
 import { toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const db = getFirestore();
@@ -43,7 +44,7 @@ export default function MealPlanSearch({ setMeal, meal }) {
 
   useEffect(() => {
     validateForm(); // Check form validity whenever input values change
-  }, [newFoodName, selectedDay, newMealNotes, mealTag]);
+  });
 
   const validateForm = () => {
     const isValid =
@@ -56,7 +57,7 @@ export default function MealPlanSearch({ setMeal, meal }) {
   };
 
   const handleMealPlanSave = async () => {
-    if (isFormValid && user) {
+    if (user) {
       const newMeal = {
         foodName: newFoodName,
         foodImage: newFoodImage ? newFoodImage : "",
@@ -152,6 +153,7 @@ export default function MealPlanSearch({ setMeal, meal }) {
         <br />
         <br />
         <ListBox
+          value={selectedDay}
           onChange={(e) => setSelectedDay(e.value)}
           options={days}
           optionLabel="name"
@@ -203,10 +205,22 @@ export default function MealPlanSearch({ setMeal, meal }) {
           </span>
         </div>
         <br />
-        <button onClick={handleMealPlanSave} disabled={!isFormValid}>
-          Add
-        </button>
+        <button onClick={handleMealPlanSave}>Add</button>
       </Dialog>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
+      {/* Same as */}
+      <ToastContainer />
     </div>
   );
 }

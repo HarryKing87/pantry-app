@@ -3,14 +3,17 @@ import "@fortawesome/fontawesome-svg-core/styles.css";
 import {
   faEllipsis,
   faFireFlameCurved,
+  faTrashCan,
 } from "@fortawesome/free-solid-svg-icons";
 import { Avatar } from "primereact/avatar";
 import { useState, useEffect } from "react";
 /* React Toastify Notifications Imports */
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Dialog } from "primereact/dialog";
 import { ConfirmDialog } from "primereact/confirmdialog"; // For <ConfirmDialog /> component
 import { Toast } from "primereact/toast";
+import MealPlanFoodInfo from "./MealPlanFoodInfo";
 
 export default function MealPlanDays({ meal, setMeal, userImage }) {
   // State to store the fetched data
@@ -18,6 +21,8 @@ export default function MealPlanDays({ meal, setMeal, userImage }) {
   const [mealLoading, setMealLoading] = useState(true);
   const [mealError, setMealError] = useState(null);
   const [hasFetched, setHasFetched] = useState(false);
+  const [foodDialogVisible, setFoodDialogVisible] = useState(false);
+  const [confirmDialogVisible, setConfirmDialogVisible] = useState(false);
 
   // State to track the item selected for deletion
   const [selectedItem, setSelectedItem] = useState(null);
@@ -47,22 +52,30 @@ export default function MealPlanDays({ meal, setMeal, userImage }) {
             const kcalNutrient = result.foods[0].foodNutrients.find(
               (nutrient) => nutrient.nutrientName === "Energy"
             );
+            const proteinNutrient = result.foods[0].foodNutrients.find(
+              (nutrient) => nutrient.nutrientName === "Protein"
+            );
             return {
               foodName: item.foodName,
-              kcalValue: kcalNutrient ? kcalNutrient.value : "N/A",
+              kcalValue: kcalNutrient ? kcalNutrient.value : "-",
+              proteinValue: proteinNutrient ? proteinNutrient.value : "-",
             };
           }
           return {
             foodName: item.foodName,
-            kcalValue: "N/A",
+            kcalValue: "-",
+            proteinValue: "-",
           };
         });
 
         const results = await Promise.all(fetchPromises);
 
         const nutritionalMap = results.reduce(
-          (acc, { foodName, kcalValue }) => {
-            acc[foodName] = kcalValue;
+          (acc, { foodName, kcalValue, proteinValue }) => {
+            acc[foodName] = {
+              kcalValue: kcalValue,
+              proteinValue: proteinValue,
+            };
             return acc;
           },
           {}
@@ -103,6 +116,28 @@ export default function MealPlanDays({ meal, setMeal, userImage }) {
   };
 
   const renderMealsForDay = (day) => {
+    const headerElement = (
+      <div
+        style={{
+          alignItems: "center",
+          display: "flex",
+        }}
+      >
+        <Avatar image={userImage} shape="circle" />
+        <span style={{ marginLeft: "10px" }}>Food Information</span>
+        {/* faTrashCan icon to show ConfirmDialog */}
+        <FontAwesomeIcon
+          icon={faTrashCan}
+          onClick={() => setConfirmDialogVisible(true)} // Show confirm dialog on click
+          style={{
+            marginLeft: "10px",
+            fontSize: "12px",
+            color: "red",
+            cursor: "pointer",
+          }}
+        />
+      </div>
+    );
     return meal
       .filter((item) => item.selectedDay.name.toLowerCase() === day)
       .map((item, index) => (
@@ -111,23 +146,44 @@ export default function MealPlanDays({ meal, setMeal, userImage }) {
             <h3>{item.foodName}</h3>
             <span>
               <Toast ref={toast} />
-              {/* Only show ConfirmDialog for the selected item */}
+
+              {/* Only show Dialog for the selected item */}
               {selectedItem && selectedItem.foodName === item.foodName && (
-                <ConfirmDialog
+                <Dialog
                   className="credentialsChange-dialog"
-                  group="declarative"
-                  visible={!!selectedItem}
-                  onHide={() => setSelectedItem(null)}
-                  message={`Are you sure you would like to remove ${selectedItem.foodName}?`}
-                  header="Confirmation"
-                  icon="pi pi-exclamation-triangle"
-                  accept={handleDeleteMeal}
-                  reject={() => setSelectedItem(null)}
-                />
+                  visible={foodDialogVisible} // Control visibility with foodDialogVisible state
+                  header={headerElement}
+                  style={{ width: "50%", margin: "0 auto" }}
+                  onHide={() => setFoodDialogVisible(false)} // Close the dialog
+                >
+                  <div>
+                    {/* ConfirmDialog to handle item deletion */}
+                    <ConfirmDialog
+                      className="credentialsChange-dialog"
+                      group="declarative"
+                      visible={confirmDialogVisible} // Control visibility with confirmDialogVisible state
+                      onHide={() => setConfirmDialogVisible(false)} // Hide on rejection or cancel
+                      message={`Are you sure you would like to remove ${selectedItem.foodName}?`}
+                      header="Confirmation"
+                      icon="pi pi-exclamation-triangle"
+                      accept={handleDeleteMeal} // Function to handle deletion
+                      reject={() => setConfirmDialogVisible(false)} // Close confirm dialog on rejection
+                    />
+                  </div>
+                  <MealPlanFoodInfo
+                    item={selectedItem}
+                    nutriData={nutritionalData}
+                  />
+                </Dialog>
               )}
+
+              {/* faEllipsis icon to open the main dialog */}
               <FontAwesomeIcon
                 icon={faEllipsis}
-                onClick={() => setSelectedItem(item)}
+                onClick={() => {
+                  setSelectedItem(item); // Set the selected item
+                  setFoodDialogVisible(true); // Open the dialog
+                }}
               />
             </span>
           </div>
@@ -146,14 +202,13 @@ export default function MealPlanDays({ meal, setMeal, userImage }) {
               <br />
             </div>
           )}
-
           <div className="mealplan-nutriscore-img">
             <div id="mealplan-nutriinfo">
               <span id="nutriscore">
                 <FontAwesomeIcon icon={faFireFlameCurved} id="caloriesIcon" />
                 <div className="nutriscore-font">
                   {nutritionalData[item.foodName]
-                    ? `${nutritionalData[item.foodName]} Kcal`
+                    ? `${nutritionalData[item.foodName].kcalValue} Kcal`
                     : "N/A"}
                 </div>{" "}
               </span>

@@ -20,22 +20,23 @@ export default function MealPlanDays({ meal, setMeal, userImage }) {
   const [nutritionalData, setNutritionalData] = useState({});
   const [mealLoading, setMealLoading] = useState(true);
   const [mealError, setMealError] = useState(null);
-  const [hasFetched, setHasFetched] = useState(false);
+  const [hasFetched, setHasFetched] = useState(true);
   const [foodDialogVisible, setFoodDialogVisible] = useState(false);
   const [confirmDialogVisible, setConfirmDialogVisible] = useState(false);
 
   // State to track the item selected for deletion
   const [selectedItem, setSelectedItem] = useState(null);
-
+  const [apiCallCounter, setApiCallCounter] = useState(0);
   useEffect(() => {
     const fetchNutritionalData = async () => {
-      if (!meal || meal.length === 0 || hasFetched) {
-        return; // Exit if meal data is not available
+      if (!meal || meal.length === 0 || hasFetched || apiCallCounter >= 5) {
+        return; // Exit if conditions are met
       }
       setMealLoading(true);
       try {
         const fetchPromises = meal.map(async (item) => {
           const foodName = encodeURIComponent(item.foodName);
+          setApiCallCounter((prevCounter) => prevCounter + 1); // Increment counter after each call
           const response = await fetch(
             `https://api.nal.usda.gov/fdc/v1/foods/search?api_key=6jaxoYBjQGg51OL2IvFCk8nqzx6o0MbwV4sqt5eW&query=${foodName}`
           );
@@ -93,7 +94,7 @@ export default function MealPlanDays({ meal, setMeal, userImage }) {
     if (meal && meal.length > 0) {
       fetchNutritionalData();
     }
-  }, [meal, hasFetched]);
+  }, [meal, hasFetched]); // Add apiCallCounter to the dependencies
 
   const daysOfWeek = [
     "monday",

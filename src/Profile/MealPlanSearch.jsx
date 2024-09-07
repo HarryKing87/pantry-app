@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { useState, useEffect } from "react";
@@ -6,12 +7,14 @@ import {
   faNoteSticky,
   faBolt,
   faMagnifyingGlass,
+  faFacebookF,
 } from "@fortawesome/free-solid-svg-icons";
 import { AutoComplete } from "primereact/autocomplete";
 import { Dialog } from "primereact/dialog";
 import { InputText } from "primereact/inputtext";
 import { InputTextarea } from "primereact/inputtextarea";
 import { ListBox } from "primereact/listbox";
+import { OverlayPanel } from "primereact/overlaypanel";
 
 import { getFirestore, doc, updateDoc } from "firebase/firestore";
 import { auth } from "../Database/firebase";
@@ -30,6 +33,7 @@ export default function MealPlanSearch({ setMeal, meal }) {
   const [mealTag, setMealTag] = useState("");
   const [selectedDay, setSelectedDay] = useState(null);
   const [isFormValid, setIsFormValid] = useState(false);
+  const [labelsVisible, setLabelsVisible] = useState(false);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
@@ -93,6 +97,13 @@ export default function MealPlanSearch({ setMeal, meal }) {
     }
   };
 
+  const handleFacebookShare = () => {
+    const url = encodeURIComponent(window.location.href);
+    const shareURL = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+
+    window.open(shareURL, "_blank", "width=1000,height=600");
+  };
+
   const days = [
     { name: "monday", code: "MON" },
     { name: "tuesday", code: "TUE" },
@@ -107,6 +118,8 @@ export default function MealPlanSearch({ setMeal, meal }) {
     setMealTag(el);
   };
 
+  const labels = useRef(null);
+  const social = useRef(null);
   return (
     <div>
       <div className="mealplan-search">
@@ -119,16 +132,103 @@ export default function MealPlanSearch({ setMeal, meal }) {
           </span>
         </div>
         <div className="mealplan-utilities">
-          <button id="labels">
+          <button id="labels" onClick={(e) => labels.current.toggle(e)}>
             <FontAwesomeIcon icon={faBolt} id="util-icon" />
+            <OverlayPanel ref={labels}>
+              <p>
+                Customize your meals effortlessly with labels for breakfast,
+                lunch, dinner, and snacks.
+              </p>
+              <span
+                id="mealplan-tag"
+                className="breakfast"
+                style={{ margin: "10px" }}
+              >
+                Breakfast
+              </span>
+              <span
+                id="mealplan-tag"
+                className="lunch"
+                style={{ margin: "10px" }}
+              >
+                Lunch
+              </span>
+              <span
+                id="mealplan-tag"
+                className="dinner"
+                style={{ margin: "10px" }}
+              >
+                Dinner
+              </span>
+              <span
+                id="mealplan-tag"
+                className="snack"
+                style={{ margin: "10px" }}
+              >
+                Snack
+              </span>
+            </OverlayPanel>
             Labels
           </button>
           <button id="addMeal" onClick={() => setVisible(true)}>
             <FontAwesomeIcon icon={faNoteSticky} id="util-icon" />
             Add Meal
           </button>
-          <button id="share">
+          <button id="share" onClick={(e) => social.current.toggle(e)}>
             <FontAwesomeIcon icon={faShareNodes} id="util-icon" />
+            <script
+              async
+              defer
+              src="https://assets.pinterest.com/js/pinit.js"
+            ></script>
+            <OverlayPanel ref={social}>
+              <img
+                src="https://img.icons8.com/?size=100&id=118466&format=png&color=000000"
+                alt="facebook logo"
+                width={"30px"}
+                style={{ cursor: "pointer", margin: "10px" }}
+                onClick={handleFacebookShare}
+              />
+              <a
+                class="share-btn twitter"
+                href="https://twitter.com/share?url=https://www.itspantry.netlify.app"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <img
+                  src="https://img.icons8.com/?size=100&id=6Fsj3rv2DCmG&format=png&color=000000"
+                  width={"30px"}
+                  style={{ cursor: "pointer", margin: "10px" }}
+                  alt="twitter logo"
+                />
+              </a>
+              <a
+                class="share-btn reddit"
+                href="https://reddit.com/submit?url=https://www.itspantry.netlify.app"
+                rel="noreferrer"
+                target="_blank"
+              >
+                <img
+                  src="https://img.icons8.com/?size=100&id=12463&format=png&color=000000"
+                  width={"30px"}
+                  style={{ cursor: "pointer", margin: "10px" }}
+                  alt="reddit logo"
+                />
+              </a>
+              <a
+                class="share-btn email"
+                href="mailto:?subject=Pantry&body=https://www.itspantry.netlify.app"
+                rel="noreferrer"
+                target="_blank"
+              >
+                <img
+                  src="https://img.icons8.com/?size=100&id=i3XElI5CmcBP&format=png&color=000000"
+                  width={"30px"}
+                  style={{ cursor: "pointer", margin: "10px" }}
+                  alt="email logo"
+                />
+              </a>
+            </OverlayPanel>
             Share
           </button>
         </div>

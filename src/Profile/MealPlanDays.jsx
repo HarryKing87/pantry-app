@@ -20,7 +20,7 @@ export default function MealPlanDays({ meal, setMeal, userImage }) {
   const [nutritionalData, setNutritionalData] = useState({});
   const [mealLoading, setMealLoading] = useState(true);
   const [mealError, setMealError] = useState(null);
-  const [hasFetched, setHasFetched] = useState(true);
+  const [hasFetched, setHasFetched] = useState(false);
   const [foodDialogVisible, setFoodDialogVisible] = useState(false);
   const [confirmDialogVisible, setConfirmDialogVisible] = useState(false);
 
@@ -94,6 +94,7 @@ export default function MealPlanDays({ meal, setMeal, userImage }) {
     if (meal && meal.length > 0) {
       fetchNutritionalData();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [meal, hasFetched]); // Add apiCallCounter to the dependencies
 
   const daysOfWeek = [

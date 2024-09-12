@@ -7,7 +7,6 @@ import {
   faNoteSticky,
   faBolt,
   faMagnifyingGlass,
-  faFacebookF,
 } from "@fortawesome/free-solid-svg-icons";
 import { AutoComplete } from "primereact/autocomplete";
 import { Dialog } from "primereact/dialog";
@@ -33,7 +32,6 @@ export default function MealPlanSearch({ setMeal, meal }) {
   const [mealTag, setMealTag] = useState("");
   const [selectedDay, setSelectedDay] = useState(null);
   const [isFormValid, setIsFormValid] = useState(false);
-  const [labelsVisible, setLabelsVisible] = useState(false);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {

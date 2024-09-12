@@ -22,7 +22,7 @@ export default function ShoppingList() {
   const [user, setUser] = useState(null);
 
   const showToastMessage = () => {
-    toast.error("Please put a value inside you shopping list!", {
+    toast.error("Please put a value inside your shopping list!", {
       position: toast.POSITION.TOP_RIGHT,
     });
   };
@@ -116,7 +116,7 @@ export default function ShoppingList() {
     return () => {
       unsubscribe();
     };
-  }, [statedItem]);
+  }, []);
 
   return (
     <div>

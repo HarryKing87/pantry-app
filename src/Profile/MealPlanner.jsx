@@ -24,12 +24,14 @@ export default function MealPlanner() {
   const [user, setUser] = useState(null);
   const [meal, setMeal] = useState([]);
   const [userImage, setUserImage] = useState("");
+  const [userFetched, setUserFetched] = useState(false);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
-      if (user) {
+      if (user && !userFetched) {
         setUser(user);
         const userRef = doc(db, "users", user.uid);
+        console.log("Get user from MealPlanner");
 
         try {
           const userDoc = await getDoc(userRef); // Fetch user document directly
@@ -37,6 +39,7 @@ export default function MealPlanner() {
             const data = userDoc.data();
             setMeal(data.meal || []);
             setUserImage(data.userImage || "");
+            setUserFetched(true);
           } else {
             console.log("No such document!");
             // If needed, handle the case where the document doesn't exist
@@ -50,7 +53,7 @@ export default function MealPlanner() {
     });
 
     return () => unsubscribe();
-  }, [meal]);
+  }, [meal, userFetched]);
 
   const handleSetMeal = (meal) => {
     setMeal(meal);

@@ -95,7 +95,7 @@ export default function MealPlanDays({ meal, setMeal, userImage }) {
       fetchNutritionalData();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [meal, hasFetched]); // Add apiCallCounter to the dependencies
+  }, [meal, hasFetched]);
 
   const daysOfWeek = [
     "monday",

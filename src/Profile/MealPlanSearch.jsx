@@ -15,7 +15,7 @@ import { InputTextarea } from "primereact/inputtextarea";
 import { ListBox } from "primereact/listbox";
 import { OverlayPanel } from "primereact/overlaypanel";
 
-import { getFirestore, doc, updateDoc } from "firebase/firestore";
+import { getFirestore, doc, updateDoc, getDoc } from "firebase/firestore";
 import { auth } from "../Database/firebase";
 import { toast } from "react-toastify";
 import { ToastContainer } from "react-toastify";
@@ -31,10 +31,10 @@ export default function MealPlanSearch({ setMeal, meal }) {
   const [newMealNotes, setNewMealNotes] = useState("");
   const [mealTag, setMealTag] = useState("");
   const [selectedDay, setSelectedDay] = useState(null);
-  const [isFormValid, setIsFormValid] = useState(false);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
+      console.log("Get user on MealPlanSearch");
       if (user) {
         setUser(user);
       } else {
@@ -42,37 +42,28 @@ export default function MealPlanSearch({ setMeal, meal }) {
       }
     });
     return () => unsubscribe();
-  }, []);
-
-  useEffect(() => {
-    validateForm(); // Check form validity whenever input values change
-  });
-
-  const validateForm = () => {
-    const isValid =
-      newFoodName !== "" &&
-      selectedDay !== null &&
-      newMealNotes !== "" &&
-      mealTag !== "";
-
-    setIsFormValid(isValid);
-  };
+  }, []); // Empty dependency array ensures this runs only on component mount
 
   const handleMealPlanSave = async () => {
     if (user) {
       const newMeal = {
         foodName: newFoodName,
-        foodImage: newFoodImage ? newFoodImage : "",
-        selectedDay: selectedDay,
+        foodImage: newFoodImage || "",
+        selectedDay,
         notes: newMealNotes,
         tag: mealTag,
       };
+
       const userRef = doc(db, "users", user.uid);
-      const updatedMeal = meal ? [...meal, newMeal] : [newMeal];
+
       try {
-        await updateDoc(userRef, {
-          meal: updatedMeal,
-        });
+        // Fetch the latest user data before updating
+        const userDoc = await getDoc(userRef);
+        const updatedMeal = userDoc.exists()
+          ? [...userDoc.data().meal, newMeal]
+          : [newMeal];
+
+        await updateDoc(userRef, { meal: updatedMeal });
         toast.success("Your food has been updated!", { life: 3000 });
         setVisible(false);
       } catch (error) {

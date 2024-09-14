@@ -3,7 +3,6 @@ import { ToggleButton } from "primereact/togglebutton";
 import { AutoComplete } from "primereact/autocomplete";
 import { InputText } from "primereact/inputtext";
 import { ConfirmDialog } from "primereact/confirmdialog"; // For <ConfirmDialog /> component
-import { confirmDialog } from "primereact/confirmdialog"; // For confirmDialog method
 import { Toast } from "primereact/toast";
 import { Button } from "primereact/button";
 import {

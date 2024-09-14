@@ -1,0 +1,51 @@
+/* Main navigation bar styling */
+.nav-mealplanner{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #111;
+  }
+  
+  .meal-planner-logo {
+    display: flex;
+  }
+
+  .meal-planner-logo p {
+    color: #eee;
+    font-size: 24px;
+    font-weight:900;
+    align-items: center;
+    margin-top: 0.3rem;
+  }
+  
+  .meal-planner-logo img {
+    height: 50px;
+    margin-right: 10px;
+  }
+  
+  .pantry-text {
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  .mealplanner-ul {
+    display: flex;
+    align-items: center;
+  }
+
+  .mealplanner-ul li{
+    color: #eee;
+    list-style-type: none;
+    padding: 0 1rem 0 1rem;
+    align-items: center;
+  }
+
+  .mealplanner-icon {
+    font-size: 18px;
+    cursor: pointer;
+  }
+  
+  /* Hide the menu on smaller screens */
+  @media (max-width: 768px) {
+  }

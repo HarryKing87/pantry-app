@@ -1,0 +1,248 @@
+.mealplan-dashboard {
+    display: flex;
+}
+
+.mealplan-left {
+    width: 20%;
+    height: 100vh;
+    background-color: white;
+}
+
+.mealplan-image, .mealplan-desc {
+    width: 100%;
+}
+
+.mealplan-image img {
+    border-radius: 5px;
+}
+
+.mealplan-prefs {
+    width: 80%;
+    float: left;
+    display: flex;
+    align-items: center;
+}
+
+.mealplan-desc {
+    font-size:18px;
+    font-weight: 900;
+}
+
+.planner-icons {
+    display: flex;
+    float: space-between;
+    margin-top: 0.2rem;
+    padding: 6px;
+    cursor: pointer;
+}
+
+.planner-icons #meal-icon {
+    font-size: 19px;
+}
+
+#meal-icon {
+    padding-right: 1rem;
+}
+
+.mealplan-options {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.mealplan-right {
+    width: 80%;
+}
+
+#container {
+    width: 95%;
+    margin: 0 auto;
+}
+
+.mealplan-right h1 {
+    text-align: left;
+    overflow: hidden;
+}
+
+.mealplan-search, .mealplan-utilities {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.mealplan-search {
+    margin-top: 0.7rem;
+}
+
+.mealplan-search-input {
+    visibility: hidden; /*hidden for first version of meal planner (display:flex) before*/
+    align-items: center;
+}
+
+.mealplan-search label {
+    font-size: 12px;
+}
+
+#search #ac {
+    height: 35px!important;
+    width: 25rem;
+}
+
+.mealplan-utilities button {
+    margin-right: 5px;
+    padding: 7px;
+    width: 100px;
+}
+
+#util-icon {
+    padding-right: 0.5rem;
+}
+
+.mealplan-utilities #labels, .mealplan-utilities #addMeal {
+    background-color: transparent;
+    border: 1px solid #573CE2;
+    color: #573CE2;
+    font-size: 13px;
+}
+
+.mealplan-utilities #share {
+    background-color: #573CE2;
+    color: white;
+    font-size: 13px;
+}
+
+.weekly-plan {
+    width: 95%;
+    display: flex;
+    margin:2rem;
+    padding: 0;
+    overflow-x: scroll;
+    height: 80vh;
+}
+
+.weekly-plan > div {
+    flex: 0 0 300px;
+    margin:0 15px 0 15px;
+}
+
+.weekly-plan > div:nth-child(1) .day-of-week { background-color: #8FB996; height: 6%; display: flex; justify-content: center; align-items: center;}
+.weekly-plan > div:nth-child(2) .day-of-week { background-color: #F7B267; height: 6%; display: flex; justify-content: center; align-items: center;}
+.weekly-plan > div:nth-child(3) .day-of-week { background-color: #F28A8A; height: 6%; display: flex; justify-content: center; align-items: center;}
+.weekly-plan > div:nth-child(4) .day-of-week { background-color: #91A3B0; height: 6%; display: flex; justify-content: center; align-items: center;}
+.weekly-plan > div:nth-child(5) .day-of-week { background-color: #F4A4A4; height: 6%; display: flex; justify-content: center; align-items: center;}
+.weekly-plan > div:nth-child(6) .day-of-week { background-color: #7FC4C4; height: 6%; display: flex; justify-content: center; align-items: center;}
+.weekly-plan > div:nth-child(7) .day-of-week { background-color: #BFA1C6; height: 6%; display: flex; justify-content: center; align-items: center;}
+
+.day-of-week p {
+    font-size: 20px;
+    font-weight: 600;
+    color: white;
+    height: 50%;
+}
+
+/* Mealplan tasker box */
+#mealplan-task {
+    background-color: white;
+    padding: 10px;
+}
+.mealplan-title, #mealplan-nutriinfo  {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#mealplan-nutriinfo {
+    margin-top: 0.5rem;
+}
+
+#mealplan-tag {
+    color: white;
+    border-radius: 15px;
+    padding: 6px;
+    display: flex;
+    float: left;
+    margin: 0.5rem 0;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+#mealTags {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.breakfast, .lunch, .dinner, .snack {
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.breakfast {
+    background-color: #F28A8A;
+}
+
+.lunch {
+    background-color: #F2B8A0;
+}
+
+.dinner {
+    background-color: #8CCB8C;
+}
+
+.snack {
+    background-color: #d1ae44;
+}
+
+/* Focus Styling */
+.breakfast:focus, .lunch:focus, .dinner:focus, .snack:focus,
+.breakfast:active, .lunch:active, .dinner:active, .snack:active {
+    outline: none; /* Remove default focus outline */
+}
+
+/* Selected State Styling */
+.selected {
+    border: 2px solid #e100ff; /* White border to highlight the selected span */
+}
+
+
+#caloriesIcon {
+    font-size: 17px;
+    color: #FF5733;
+}
+
+#nutriscore {
+    display: flex;
+}
+#nutriscore .nutriscore-font {
+    font-size: 15px;
+    padding: 0 5px;
+    font-family: "Roboto", sans-serif;
+    font-weight: bold;
+}
+
+.credentialsChange-dialog-foodInfo {
+    width: 50%;
+}
+
+@media (max-width: 675px) {
+    .mealplan-dashboard {
+        flex-direction: column;
+    }
+
+    .mealplan-left {
+        display: none;
+    }
+
+    .mealplan-right {
+        width: 100%;
+    }
+
+    .mealplan-search-input {
+        display: none;
+    }
+
+    .credentialsChange-dialog-foodInfo {
+        width: 80%;
+    }
+}

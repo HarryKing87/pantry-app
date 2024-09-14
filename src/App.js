@@ -11,6 +11,7 @@ import Dairy from "./Pantry/Dairy";
 import Meat from "./Pantry/Meat";
 import Pasta from "./Pantry/Pasta";
 import Misc from "./Pantry/Misc";
+import MealPlanner from './Profile/MealPlanner';
 import {
   getFirestore,
   collection,
@@ -108,13 +109,13 @@ function App() {
   const premiumRoutes = (
     <Routes>
       <Route path="/dashboard" element={<Dashboard />} />
-      <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/fruits" element={<Fruits />} />
       <Route path="/vegetables" element={<Vegetables />} />
       <Route path="/dairy" element={<Dairy />} />
       <Route path="/pasta" element={<Pasta />} />
       <Route path="/meat" element={<Meat />} />
       <Route path="/misc" element={<Misc />} />
+      <Route path="/meal-planner" element={<MealPlanner />} />
     </Routes>
   );
 
@@ -128,6 +129,7 @@ function App() {
       <Route path="/pasta" element={<Dashboard />} />
       <Route path="/meat" element={<Dashboard />} />
       <Route path="/misc" element={<Dashboard />} />
+      <Route path="/meal-planner" element={<Profile />} />
     </Routes>
   );
 

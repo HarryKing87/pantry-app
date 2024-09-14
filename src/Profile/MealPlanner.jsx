@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import NavigationMealPlan from "../Navigation-MealPlanner";
 import MealPlanDays from "./MealPlanDays";
 import MealPlanSearch from "./MealPlanSearch";
@@ -26,15 +26,17 @@ export default function MealPlanner() {
   const [userImage, setUserImage] = useState("");
   const [userFetched, setUserFetched] = useState(false);
 
+  const mealRef = useRef(meal);
+
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
-      if (user && !userFetched) {
+      if (user) {
         setUser(user);
         const userRef = doc(db, "users", user.uid);
         console.log("Get user from MealPlanner");
 
         try {
-          const userDoc = await getDoc(userRef); // Fetch user document directly
+          const userDoc = await getDoc(userRef);
           if (userDoc.exists()) {
             const data = userDoc.data();
             setMeal(data.meal || []);
@@ -42,7 +44,6 @@ export default function MealPlanner() {
             setUserFetched(true);
           } else {
             console.log("No such document!");
-            // If needed, handle the case where the document doesn't exist
           }
         } catch (error) {
           console.error("Error getting user data:", error);
@@ -53,7 +54,14 @@ export default function MealPlanner() {
     });
 
     return () => unsubscribe();
-  }, [meal, userFetched]);
+  }, []);
+
+  useEffect(() => {
+    if (meal !== mealRef.current) {
+      mealRef.current = meal;
+      setMeal(meal);
+    }
+  }, [meal]);
 
   const handleSetMeal = (meal) => {
     setMeal(meal);
@@ -81,10 +89,10 @@ export default function MealPlanner() {
               />
             </div>
             <div className="mealplan-desc">
-              <p>Summer Diet</p>
+              <p style={{ fontSize: "16px" }}>Meal Planner</p>
             </div>
           </div>
-          <div className="mealplan-options">
+          {/* <div className="mealplan-options">
             <div className="planner-icons">
               <FontAwesomeIcon icon={faNotesMedical} id="meal-icon" />
               <p>Meal Planner</p>
@@ -105,14 +113,14 @@ export default function MealPlanner() {
               <FontAwesomeIcon icon={faBolt} id="meal-icon" />
               <p>Notes</p>
             </div>
-          </div>
+          </div> */}
           <hr />
         </div>
 
         <div className="mealplan-right">
           <br />
           <div id="container">
-            <h1>Meal Planner</h1>
+            <h1>My Meal Planner</h1>
             <MealPlanSearch setMeal={handleSetMeal} meal={meal} />
           </div>
           <MealPlanDays

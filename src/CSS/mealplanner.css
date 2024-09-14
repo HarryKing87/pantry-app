@@ -76,7 +76,7 @@
 }
 
 .mealplan-search-input {
-    display: flex;
+    visibility: hidden; /*hidden for first version of meal planner (display:flex) before*/
     align-items: center;
 }
 
@@ -219,4 +219,30 @@
     padding: 0 5px;
     font-family: "Roboto", sans-serif;
     font-weight: bold;
+}
+
+.credentialsChange-dialog-foodInfo {
+    width: 50%;
+}
+
+@media (max-width: 675px) {
+    .mealplan-dashboard {
+        flex-direction: column;
+    }
+
+    .mealplan-left {
+        display: none;
+    }
+
+    .mealplan-right {
+        width: 100%;
+    }
+
+    .mealplan-search-input {
+        display: none;
+    }
+
+    .credentialsChange-dialog-foodInfo {
+        width: 80%;
+    }
 }

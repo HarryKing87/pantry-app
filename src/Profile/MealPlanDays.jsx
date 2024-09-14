@@ -50,33 +50,33 @@ export default function MealPlanDays({ meal, setMeal, userImage }) {
             result.foods[0] &&
             result.foods[0].foodNutrients
           ) {
-            const kcalNutrient = result.foods[0].foodNutrients.find(
-              (nutrient) => nutrient.nutrientName === "Energy"
+            // Dynamically collect all nutrient values
+            const nutrientValues = result.foods[0].foodNutrients.reduce(
+              (acc, nutrient) => {
+                acc[nutrient.nutrientName] = nutrient.value;
+                return acc;
+              },
+              {}
             );
-            const proteinNutrient = result.foods[0].foodNutrients.find(
-              (nutrient) => nutrient.nutrientName === "Protein"
-            );
+
             return {
               foodName: item.foodName,
-              kcalValue: kcalNutrient ? kcalNutrient.value : "-",
-              proteinValue: proteinNutrient ? proteinNutrient.value : "-",
+              nutrients: nutrientValues,
             };
           }
+
+          // If no nutrients found
           return {
             foodName: item.foodName,
-            kcalValue: "-",
-            proteinValue: "-",
+            nutrients: {},
           };
         });
 
         const results = await Promise.all(fetchPromises);
 
         const nutritionalMap = results.reduce(
-          (acc, { foodName, kcalValue, proteinValue }) => {
-            acc[foodName] = {
-              kcalValue: kcalValue,
-              proteinValue: proteinValue,
-            };
+          (acc, { foodName, nutrients }) => {
+            acc[foodName] = nutrients;
             return acc;
           },
           {}
@@ -153,10 +153,9 @@ export default function MealPlanDays({ meal, setMeal, userImage }) {
               {/* Only show Dialog for the selected item */}
               {selectedItem && selectedItem.foodName === item.foodName && (
                 <Dialog
-                  className="credentialsChange-dialog"
+                  className="credentialsChange-dialog-foodInfo"
                   visible={foodDialogVisible} // Control visibility with foodDialogVisible state
                   header={headerElement}
-                  style={{ width: "50%", margin: "0 auto" }}
                   onHide={() => setFoodDialogVisible(false)} // Close the dialog
                 >
                   <div>
@@ -212,7 +211,7 @@ export default function MealPlanDays({ meal, setMeal, userImage }) {
                 <FontAwesomeIcon icon={faFireFlameCurved} id="caloriesIcon" />
                 <div className="nutriscore-font">
                   {nutritionalData[item.foodName]
-                    ? `${nutritionalData[item.foodName].kcalValue} Kcal`
+                    ? `${nutritionalData[item.foodName].Energy} Kcal`
                     : "-"}
                 </div>{" "}
               </span>

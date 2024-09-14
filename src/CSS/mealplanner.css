@@ -221,7 +221,7 @@
     font-weight: bold;
 }
 
-.credentialsChange-dialog-foodInfo {
+.credentialsChange-dialog-foodInfo, .addNewMeal-Dialog {
     width: 50%;
 }
 
@@ -244,5 +244,10 @@
 
     .credentialsChange-dialog-foodInfo {
         width: 80%;
+    }
+
+    .addNewMeal-Dialog {
+        width: 80%;
+        margin: 0 auto;
     }
 }

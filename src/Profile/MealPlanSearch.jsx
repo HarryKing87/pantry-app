@@ -223,9 +223,9 @@ export default function MealPlanSearch({ setMeal, meal }) {
         </div>
       </div>
       <Dialog
+        className="addNewMeal-Dialog"
         header="Add new meal"
         visible={visible}
-        style={{ width: "50vw" }}
         onHide={() => setVisible(false)}
       >
         <InputText

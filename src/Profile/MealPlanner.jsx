@@ -1,18 +1,8 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import NavigationMealPlan from "../Navigation-MealPlanner";
 import MealPlanDays from "./MealPlanDays";
 import MealPlanSearch from "./MealPlanSearch";
 import "../CSS/mealplanner.css";
-/* Font Awesome icons */
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import "@fortawesome/fontawesome-svg-core/styles.css";
-import {
-  faNotesMedical,
-  faEnvelopeOpenText,
-  faCompass,
-  faChartSimple,
-  faBolt,
-} from "@fortawesome/free-solid-svg-icons";
 
 //Firestore
 import { getFirestore, doc, updateDoc, getDoc } from "firebase/firestore";
@@ -24,9 +14,6 @@ export default function MealPlanner() {
   const [user, setUser] = useState(null);
   const [meal, setMeal] = useState([]);
   const [userImage, setUserImage] = useState("");
-  const [userFetched, setUserFetched] = useState(false);
-
-  const mealRef = useRef(meal);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
@@ -41,7 +28,6 @@ export default function MealPlanner() {
             const data = userDoc.data();
             setMeal(data.meal || []);
             setUserImage(data.userImage || "");
-            setUserFetched(true);
           } else {
             console.log("No such document!");
           }
@@ -54,14 +40,7 @@ export default function MealPlanner() {
     });
 
     return () => unsubscribe();
-  }, []);
-
-  useEffect(() => {
-    if (meal !== mealRef.current) {
-      mealRef.current = meal;
-      setMeal(meal);
-    }
-  }, [meal]);
+  }, [user]); // Authenticating the user & updating their data simultaneously
 
   const handleSetMeal = (meal) => {
     setMeal(meal);
@@ -70,6 +49,7 @@ export default function MealPlanner() {
   const handleUpdatedMeal = (meal) => {
     const userRef = doc(db, "users", user.uid);
     updateDoc(userRef, { meal: meal });
+    setMeal(meal);
   };
 
   return (

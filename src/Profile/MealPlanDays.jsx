@@ -18,9 +18,6 @@ import MealPlanFoodInfo from "./MealPlanFoodInfo";
 export default function MealPlanDays({ meal, setMeal, userImage }) {
   // State to store the fetched data
   const [nutritionalData, setNutritionalData] = useState({});
-  const [mealLoading, setMealLoading] = useState(true);
-  const [mealError, setMealError] = useState(null);
-  const [hasFetched, setHasFetched] = useState(false);
   const [foodDialogVisible, setFoodDialogVisible] = useState(false);
   const [confirmDialogVisible, setConfirmDialogVisible] = useState(false);
 
@@ -29,10 +26,9 @@ export default function MealPlanDays({ meal, setMeal, userImage }) {
   const [apiCallCounter, setApiCallCounter] = useState(0);
   useEffect(() => {
     const fetchNutritionalData = async () => {
-      if (!meal || meal.length === 0 || hasFetched || apiCallCounter >= 5) {
+      if (!meal || meal.length === 0 || apiCallCounter >= 5) {
         return; // Exit if conditions are met
       }
-      setMealLoading(true);
       try {
         const fetchPromises = meal.map(async (item) => {
           const foodName = encodeURIComponent(item.foodName);
@@ -83,11 +79,8 @@ export default function MealPlanDays({ meal, setMeal, userImage }) {
         );
 
         setNutritionalData(nutritionalMap);
-        setHasFetched(true); // Data fetched
       } catch (error) {
-        setMealError(error.message);
-      } finally {
-        setMealLoading(false);
+        console.error(error.message);
       }
     };
 
@@ -95,7 +88,7 @@ export default function MealPlanDays({ meal, setMeal, userImage }) {
       fetchNutritionalData();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [meal, hasFetched]);
+  }, [meal]);
 
   const daysOfWeek = [
     "monday",
@@ -113,7 +106,6 @@ export default function MealPlanDays({ meal, setMeal, userImage }) {
         (product) => product.foodName !== selectedItem.foodName
       );
       setMeal(updatedMeal);
-      setHasFetched(false); // Recalling the hasFetched to update any properties that may have never updated
       setSelectedItem(null); // Clear the selected item after deletion
     }
   };
@@ -185,7 +177,6 @@ export default function MealPlanDays({ meal, setMeal, userImage }) {
                 onClick={() => {
                   setSelectedItem(item); // Set the selected item
                   setFoodDialogVisible(true); // Open the dialog
-                  setHasFetched(false);
                 }}
               />
             </span>

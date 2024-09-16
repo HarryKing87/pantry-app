@@ -42,7 +42,7 @@ export default function MealPlanSearch({ setMeal, meal }) {
       }
     });
     return () => unsubscribe();
-  }, []); // Empty dependency array ensures this runs only on component mount
+  }, [user]);
 
   const handleMealPlanSave = async () => {
     if (user) {
@@ -64,6 +64,7 @@ export default function MealPlanSearch({ setMeal, meal }) {
           : [newMeal];
 
         await updateDoc(userRef, { meal: updatedMeal });
+        setMeal(updatedMeal);
         toast.success("Your food has been updated!", { life: 3000 });
         setVisible(false);
       } catch (error) {

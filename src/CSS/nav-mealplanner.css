@@ -45,7 +45,84 @@
     font-size: 18px;
     cursor: pointer;
   }
+
+  .info-cards {
+    display:flex;
+    justify-content: space-evenly;
+  }
+
+  .info-cards .info-individualCard {
+    margin: 0 10px;
+  }
+
+  .info-Dialog {
+    width: 70%;
+    max-width:80%;
+  }
+
+  .email-button {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    width: 18vh;
+  }
   
-  /* Hide the menu on smaller screens */
+  .email-button:hover {
+    background-color: #0056b3;
+  }
+
+  /* Notification Banner
+  .notification-container {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .mealplanner-icon {
+    font-size: 24px;
+  }
+  
+  .badge {
+    position: absolute;
+    top: -10px;
+    right: -5px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    width: 17px;
+    height: 17px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+  } */
+  
+  
   @media (max-width: 768px) {
+    .info-cards {
+      display:flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .info-Dialog {
+      width: 90%;
+      max-width: unset;
+    }
+    .info-individualCard {
+      width: 80%!important;
+    }
+  }
+
+  @media (min-width: 769px) and (max-width: 1190px) {
+    .info-Dialog {
+      width: 90%;
+      max-width: unset;
+    }
+    .info-individualCard {
+      width: 100%!important;
+    }
   }

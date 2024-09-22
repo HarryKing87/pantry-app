@@ -1,5 +1,16 @@
 import "../CSS/mealPlanFoodInfo.css";
 
+/**
+ * @function MealPlanFoodInfo
+ * @description A component that displays a paragraph of text about meal planning
+ * and a table of nutrient information for a given food item, if the food item
+ * exists in the nutriData object.
+ * @param {Object} item - An object with a foodName property.
+ * @param {Object} nutriData - An object with food names as keys and nutrient
+ * data as values.
+ * @returns {JSX.Element} A JSX element containing a paragraph and a table, or
+ * just a paragraph if nutriData is empty.
+ */
 export default function MealPlanFoodInfo({ item, nutriData }) {
   return (
     <div>
@@ -21,7 +32,9 @@ export default function MealPlanFoodInfo({ item, nutriData }) {
             <thead>
               <tr>
                 <th>Nutrient</th>
-                <th>{item.foodName}</th>
+                <th>
+                  {item.foodName}: {item.servingSize}({item.servingSizeUnit})
+                </th>
               </tr>
             </thead>
             <tbody>

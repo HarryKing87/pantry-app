@@ -1,6 +1,6 @@
 import "../CSS/mealPlanFoodInfo.css";
 
-export default function MealPlanFoodInfo({ item, nutriData }) {
+export default function MealPlanFoodInfo({ item, nutriData, servings }) {
   return (
     <div>
       <div className="foodInfo-general">
@@ -21,7 +21,19 @@ export default function MealPlanFoodInfo({ item, nutriData }) {
             <thead>
               <tr>
                 <th>Nutrient</th>
-                <th>{item.foodName}</th>
+                <th>
+                  {item.foodName}{" "}
+                  {Object.entries(servings[item.foodName] || {}).map(
+                    ([servings, value]) =>
+                      value === "servings" ? (
+                        ""
+                      ) : (
+                        <span style={{ fontSize: "10px" }} key={servings}>
+                          {value}
+                        </span>
+                      )
+                  )}
+                </th>
               </tr>
             </thead>
             <tbody>

@@ -1,16 +1,106 @@
-/* General container styling */
 .foodInfo-general {
-    margin-bottom: 20px;
-    padding: 15px;
-    background-color: #f8f9fa;
-    border-radius: 10px;
-    font-family: 'Arial', sans-serif;
-    color: #333;
-    font-size: 16px;
-    line-height: 1.6;
-  }
-  
-  /* Table styling */
+  display:flex;
+  justify-content: space-between;
+  overflow-x: auto;
+}
+.foodInfo-general > * {
+  cursor: pointer;
+}
+.box-info {
+  background-color: #f7f7f7;
+  padding: 20px;
+  margin: 10px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 190px;
+  height: 130px;
+  display: inline-block;
+  vertical-align: top;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  -webkit-appearance: none;
+}
+
+.box-info:-webkit-scrollbar {
+  display: none;
+}
+.box-info p{
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.box-info:hover {
+  background-color: #f2f2f2;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.ingredients-list {
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: #f7f7f7;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.ingredients-list ul {
+  list-style-type: disc;
+  padding: 0;
+  margin: 0;
+}
+
+.ingredients-list li {
+  padding: 0.5rem;
+  border-bottom: 1px solid #ddd;
+}
+
+.ingredients-list li:last-child {
+  border-bottom: none;
+}
+
+.ingredients-list li::marker {
+  color: #007bff;
+}
+
+.notes {
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: #f7f7f7;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  line-height: 1.5;
+  font-size: 16px;
+  color: #333;
+}
+
+.notes p {
+  margin: 0;
+  padding: 0;
+}
+
+.notes p:first-child {
+  margin-top: 0;
+}
+
+.notes p:last-child {
+  margin-bottom: 0;
+}
+
+.notes p::selection {
+  background-color: #f2f2f2;
+}
+
+.notes p::-webkit-scrollbar {
+  display: none;
+}
+/* Table styling */
   table {
     width: 100%;
     border-collapse: collapse;
@@ -43,7 +133,6 @@
   tr:hover {
     background-color: #f1f1f1;
   }
-  
   /* Mobile responsive adjustments */
   @media (max-width: 600px) {
     table {

@@ -19,6 +19,7 @@ export default function MealPlanDays({ meal, setMeal, userImage }) {
   // State to store the fetched data
   const [nutritionalData, setNutritionalData] = useState({});
   const [servings, setServings] = useState("");
+  const [ingredients, setIngredients] = useState("");
   const [foodDialogVisible, setFoodDialogVisible] = useState(false);
   const [confirmDialogVisible, setConfirmDialogVisible] = useState(false);
 
@@ -61,10 +62,15 @@ export default function MealPlanDays({ meal, setMeal, userImage }) {
               unit: result.foods[0].servingSizeUnit || "",
             };
 
+            const ingredients = {
+              ingredients: result.foods[0].ingredients || "",
+            };
+
             return {
               foodName: item.foodName,
               nutrients: nutrientValues,
               servingsInfo: servingsInfo,
+              ingredients: ingredients,
             };
           }
 
@@ -73,6 +79,7 @@ export default function MealPlanDays({ meal, setMeal, userImage }) {
             foodName: item.foodName,
             nutrients: {},
             servingsInfo: {},
+            ingredients: {},
           };
         });
 
@@ -94,8 +101,17 @@ export default function MealPlanDays({ meal, setMeal, userImage }) {
           {}
         );
 
+        const ingredientsMap = results.reduce(
+          (acc, { foodName, ingredients }) => {
+            acc[foodName] = ingredients;
+            return acc;
+          },
+          {}
+        );
+
         setNutritionalData(nutritionalMap);
         setServings(servingsMap);
+        setIngredients(ingredientsMap);
       } catch (error) {
         console.error(error.message);
       }
@@ -185,6 +201,7 @@ export default function MealPlanDays({ meal, setMeal, userImage }) {
                     item={selectedItem}
                     nutriData={nutritionalData}
                     servings={servings}
+                    ingredients={ingredients}
                   />
                 </Dialog>
               )}

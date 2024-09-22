@@ -15,6 +15,16 @@ import { ConfirmDialog } from "primereact/confirmdialog"; // For <ConfirmDialog 
 import { Toast } from "primereact/toast";
 import MealPlanFoodInfo from "./MealPlanFoodInfo";
 
+/**
+ * MealPlanDays is a component that displays the meal plan for the week.
+ * It shows the food items for each day of the week and their respective nutrient information.
+ * It also allows the user to delete a food item from the meal plan.
+ * @param {Object} props - The props passed to the component
+ * @param {Array} props.meal - The meal plan data
+ * @param {Function} props.setMeal - The function to update the meal plan data
+ * @param {String} props.userImage - The user's profile image
+ * @returns {ReactElement} The MealPlanDays component
+ */
 export default function MealPlanDays({ meal, setMeal, userImage }) {
   // State to store the fetched data
   const [nutritionalData, setNutritionalData] = useState({});
@@ -155,13 +165,13 @@ export default function MealPlanDays({ meal, setMeal, userImage }) {
                     <ConfirmDialog
                       className="credentialsChange-dialog"
                       group="declarative"
-                      visible={confirmDialogVisible} // Control visibility with confirmDialogVisible state
-                      onHide={() => setConfirmDialogVisible(false)} // Hide on rejection or cancel
+                      visible={confirmDialogVisible}
+                      onHide={() => setConfirmDialogVisible(false)}
                       message={`Are you sure you would like to remove ${selectedItem.foodName}?`}
                       header="Confirmation"
                       icon="pi pi-exclamation-triangle"
-                      accept={handleDeleteMeal} // Function to handle deletion
-                      reject={() => setConfirmDialogVisible(false)} // Close confirm dialog on rejection
+                      accept={handleDeleteMeal}
+                      reject={() => setConfirmDialogVisible(false)}
                     />
                   </div>
                   <MealPlanFoodInfo

@@ -23,6 +23,15 @@ import "react-toastify/dist/ReactToastify.css";
 
 const db = getFirestore();
 
+/**
+ * MealPlanSearch is a component that allows users to search their meals and
+ * add new meals to their meal plan. It also allows users to share their meal
+ * plan on social media.
+ *
+ * @param {function} setMeal - a function that sets the meal state
+ * @param {array} meal - an array of meal objects
+ * @returns {JSX.Element} - a JSX element
+ */
 export default function MealPlanSearch({ setMeal, meal }) {
   const [visible, setVisible] = useState(false);
   const [user, setUser] = useState(null);

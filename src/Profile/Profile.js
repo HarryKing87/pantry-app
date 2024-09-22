@@ -78,22 +78,22 @@ function Profile() {
   const [bannerNewUserWelcome, setBannerNewUserWelcome] = useState(false);
 
   // Check if the subscription has ended and set setIsUserPremium to false if needed
-useEffect(() => {
-  if (validUntil && isUserPremium) {
-    const currentDate = new Date();
-    const validUntilDate = new Date(validUntil);
+  useEffect(() => {
+    if (validUntil && isUserPremium) {
+      const currentDate = new Date();
+      const validUntilDate = new Date(validUntil);
 
-    if (currentDate > validUntilDate) {
-      // Subscription has ended, set setIsUserPremium to false
-      setIsUserPremium(false);
-    }
+      if (currentDate > validUntilDate) {
+        // Subscription has ended, set setIsUserPremium to false
+        setIsUserPremium(false);
+      }
 
-    if (!isUserPremium) {
-      setIsUserPremium(false);
+      if (!isUserPremium) {
+        setIsUserPremium(false);
+      }
     }
-  }
-}, [validUntil, isUserPremium]);
-  
+  }, [validUntil, isUserPremium]);
+
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
@@ -154,8 +154,8 @@ useEffect(() => {
     return () => {
       unsubscribe();
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);  
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   useEffect(() => {
     // Check if the cookie exists
     const bannerNewUserWelcome = Cookies.get("bannerNewUserWelcome");
@@ -170,7 +170,7 @@ useEffect(() => {
       setVisibleNewUser(true);
     }
   }, []);
-  
+
   useEffect(() => {
     if (darkModeChecked) {
       document.documentElement.classList.add("dark-mode");
@@ -185,7 +185,6 @@ useEffect(() => {
       Cookies.set("isDarkModeEnabled", "false");
     }
   }, [darkModeChecked]);
-  
 
   function handleAllergyChange(event) {
     const { name, checked } = event.target;
@@ -304,39 +303,47 @@ useEffect(() => {
                   </span>
                 )}
 
-                <span id="userJoined">
-                  <FontAwesomeIcon
-                    icon={faCalendar}
-                    style={{ paddingRight: "4px", marginTop: "2%" }}
-                  />
-                  <p>Joined: {joined}</p>
-                </span>
+                {joined && (
+                  <span id="userJoined">
+                    <FontAwesomeIcon
+                      icon={faCalendar}
+                      style={{ paddingRight: "4px", marginTop: "2%" }}
+                    />
+                    <p>Joined: {joined}</p>
+                  </span>
+                )}
               </div>
             </div>
             <div id="storingInfo">
-              <div id="storedFood">
-                <span style={{ fontSize: "30px", fontWeight: "bolder" }}>
-                  {storedFood}
-                </span>
-                <span style={{ fontSize: "11px" }}>Stored Food</span>
-              </div>
-              <div id="consumedFood">
-                <span style={{ fontSize: "30px", fontWeight: "bolder" }}>
-                  {consumedFood}
-                </span>
-                <span style={{ fontSize: "11px" }}>Consumed Food</span>
-              </div>
-              <div id="wastedFood">
-                <span style={{ fontSize: "30px", fontWeight: "bolder" }}>
-                  {wastedFood}
-                </span>
-                <span style={{ fontSize: "11px" }}>Wasted Food</span>
-              </div>
+              {storedFood !== undefined && (
+                <div id="storedFood">
+                  <span style={{ fontSize: "30px", fontWeight: "bolder" }}>
+                    {storedFood}
+                  </span>
+                  <span style={{ fontSize: "11px" }}>Stored Food</span>
+                </div>
+              )}
+              {consumedFood !== undefined && (
+                <div id="consumedFood">
+                  <span style={{ fontSize: "30px", fontWeight: "bolder" }}>
+                    {consumedFood}
+                  </span>
+                  <span style={{ fontSize: "11px" }}>Consumed Food</span>
+                </div>
+              )}
+              {wastedFood !== undefined && (
+                <div id="wastedFood">
+                  <span style={{ fontSize: "30px", fontWeight: "bolder" }}>
+                    {wastedFood}
+                  </span>
+                  <span style={{ fontSize: "11px" }}>Wasted Food</span>
+                </div>
+              )}
             </div>
           </div>
         </div>
         {/* Showing and hiding the marketing box for free and premium users */}
-        {(user && isUserPremium) ? "" : <MarketingPillBox/>}
+        {user && isUserPremium ? "" : <MarketingPillBox />}
         <form className="form-container">
           <div className="form-row">
             <label>
@@ -405,7 +412,10 @@ useEffect(() => {
         <hr />
         <div className="manageSubscription">
           <h3>Meal Planner</h3>
-          <Button icon="pi pi-arrow-right" onClick={() => window.location.href = "/meal-planner"} />
+          <Button
+            icon="pi pi-arrow-right"
+            onClick={() => (window.location.href = "/meal-planner")}
+          />
         </div>
         <hr />
         <div className="changeImage">

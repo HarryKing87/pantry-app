@@ -10,6 +10,16 @@ import { auth } from "../Database/firebase";
 
 const db = getFirestore();
 
+/**
+ * A component for managing a user's meal planning.
+ *
+ * It includes a navigation bar at the top, a search bar for adding new meals,
+ * and a list of meal days that the user can view and edit.
+ *
+ * The component also stores the user's meal data in the user's Firestore document.
+ *
+ * @returns {ReactElement} The Meal Planner component.
+ */
 export default function MealPlanner() {
   const [user, setUser] = useState(null);
   const [meal, setMeal] = useState([]);

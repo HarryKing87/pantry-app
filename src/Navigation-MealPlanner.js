@@ -1,5 +1,5 @@
 import "./CSS/nav-mealplanner.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 /* Font Awesome icons */
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "@fortawesome/fontawesome-svg-core/styles.css";
@@ -11,6 +11,7 @@ import {
 // Icon set for profile pic
 import { Avatar } from "primereact/avatar";
 import { Card } from "primereact/card";
+import { OverlayPanel } from "primereact/overlaypanel";
 import {
   getFirestore,
   collection,
@@ -29,6 +30,13 @@ export default function NavigationMealPlan() {
   const [user, setUser] = useState(null);
   const [infoVisible, setInfoVisible] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
+  const [dairy, setDairy] = useState([]);
+  const [meat, setMeat] = useState([]);
+  const [fruits, setFruits] = useState([]);
+  const [vegetables, setVegetables] = useState([]);
+  const [misc, setMisc] = useState([]);
+  const [pasta, setPasta] = useState([]);
+  const [productsNeedingAttention, setProductsNeedingAttention] = useState([]);
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(
       (user) => {
@@ -62,6 +70,82 @@ export default function NavigationMealPlan() {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged(
+      (user) => {
+        if (user) {
+          setUser(user);
+          const userRef = doc(db, "users", user.uid);
+          const q = query(collection(db, "users"), where("id", "==", user.uid));
+          getDocs(q)
+            .then((querySnapshot) => {
+              if (querySnapshot.empty) {
+                setDoc(userRef, {
+                  id: user.uid,
+                  dairy,
+                  meat,
+                  fruits,
+                  vegetables,
+                  misc,
+                  pasta,
+                  productsNeedingAttention,
+                });
+              } else {
+                const data = querySnapshot.docs[0].data();
+                setDairy(data.dairy);
+                setMeat(data.meat);
+                setFruits(data.fruits);
+                setVegetables(data.vegetables);
+                setMisc(data.misc);
+                setPasta(data.pasta);
+              }
+            })
+            .catch((error) => {
+              console.error("Error getting user data:", error);
+            });
+        } else {
+          setUser(null);
+        }
+      },
+      [user]
+    );
+    return () => {
+      unsubscribe();
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    const currentDate = new Date();
+
+    const checkProductsExpiry = (productArray) => {
+      if (Array.isArray(productArray)) {
+        productArray.forEach((product) => {
+          const productExpiryDate = new Date(
+            product.expiryDate.split("/").reverse().join("/")
+          ); // Converting to Date object
+          if (productExpiryDate < currentDate) {
+            setProductsNeedingAttention((prevState) => [
+              ...prevState,
+              product.name,
+            ]);
+          }
+        });
+      }
+    };
+
+    // Check all categories for expired products if they exist
+    checkProductsExpiry(dairy);
+    checkProductsExpiry(meat);
+    checkProductsExpiry(fruits);
+    checkProductsExpiry(vegetables);
+    checkProductsExpiry(misc);
+    checkProductsExpiry(pasta);
+  }, [dairy, meat, fruits, vegetables, misc, pasta]);
+
+  const bellNotifications = useRef(null);
+
   return (
     <div>
       <nav className="nav-mealplanner">
@@ -87,10 +171,28 @@ export default function NavigationMealPlan() {
               onClick={() => setInfoVisible(true)}
             />
           </li>
-          <li className="notification-container">
+          <li
+            className="notification-container"
+            onClick={(e) => bellNotifications.current.toggle(e)}
+          >
             <FontAwesomeIcon icon={faBell} className="mealplanner-icon" />
-            {/* <span className="badge">5</span> */}
+            <span className="badge">{productsNeedingAttention.length}</span>
+            <OverlayPanel ref={bellNotifications}>
+              {productsNeedingAttention.length > 0 ? (
+                <div className="notification-box">
+                  {productsNeedingAttention.map((product) => (
+                    <div key={product} className="notification-item">
+                      <span className="product-name">{product}</span> has
+                      expired!
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <p>No products need attention.</p>
+              )}
+            </OverlayPanel>
           </li>
+
           <li>
             <a href="/Profile">
               <Avatar

@@ -25,6 +25,18 @@ export default function MealPlanDays({ meal, setMeal, userImage }) {
   const [selectedItem, setSelectedItem] = useState(null);
   const [apiCallCounter, setApiCallCounter] = useState(0);
   useEffect(() => {
+    /**
+     * Fetches nutritional data for each food item in the meal plan and stores
+     * the results in the component state.
+     *
+     * @function fetchNutritionalData
+     * @returns {void}
+     *
+     * @fires setNutritionalData
+     * @fires setApiCallCounter
+     * @listens meal
+     * @listens apiCallCounter
+     */
     const fetchNutritionalData = async () => {
       if (!meal || meal.length === 0 || apiCallCounter >= 5) {
         return; // Exit if conditions are met
@@ -100,6 +112,15 @@ export default function MealPlanDays({ meal, setMeal, userImage }) {
     "sunday",
   ];
 
+  /**
+   * Deletes the selected meal item from the user's meal plan.
+   *
+   * @function handleDeleteMeal
+   * @returns {void}
+   *
+   * @fires setMeal
+   * @listens selectedItem
+   */
   const handleDeleteMeal = () => {
     if (selectedItem) {
       const updatedMeal = meal.filter(
@@ -110,6 +131,13 @@ export default function MealPlanDays({ meal, setMeal, userImage }) {
     }
   };
 
+  /**
+   * Renders the meal information for a given day.
+   *
+   * @function renderMealsForDay
+   * @param {string} day - The day of the week (e.g. "monday", "tuesday", etc.)
+   * @returns {ReactElement} - A React element with the meal information for the given day.
+   */
   const renderMealsForDay = (day) => {
     const headerElement = (
       <div
@@ -232,6 +260,7 @@ export default function MealPlanDays({ meal, setMeal, userImage }) {
           </div>
         ))}
       </div>
+      <div></div>
     </div>
   );
 }

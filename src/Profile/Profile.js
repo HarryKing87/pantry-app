@@ -78,22 +78,22 @@ function Profile() {
   const [bannerNewUserWelcome, setBannerNewUserWelcome] = useState(false);
 
   // Check if the subscription has ended and set setIsUserPremium to false if needed
-useEffect(() => {
-  if (validUntil && isUserPremium) {
-    const currentDate = new Date();
-    const validUntilDate = new Date(validUntil);
+  useEffect(() => {
+    if (validUntil && isUserPremium) {
+      const currentDate = new Date();
+      const validUntilDate = new Date(validUntil);
 
-    if (currentDate > validUntilDate) {
-      // Subscription has ended, set setIsUserPremium to false
-      setIsUserPremium(false);
-    }
+      if (currentDate > validUntilDate) {
+        // Subscription has ended, set setIsUserPremium to false
+        setIsUserPremium(false);
+      }
 
-    if (!isUserPremium) {
-      setIsUserPremium(false);
+      if (!isUserPremium) {
+        setIsUserPremium(false);
+      }
     }
-  }
-}, [validUntil, isUserPremium]);
-  
+  }, [validUntil, isUserPremium]);
+
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
@@ -154,8 +154,8 @@ useEffect(() => {
     return () => {
       unsubscribe();
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);  
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   useEffect(() => {
     // Check if the cookie exists
     const bannerNewUserWelcome = Cookies.get("bannerNewUserWelcome");
@@ -170,7 +170,7 @@ useEffect(() => {
       setVisibleNewUser(true);
     }
   }, []);
-  
+
   useEffect(() => {
     if (darkModeChecked) {
       document.documentElement.classList.add("dark-mode");
@@ -185,7 +185,6 @@ useEffect(() => {
       Cookies.set("isDarkModeEnabled", "false");
     }
   }, [darkModeChecked]);
-  
 
   function handleAllergyChange(event) {
     const { name, checked } = event.target;
@@ -336,7 +335,7 @@ useEffect(() => {
           </div>
         </div>
         {/* Showing and hiding the marketing box for free and premium users */}
-        {(user && isUserPremium) ? "" : <MarketingPillBox/>}
+        {user && isUserPremium ? "" : <MarketingPillBox />}
         <form className="form-container">
           <div className="form-row">
             <label>
@@ -378,7 +377,7 @@ useEffect(() => {
         </form>
       </div>
 
-      <div className="Profile">
+      <div className="Profile" id="miscSections">
         <div className="shoppingList">
           <h3>Shopping List</h3>
           <Sidebar
@@ -393,7 +392,20 @@ useEffect(() => {
             onClick={() => setShoppingListVisible(true)}
           />
         </div>
-        <hr />
+        <div className="shoppingList">
+          <h3>Meal Planner</h3>
+          <Sidebar
+            visible={shoppingListVisible}
+            onHide={() => setShoppingListVisible(false)}
+          >
+            <h2>Shopping List</h2>
+            <ShoppingList />
+          </Sidebar>
+          <Button
+            icon="pi pi-arrow-right"
+            onClick={() => setShoppingListVisible(true)}
+          />
+        </div>
         <div className="manageSubscription">
           <h3>Manage Subscription</h3>
           <Sidebar visible={visible} onHide={() => setVisible(false)}>
@@ -402,12 +414,6 @@ useEffect(() => {
           </Sidebar>
           <Button icon="pi pi-arrow-right" onClick={() => setVisible(true)} />
         </div>
-        <hr />
-        <div className="manageSubscription">
-          <h3>Meal Planner</h3>
-          <Button icon="pi pi-arrow-right" onClick={() => window.location.href = "/meal-planner"} />
-        </div>
-        <hr />
         <div className="changeImage">
           <Sidebar
             visible={changeImageVisible}
